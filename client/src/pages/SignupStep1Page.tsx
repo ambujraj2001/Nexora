@@ -34,15 +34,15 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
           }
         />
 
-        <main className="flex flex-1 justify-center py-10 px-4">
-          <div className="flex flex-col max-w-[520px] w-full flex-1 gap-8 animate-slide-up">
+        <main className="flex flex-1 justify-center py-6 sm:py-10 px-4">
+          <div className="flex flex-col max-w-[520px] w-full flex-1 gap-6 sm:gap-8 animate-slide-up">
             <ProgressBar step={1} totalSteps={3} label="Account Creation" />
 
             <div className="flex flex-col gap-2">
-              <h1 className="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight">
+              <h1 className="text-slate-900 dark:text-slate-100 text-2xl sm:text-3xl font-black leading-tight tracking-tight">
                 Create your account
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 text-base font-normal">
+              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base font-normal">
                 Start your journey into AI leadership with a professional profile.
               </p>
             </div>
@@ -65,7 +65,7 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
                       onChange={handleChange}
                       placeholder="e.g. Alex Rivera"
                       required
-                      className="flex w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 pl-12 pr-4 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all outline-none"
+                      className="flex w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 pl-12 pr-4 text-slate-900 dark:text-slate-100 text-sm sm:text-base placeholder:text-slate-400 transition-all outline-none"
                     />
                   </div>
                 </label>
@@ -86,7 +86,7 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
                       onChange={handleChange}
                       placeholder="name@company.com"
                       required
-                      className="flex w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 pl-12 pr-4 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all outline-none"
+                      className="flex w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 pl-12 pr-4 text-slate-900 dark:text-slate-100 text-sm sm:text-base placeholder:text-slate-400 transition-all outline-none"
                     />
                   </div>
                   <p className="text-xs text-slate-400 mt-2">

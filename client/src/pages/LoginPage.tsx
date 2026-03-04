@@ -44,20 +44,20 @@ const LoginPage = () => {
       <div className="layout-container flex h-full grow flex-col">
         <AppHeader />
 
-        <main className="flex flex-1 items-center justify-center p-6">
-          <div className="w-full max-w-[420px] space-y-8 animate-slide-up">
+        <main className="flex flex-1 items-center justify-center p-4 sm:p-6">
+          <div className="w-full max-w-[420px] space-y-6 sm:space-y-8 animate-slide-up">
             {/* Hero Text */}
             <div className="text-center space-y-2">
-              <h1 className="text-slate-900 dark:text-slate-100 text-3xl font-bold tracking-tight">
+              <h1 className="text-slate-900 dark:text-slate-100 text-2xl sm:text-3xl font-bold tracking-tight">
                 Welcome back
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 text-base">
+              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base px-2">
                 Enter your unique access code to continue
               </p>
             </div>
 
             {/* Login Card */}
-            <div className="bg-white dark:bg-slate-900/50 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="bg-white dark:bg-slate-900/50 p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm mx-2 sm:mx-0">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <label
@@ -102,7 +102,7 @@ const LoginPage = () => {
                   {loading ? (
                     <>
                       <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
-                      <span>Verifying…</span>
+                      <span>Logging you in...</span>
                     </>
                   ) : (
                     <>
@@ -146,7 +146,7 @@ const LoginPage = () => {
         </main>
 
         <footer className="py-8 px-6 text-center">
-          <p className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-widest">
+          <p className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-widest px-4">
             © 2026 Chief of AI • Secure Enterprise Version
           </p>
         </footer>

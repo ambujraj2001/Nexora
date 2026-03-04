@@ -77,24 +77,24 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
         </header>
 
         <main className="flex-1 overflow-y-auto">
-          <div className="max-w-[800px] mx-auto py-10 px-6 animate-slide-up">
+          <div className="max-w-[800px] mx-auto py-6 sm:py-10 px-4 sm:px-6 animate-slide-up">
             <div className="mb-8">
-              <h1 className="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-tight mb-2">
+              <h1 className="text-slate-900 dark:text-slate-100 text-2xl sm:text-4xl font-black leading-tight tracking-tight mb-2 text-center sm:text-left">
                 Set up your Profile
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 text-base font-normal">
+              <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base font-normal text-center sm:text-left">
                 Customize your AI experience to fit your professional needs.
               </p>
             </div>
 
             <ProgressBar step={2} totalSteps={3} label="Onboarding Progress" />
 
-            <form id="step2-form" className="space-y-12" onSubmit={handleNext}>
+            <form id="step2-form" className="space-y-8 sm:space-y-12" onSubmit={handleNext}>
               {/* AI Preferences */}
               <section className="space-y-6">
                 <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
                   <span className="material-symbols-outlined text-primary">psychology</span>
-                  <h2 className="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight">
+                  <h2 className="text-slate-900 dark:text-slate-100 text-lg sm:text-xl font-bold leading-tight">
                     AI Preferences
                   </h2>
                 </div>
@@ -104,7 +104,7 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
                   <label className="text-slate-700 dark:text-slate-300 text-sm font-medium block mb-3">
                     Interaction Tone
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                     {TONE_OPTIONS.map(({ label, value, icon }) => {
                       const active = tone === value;
                       return (
@@ -112,14 +112,14 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
                           key={value}
                           type="button"
                           onClick={() => setTone(value)}
-                          className={`flex flex-col items-center justify-center p-4 border-2 rounded-xl transition-all ${
+                          className={`flex flex-col items-center justify-center p-3 sm:p-4 border-2 rounded-xl transition-all ${
                             active
                               ? 'border-primary bg-primary/5 text-primary'
                               : 'border-primary/10 hover:border-primary/40 text-slate-600 dark:text-slate-400'
                           }`}
                         >
-                          <span className="material-symbols-outlined mb-1">{icon}</span>
-                          <span className={`text-xs ${active ? 'font-bold' : 'font-medium'}`}>
+                          <span className="material-symbols-outlined mb-1 text-[20px] sm:text-[24px]">{icon}</span>
+                          <span className={`text-[10px] sm:text-xs ${active ? 'font-bold' : 'font-medium'}`}>
                             {label}
                           </span>
                         </button>
@@ -161,7 +161,7 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
                     <select
                       value={voice}
                       onChange={(e) => setVoice(e.target.value as SignupPayload['voiceModel'])}
-                      className="w-full rounded-lg border border-primary/20 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary h-12 px-4 appearance-none outline-none transition-all"
+                      className="w-full rounded-lg border border-primary/20 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary h-12 px-4 appearance-none outline-none transition-all text-sm"
                     >
                       {VOICE_OPTIONS.map(({ label, value: v }) => (
                         <option key={v} value={v}>
@@ -170,7 +170,7 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
                       ))}
                     </select>
                     <div className="absolute right-3 top-3 pointer-events-none">
-                      <span className="material-symbols-outlined text-slate-400">keyboard_voice</span>
+                      <span className="material-symbols-outlined text-slate-400 text-[20px]">keyboard_voice</span>
                     </div>
                   </div>
                 </div>
@@ -180,23 +180,23 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
               <section className="space-y-6">
                 <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
                   <span className="material-symbols-outlined text-primary">notifications</span>
-                  <h2 className="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight">
+                  <h2 className="text-slate-900 dark:text-slate-100 text-lg sm:text-xl font-bold leading-tight">
                     Notification Settings
                   </h2>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {/* Response Alerts */}
                   <div className="flex items-center justify-between p-4 bg-primary/5 rounded-xl border border-primary/10">
-                    <div>
+                    <div className="pr-2">
                       <p className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
                         Response Alerts
                       </p>
-                      <p className="text-slate-500 dark:text-slate-400 text-xs">
-                        Notify when complex tasks are complete
+                      <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs">
+                        Notify when tasks are complete
                       </p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
+                    <label className="relative inline-flex items-center cursor-pointer shrink-0">
                       <input
                         type="checkbox"
                         className="sr-only peer"
@@ -209,15 +209,15 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
 
                   {/* Daily Briefing */}
                   <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary/10">
-                    <div>
+                    <div className="pr-2">
                       <p className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
                         Daily AI Briefing
                       </p>
-                      <p className="text-slate-500 dark:text-slate-400 text-xs">
-                        A morning summary of your automated insights
+                      <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-xs">
+                        Morning automated summary
                       </p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
+                    <label className="relative inline-flex items-center cursor-pointer shrink-0">
                       <input
                         type="checkbox"
                         className="sr-only peer"
@@ -231,17 +231,17 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
               </section>
 
               {/* Footer Actions */}
-              <div className="pt-6 border-t border-primary/10 flex justify-end gap-4">
+              <div className="pt-6 border-t border-primary/10 flex flex-col sm:flex-row justify-end gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={onBack}
-                  className="px-8 py-3 rounded-lg border border-primary/20 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="w-full sm:w-auto px-8 py-3 rounded-lg border border-primary/20 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                 >
                   Back
                 </button>
                 <button
                   type="submit"
-                  className="px-8 py-3 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+                  className="w-full sm:w-auto px-8 py-3 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
                 >
                   Next: Finalize
                 </button>
@@ -251,9 +251,9 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
         </main>
 
         <footer className="p-6 text-center border-t border-primary/10 bg-white dark:bg-slate-900">
-          <p className="text-slate-500 text-xs">
+          <p className="text-slate-500 text-[10px] sm:text-xs">
             © 2026 Chief of AI Inc. All rights reserved.{' '}
-            <a href="#" className="text-primary hover:underline">Privacy Policy</a>
+            <a href="#" className="text-primary hover:underline">Privacy</a>
           </p>
         </footer>
       </div>

@@ -4,14 +4,21 @@ import { type RootState } from '../../store';
 import { message } from 'antd';
 
 // Web Speech API interfaces for TypeScript
-interface SpeechRecognitionEvent extends Event {
-  results: {
-    [key: number]: {
-      [key: number]: {
-        transcript: string;
-      };
-    };
+interface SpeechRecognitionResult {
+  isFinal: boolean;
+  [key: number]: {
+    transcript: string;
   };
+}
+
+interface SpeechRecognitionResultList {
+  length: number;
+  [key: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionEvent extends Event {
+  resultIndex: number;
+  results: SpeechRecognitionResultList;
 }
 
 interface SpeechRecognitionErrorEvent extends Event {
@@ -22,11 +29,14 @@ interface SpeechRecognition extends EventTarget {
   lang: string;
   interimResults: boolean;
   maxAlternatives: number;
+  continuous: boolean;
   onstart: () => void;
   onresult: (event: SpeechRecognitionEvent) => void;
   onerror: (event: SpeechRecognitionErrorEvent) => void;
   onend: () => void;
   start: () => void;
+  stop: () => void;
+  abort: () => void;
 }
 
 type Message = {
@@ -96,36 +106,7 @@ const INITIAL_MESSAGES: Message[] = [
     id: '1',
     role: 'ai',
     content:
-      "Hello Alex. I'm ready to assist you. I have access to your calendar, emails, and shared documents. How can I help you optimize your workflow today?",
-  },
-  {
-    id: '2',
-    role: 'user',
-    content:
-      'Set a reminder in 15 minutes to check the quarterly report. Also, can you remind me what my office wifi password is?',
-  },
-  {
-    id: '3',
-    role: 'ai',
-    content: (
-      <>
-        I've scheduled a reminder for you at{' '}
-        <span className="font-bold text-primary">10:45 AM</span> to check the{' '}
-        <span className="italic">Q3 Quarterly Report.pdf</span>.
-        <br />
-        <br />
-        Regarding your Wi-Fi credentials: Your office password is{' '}
-        <code className="bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded font-mono text-sm">
-          12345
-        </code>
-        . For security, I recommend updating this to a stronger passphrase soon.
-      </>
-    ),
-  },
-  {
-    id: '4',
-    role: 'user',
-    content: 'Thanks. Remind me to update that next Monday.',
+      "Hello! I'm ready to assist you. I have access to your calendar, emails, and shared documents. How can I help you optimize your workflow today?",
   },
 ];
 
@@ -170,7 +151,20 @@ const ChatArea = () => {
     }, 1800);
   };
 
-  const startListening = () => {
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const isListeningRef = useRef(false);
+
+  const toggleListening = () => {
+    if (isListening) {
+      isListeningRef.current = false;
+      if (recognitionRef.current) {
+        recognitionRef.current.onend = () => setIsListening(false);
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      return;
+    }
+
     const win = window as unknown as {
       SpeechRecognition?: { new (): SpeechRecognition };
       webkitSpeechRecognition?: { new (): SpeechRecognition };
@@ -184,25 +178,49 @@ const ChatArea = () => {
 
     const recognition = new SpeechRecognitionClass();
     recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    recognition.interimResults = true;
+    recognition.continuous = true;
+    recognitionRef.current = recognition;
 
     recognition.onstart = () => {
       setIsListening(true);
+      isListeningRef.current = true;
     };
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      const transcript = event.results[0][0].transcript;
-      setInputValue((prev) => (prev ? `${prev} ${transcript}` : transcript));
+      let finalTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        }
+      }
+      if (finalTranscript) {
+        setInputValue((prev) => (prev ? `${prev} ${finalTranscript}` : finalTranscript));
+      }
     };
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error:', event.error);
-      setIsListening(false);
+      if (event.error !== 'no-speech') {
+        setIsListening(false);
+        isListeningRef.current = false;
+      }
     };
 
     recognition.onend = () => {
-      setIsListening(false);
+      // If we're still supposed to be listening (user hasn't clicked stop), restart
+      if (isListeningRef.current && recognitionRef.current) {
+        try {
+          recognitionRef.current.start();
+        } catch (e) {
+          console.error('Failed to restart recognition:', e);
+          setIsListening(false);
+          isListeningRef.current = false;
+        }
+      } else {
+        setIsListening(false);
+        isListeningRef.current = false;
+      }
     };
 
     recognition.start();
@@ -226,7 +244,7 @@ const ChatArea = () => {
     <>
       {/* Chat History */}
       <section
-        className="flex-1 overflow-y-auto p-6 space-y-8 max-w-4xl mx-auto w-full"
+        className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-8 max-w-4xl mx-auto w-full"
         style={{
           scrollbarWidth: 'thin',
           scrollbarColor: '#e2e8f0 transparent',
@@ -244,12 +262,12 @@ const ChatArea = () => {
       </section>
 
       {/* Input Area */}
-      <footer className="p-6 shrink-0 bg-white dark:bg-background-dark">
+      <footer className="p-4 sm:p-6 shrink-0 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 lg:border-none">
         <div className="max-w-4xl mx-auto flex flex-col gap-3">
           <div className="relative flex items-start bg-slate-100 dark:bg-slate-800 rounded-xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
             {/* Attach button */}
-            <button className="absolute left-4 top-4 text-slate-400 hover:text-primary transition-colors" title="Attach file">
-              <span className="material-symbols-outlined text-[22px]">attach_file</span>
+            <button className="absolute left-3 sm:left-4 top-4 text-slate-400 hover:text-primary transition-colors" title="Attach file">
+              <span className="material-symbols-outlined text-[20px] sm:text-[22px]">attach_file</span>
             </button>
 
             <textarea
@@ -258,47 +276,47 @@ const ChatArea = () => {
               value={inputValue}
               onChange={handleInput}
               onKeyDown={handleKeyDown}
-              placeholder="Ask Chief of AI to do anything…"
+              placeholder="Ask anything…"
               rows={1}
-              className="w-full bg-transparent border-none rounded-xl py-4 pl-14 pr-32 text-sm placeholder-slate-500 resize-none outline-none transition-all"
+              className="w-full bg-transparent border-none rounded-xl py-4 pl-10 sm:pl-14 pr-24 sm:pr-32 text-sm placeholder-slate-500 resize-none outline-none transition-all"
               style={{ maxHeight: '160px' }}
             />
 
             {/* Action buttons */}
-            <div className="absolute right-3 inset-y-0 flex items-center gap-2">
+            <div className="absolute right-2 sm:right-3 inset-y-0 flex items-center gap-1 sm:gap-2">
               <button
                 id="send-button"
                 onClick={handleSend}
                 disabled={!inputValue.trim()}
-                className="size-9 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary/90 shadow-md transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="size-8 sm:size-9 rounded-lg bg-primary text-white flex items-center justify-center hover:bg-primary/90 shadow-md transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
                 title="Send (Enter)"
               >
-                <span className="material-symbols-outlined text-[20px] translate-x-[1px]">send</span>
+                <span className="material-symbols-outlined text-[18px] sm:text-[20px] translate-x-[1px]">send</span>
               </button>
-              <div className="h-6 w-[1px] bg-slate-300 dark:bg-slate-700 mx-1" />
+              <div className="h-6 w-[1px] bg-slate-300 dark:bg-slate-700 mx-0.5 sm:mx-1" />
               <button
-                onClick={startListening}
-                className={`size-10 rounded-full flex items-center justify-center transition-all border ${
+                onClick={toggleListening}
+                className={`size-8 sm:size-10 rounded-full flex items-center justify-center transition-all border ${
                   isListening
                     ? 'bg-red-500 text-white border-red-600 animate-pulse'
                     : 'bg-primary/10 text-primary hover:bg-primary/20 border-primary/20'
                 }`}
-                title={isListening ? 'Listening...' : 'Voice input'}
+                title={isListening ? 'Stop recording' : 'Voice input'}
               >
-                <span className="material-symbols-outlined">{isListening ? 'graphic_eq' : 'mic'}</span>
+                <span className="material-symbols-outlined text-[18px] sm:text-[24px] font-variation-icon-size-24">{isListening ? 'graphic_eq' : 'mic'}</span>
               </button>
             </div>
           </div>
 
           {/* Status pills */}
-          <div className="flex justify-center gap-6">
-            <p className="text-[11px] text-slate-400 flex items-center gap-1.5">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <p className="text-[10px] sm:text-[11px] text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
               <span className="material-symbols-outlined text-[14px]">bolt</span>
-              Supercharged by Advanced Intelligence
+              Supercharged by AI
             </p>
-            <p className="text-[11px] text-slate-400 flex items-center gap-1.5">
+            <p className="text-[10px] sm:text-[11px] text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
               <span className="material-symbols-outlined text-[14px]">shield_person</span>
-              Enterprise Encryption Enabled
+              Enterprise Encryption
             </p>
           </div>
         </div>
