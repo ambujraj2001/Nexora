@@ -285,6 +285,18 @@ const ChatArea = () => {
             {/* Action buttons */}
             <div className="absolute right-2 sm:right-3 inset-y-0 flex items-center gap-1 sm:gap-2">
               <button
+                onClick={toggleListening}
+                className={`size-7 sm:size-8 rounded-full flex items-center justify-center transition-all border ${
+                  isListening
+                    ? 'bg-red-500 text-white border-red-600 animate-pulse'
+                    : 'bg-primary/10 text-primary hover:bg-primary/20 border-primary/20'
+                }`}
+                title={isListening ? 'Stop recording' : 'Voice input'}
+              >
+                <span className="material-symbols-outlined text-[16px] sm:text-[18px]">{isListening ? 'graphic_eq' : 'mic'}</span>
+              </button>
+              <div className="h-6 w-[1px] bg-slate-300 dark:bg-slate-700 mx-0.5 sm:mx-1" />
+              <button
                 id="send-button"
                 onClick={handleSend}
                 disabled={!inputValue.trim()}
@@ -292,18 +304,6 @@ const ChatArea = () => {
                 title="Send (Enter)"
               >
                 <span className="material-symbols-outlined text-[18px] sm:text-[20px] translate-x-[1px]">send</span>
-              </button>
-              <div className="h-6 w-[1px] bg-slate-300 dark:bg-slate-700 mx-0.5 sm:mx-1" />
-              <button
-                onClick={toggleListening}
-                className={`size-8 sm:size-10 rounded-full flex items-center justify-center transition-all border ${
-                  isListening
-                    ? 'bg-red-500 text-white border-red-600 animate-pulse'
-                    : 'bg-primary/10 text-primary hover:bg-primary/20 border-primary/20'
-                }`}
-                title={isListening ? 'Stop recording' : 'Voice input'}
-              >
-                <span className="material-symbols-outlined text-[18px] sm:text-[24px] font-variation-icon-size-24">{isListening ? 'graphic_eq' : 'mic'}</span>
               </button>
             </div>
           </div>
