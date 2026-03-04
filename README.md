@@ -2,7 +2,7 @@
 
 ## Deployment & Dashboard Links
 
-- **Frontend App:** [https://chief-of-ibuq9baba-ambujraj2001s-projects.vercel.app/login](https://chief-of-ibuq9baba-ambujraj2001s-projects.vercel.app/login)
+- **Frontend App:** [https://chief-of-ai.vercel.app/login](https://chief-of-ai.vercel.app/login)
 - **Frontend Dashboard (Vercel):** [https://vercel.com/ambujraj2001s-projects/chief-of-ai/DSuBykqhJfEuGQki9tsrrEBjj1Y4](https://vercel.com/ambujraj2001s-projects/chief-of-ai/DSuBykqhJfEuGQki9tsrrEBjj1Y4)
 - **Backend API:** [https://chief-of-ai.onrender.com](https://chief-of-ai.onrender.com)
 - **Backend Dashboard (Render):** [https://dashboard.render.com/web/srv-d6k9venkijhs73bltrqg](https://dashboard.render.com/web/srv-d6k9venkijhs73bltrqg)
