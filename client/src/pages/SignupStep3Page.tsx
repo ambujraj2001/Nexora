@@ -18,8 +18,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
     setError(null);
     try {
       const result = await apiSignup(combined());
-      // Persist so AuthBootstrap can auto-login on next visit
-      localStorage.setItem('accessCode', result.accessCode);
+      // Removed auto-login to force manual entry of access code
       setAccessCode(result.accessCode);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
@@ -36,7 +35,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
     });
   };
 
-  const handleGoToDashboard = () => {
+  const handleLogin = () => {
     navigate('/login');
   };
 
@@ -139,11 +138,11 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
             {accessCode ? (
               <>
                 <button
-                  onClick={handleGoToDashboard}
+                  onClick={handleLogin}
                   className="flex w-full items-center justify-center gap-3 rounded-xl bg-slate-900 dark:bg-white px-8 py-5 text-lg font-bold text-white dark:text-slate-900 hover:opacity-90 transition-all shadow-lg"
                 >
-                  <span>Go to Dashboard</span>
-                  <span className="material-symbols-outlined">arrow_forward</span>
+                  <span>Login</span>
+                  <span className="material-symbols-outlined">login</span>
                 </button>
                 <p className="mt-4 text-center text-sm text-slate-500">
                   By clicking above, you confirm that you have saved your access code.
