@@ -1,5 +1,8 @@
 // Central API client — all backend calls go through here
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const BASE_URL = isLocal 
+  ? 'http://localhost:4000' 
+  : (import.meta.env.VITE_API_URL ?? 'https://chief-of-ai.onrender.com');
 
 export interface SignupPayload {
   fullName: string;

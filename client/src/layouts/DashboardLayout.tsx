@@ -3,7 +3,8 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '../pages/dashboard/Sidebar';
 
 const DashboardLayout = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  // Collapse by default if screen width is less than 1024px (standard desktop break)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(window.innerWidth < 1024);
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
