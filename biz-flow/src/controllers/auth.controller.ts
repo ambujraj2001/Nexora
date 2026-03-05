@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { createUser, findUserByAccessCode, updateUserByAccessCode } from '../services/user.service';
 import { SignupBody, BootConfigBody, UpdateProfileBody } from '../types/user.types';
+import { log } from '../utils/logger';
 
 // ─── POST /auth/signup ──────────────────────────────────────────────────────
 
@@ -74,9 +75,16 @@ export const bootconfig = async (
     const user = await findUserByAccessCode(accessCode.trim());
 
     if (!user) {
+      log({ event: 'bootconfig_failed', message: 'Invalid access code' });
       res.status(401).json({ error: 'Invalid access code' });
       return;
     }
+
+    log({
+      event: 'bootconfig_successful',
+      userId: user.id,
+      userName: user.full_name,
+    });
 
     res.status(200).json({
       user: {

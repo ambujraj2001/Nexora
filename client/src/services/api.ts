@@ -35,9 +35,13 @@ export interface UpdateProfilePayload extends Partial<SignupPayload> {
 }
 
 const post = async <T>(path: string, body: unknown): Promise<T> => {
+  const traceId = crypto.randomUUID();
   const res = await fetch(`${BASE_URL}${path}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'x-trace-id': traceId
+    },
     body: JSON.stringify(body),
   });
 
@@ -61,3 +65,8 @@ export const apiBootConfig = (accessCode: string): Promise<BootConfigResult> =>
 /** POST /auth/update-profile — updates user profile & preferences */
 export const apiUpdateProfile = (payload: UpdateProfilePayload): Promise<BootConfigResult> =>
   post<BootConfigResult>('/auth/update-profile', payload);
+
+/** POST /chat — sends message to AI agent & returns reply */
+export interface ChatResult { reply: string }
+export const apiChat = (message: string, accessCode: string): Promise<ChatResult> =>
+  post<ChatResult>('/chat', { message, accessCode });

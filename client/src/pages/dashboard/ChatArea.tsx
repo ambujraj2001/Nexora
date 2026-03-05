@@ -48,27 +48,70 @@ type Message = {
 
 
 
-const TypingIndicator = () => (
-  <div className="flex gap-4 group">
-    <div className="size-8 rounded-lg bg-primary flex items-center justify-center shrink-0 mt-1">
-      <span className="material-symbols-outlined text-white text-lg">smart_toy</span>
+import { apiChat } from '../../services/api';
+
+const AgentThinkingLog = () => {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    // Simulate progression through steps while waiting for the actual response
+    const timers = [
+      setTimeout(() => setStep(1), 1000),
+      setTimeout(() => setStep(2), 2200),
+      setTimeout(() => setStep(3), 3500),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const steps = [
+    "Thinking...",
+    "Searching memory vault...",
+    "Delegating to Task Agent...",
+    "Generating response..."
+  ];
+
+  return (
+    <div className="flex gap-4 group animate-in fade-in slide-in-from-bottom-2 duration-500">
+      <div className="size-8 rounded-lg bg-primary flex items-center justify-center shrink-0 mt-1 shadow-lg shadow-primary/10">
+        <span className="material-symbols-outlined text-white text-lg">smart_toy</span>
+      </div>
+      <div className="flex flex-col gap-2 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 max-w-[85%]">
+        <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 pb-2 mb-1">
+          <div className="size-2 rounded-full bg-primary animate-pulse" />
+          <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Agent Processing Log</span>
+        </div>
+        <div className="flex flex-col gap-2">
+          {steps.map((s, idx) => (
+            <div 
+              key={idx} 
+              className={`flex items-center gap-2 text-xs transition-colors duration-300 ${
+                idx <= step ? 'text-slate-600 dark:text-slate-300' : 'text-slate-400 dark:text-slate-600'
+              }`}
+            >
+              {idx < step ? (
+                <span className="material-symbols-outlined text-sm text-emerald-500">check_circle</span>
+              ) : idx === step ? (
+                <div className="size-2 bg-primary rounded-full animate-pulse-subtle" />
+              ) : (
+                <div className="size-1.5 bg-slate-300 dark:bg-slate-700 rounded-full ml-0.5" />
+              )}
+              <span className={idx === step ? 'font-bold' : 'font-medium opacity-80'}>{s}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
-    <div className="flex items-center gap-1.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-      <div className="size-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-      <div className="size-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-      <div className="size-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-    </div>
-  </div>
-);
+  );
+};
 
 const AiMessage = ({ content }: { content: React.ReactNode }) => (
-  <div className="flex gap-4 group">
+  <div className="flex gap-4 group animate-in fade-in slide-in-from-bottom-2 duration-500">
     <div className="size-8 rounded-lg bg-primary flex items-center justify-center shrink-0 mt-1">
       <span className="material-symbols-outlined text-white text-lg">smart_toy</span>
     </div>
     <div className="flex flex-col gap-1.5 max-w-[85%]">
       <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Chief of AI</p>
-      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-100 dark:border-slate-800">
+      <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-100 dark:border-slate-800 whitespace-pre-wrap">
         {content}
       </div>
       <div className="flex gap-2 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -87,7 +130,7 @@ const AiMessage = ({ content }: { content: React.ReactNode }) => (
 );
 
 const UserMessage = ({ content, avatarUrl }: { content: React.ReactNode, avatarUrl: string }) => (
-  <div className="flex gap-4 justify-end group">
+  <div className="flex gap-4 justify-end group animate-in fade-in slide-in-from-bottom-2 duration-500">
     <div className="flex flex-col gap-1.5 max-w-[85%] items-end">
       <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">You</p>
       <div className="p-4 rounded-xl bg-primary text-white leading-relaxed shadow-sm">
@@ -95,7 +138,7 @@ const UserMessage = ({ content, avatarUrl }: { content: React.ReactNode, avatarU
       </div>
     </div>
     <div
-      className="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0 mt-1"
+      className="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0 mt-1 border-2 border-white dark:border-slate-800 shadow-sm"
       style={{ backgroundImage: avatarUrl, backgroundSize: 'cover' }}
     />
   </div>
@@ -106,18 +149,21 @@ const INITIAL_MESSAGES: Message[] = [
     id: '1',
     role: 'ai',
     content:
-      "Hello! I'm ready to assist you. I have access to your calendar, emails, and shared documents. How can I help you optimize your workflow today?",
+      "Hello! I'm Chief of AI. I'm ready to assist you by orchestrating your tasks and tools. How can I help you optimize your workflow today?",
   },
 ];
 
 const ChatArea = () => {
-  const userName = useSelector((state: RootState) => state.user.fullName);
+  const user = useSelector((state: RootState) => state.user);
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const userName = user.fullName;
+  const accessCode = user.accessCode || localStorage.getItem('accessCode') || '';
 
   const avatarUrl = `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userName || 'User')}&background=137fec&color=fff&size=64')`;
 
@@ -125,12 +171,7 @@ const ChatArea = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsTyping(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleSend = () => {
+  const handleSend = async () => {
     const trimmed = inputValue.trim();
     if (!trimmed) return;
 
@@ -140,15 +181,21 @@ const ChatArea = () => {
     setIsTyping(true);
     if (textareaRef.current) textareaRef.current.style.height = 'auto';
 
-    setTimeout(() => {
+    try {
+      const result = await apiChat(trimmed, accessCode);
       const aiReply: Message = {
         id: (Date.now() + 1).toString(),
         role: 'ai',
-        content: `Got it! I've noted: "${trimmed}". Is there anything else I can help you with?`,
+        content: result.reply,
       };
       setMessages((prev) => [...prev, aiReply]);
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : "Failed to get response from Chief of AI";
+      message.error(errMsg);
+      console.error(err);
+    } finally {
       setIsTyping(false);
-    }, 1800);
+    }
   };
 
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -257,7 +304,7 @@ const ChatArea = () => {
             <UserMessage key={msg.id} content={msg.content} avatarUrl={avatarUrl} />
           )
         )}
-        {isTyping && <TypingIndicator />}
+        {isTyping && <AgentThinkingLog />}
         <div ref={chatEndRef} />
       </section>
 

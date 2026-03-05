@@ -1,10 +1,20 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import crypto from 'crypto';
+import { tracingStorage } from './utils/logger';
 import authRoutes from './routes/auth.routes';
+import chatRoutes from './routes/chat.routes';
 import { errorHandler } from './middlewares/errorHandler';
 
 const app = express();
+
+// ── Tracing Middleware ────────────────────────────────────────────────────────
+app.use((req, res, next) => {
+  const incomingTraceId = req.headers['x-trace-id'];
+  const traceId = typeof incomingTraceId === 'string' ? incomingTraceId : crypto.randomUUID();
+  tracingStorage.run({ traceId }, () => next());
+});
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
 const allowedOrigins = (process.env.CLIENT_ORIGIN ?? 'http://localhost:5173')
@@ -39,6 +49,7 @@ app.use(
       }
     },
     credentials: true,
+    allowedHeaders: ['Content-Type', 'x-trace-id'],
   }),
 );
 
@@ -53,6 +64,7 @@ app.get('/health', (_req, res) => {
 
 // ── Routes ───────────────────────────────────────────────────────────────────
 app.use('/auth', authRoutes);
+app.use('/chat', chatRoutes);
 
 // ── Global error handler (must be last) ──────────────────────────────────────
 app.use(errorHandler);
