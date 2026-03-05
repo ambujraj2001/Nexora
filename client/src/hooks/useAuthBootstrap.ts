@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiBootConfig } from '../services/api';
 import { setUser } from '../store/userSlice';
@@ -11,12 +11,17 @@ export const useAuthBootstrap = () => {
   const user = useSelector((state: RootState) => state.user);
   const [checking, setChecking] = useState(!user.fullName);
 
+  const isBooting = useRef(false);
+
   useEffect(() => {
-    // If we already have a user in Redux, no need to boot again
+    // Already has data — skip
     if (user.fullName) {
       setChecking(false);
       return;
     }
+
+    // Already in flight — skip
+    if (isBooting.current) return;
 
     const run = async () => {
       const storedCode = localStorage.getItem('accessCode');
@@ -26,23 +31,23 @@ export const useAuthBootstrap = () => {
         return;
       }
 
+      isBooting.current = true;
       try {
         const result = await apiBootConfig(storedCode);
         dispatch(setUser(result));
         sessionStorage.setItem('chief_user', JSON.stringify(result));
 
-        // Only redirect to dashboard if we are on a landing/auth page
         const publicPaths = ['/', '/login', '/signup'];
         if (publicPaths.includes(window.location.pathname)) {
           navigate('/dashboard', { replace: true });
         }
       } catch {
-        // Invalid / expired — wipe stale state and send to login
         localStorage.removeItem('accessCode');
         sessionStorage.removeItem('chief_user');
         navigate('/login', { replace: true });
       } finally {
         setChecking(false);
+        isBooting.current = false;
       }
     };
 
