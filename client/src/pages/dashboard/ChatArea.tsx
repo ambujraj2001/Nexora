@@ -114,7 +114,6 @@ const AgentThinkingLog = () => {
               <div className="flex flex-col">
                 <span className={`${idx === step ? 'font-bold' : 'font-medium'}`}>
                   {s.label}
-                  {idx === step && <span className="animate-pulse inline-block ml-1">_</span>}
                 </span>
                 {idx === step && (
                   <span className="text-[9px] text-slate-400 dark:text-slate-500 animate-pulse transition-opacity">
