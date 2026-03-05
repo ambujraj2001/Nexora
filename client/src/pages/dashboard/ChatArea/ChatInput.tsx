@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { message } from 'antd';
-import type { SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from './types';
+import type { SpeechRecognition, SpeechRecognitionEvent, SpeechRecognitionErrorEvent } from './types';
 
 interface ChatInputProps {
   inputValue: string;
@@ -9,6 +9,10 @@ interface ChatInputProps {
   isListening: boolean;
   setIsListening: (value: boolean) => void;
   disabled?: boolean;
+}
+
+interface SpeechRecognitionConstructor {
+  new (): SpeechRecognition;
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({
@@ -20,7 +24,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
   disabled
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   const isListeningRef = useRef(isListening);
   const inputValueRef = useRef(inputValue);
 
@@ -36,7 +40,10 @@ const ChatInput: React.FC<ChatInputProps> = ({
   useEffect(() => {
     // We only want this effect to run when isListening changes
     if (isListening) {
-      const win = window as any;
+      const win = window as unknown as Window & {
+        SpeechRecognition?: SpeechRecognitionConstructor;
+        webkitSpeechRecognition?: SpeechRecognitionConstructor;
+      };
       const SpeechRecognitionClass = win.SpeechRecognition || win.webkitSpeechRecognition;
 
       if (!SpeechRecognitionClass) {
@@ -128,7 +135,10 @@ const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   const toggleListening = () => {
-    const win = window as any;
+    const win = window as unknown as Window & {
+      SpeechRecognition?: SpeechRecognitionConstructor;
+      webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    };
     const SpeechRecognitionClass = win.SpeechRecognition || win.webkitSpeechRecognition;
     if (!SpeechRecognitionClass) {
       message.error('Web Speech API is not supported in your browser.');
