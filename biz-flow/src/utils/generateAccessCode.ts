@@ -1,7 +1,7 @@
-import { customAlphabet } from 'nanoid';
+import { customAlphabet } from "nanoid";
 
 // Uppercase alphanumeric, easy to read (no 0/O/I/l confusion)
-const alpha = customAlphabet('ABCDEFGHJKLMNPQRSTUVWXYZ23456789', 4);
+const alpha = customAlphabet("ABCDEFGHJKLMNPQRSTUVWXYZ23456789", 4);
 
 /**
  * Generates a unique access code in the format: AI-XXXX-XXXX

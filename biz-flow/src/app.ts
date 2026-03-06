@@ -1,24 +1,26 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import crypto from 'crypto';
-import { tracingStorage } from './utils/logger';
-import authRoutes from './routes/auth.routes';
-import chatRoutes from './routes/chat.routes';
-import { errorHandler } from './middlewares/errorHandler';
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import crypto from "crypto";
+import { tracingStorage } from "./utils/logger";
+import authRoutes from "./routes/auth.routes";
+import chatRoutes from "./routes/chat.routes";
+import fileRoutes from "./routes/file.routes";
+import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 
 // ── Tracing Middleware ────────────────────────────────────────────────────────
 app.use((req, res, next) => {
-  const incomingTraceId = req.headers['x-trace-id'];
-  const traceId = typeof incomingTraceId === 'string' ? incomingTraceId : crypto.randomUUID();
+  const incomingTraceId = req.headers["x-trace-id"];
+  const traceId =
+    typeof incomingTraceId === "string" ? incomingTraceId : crypto.randomUUID();
   tracingStorage.run({ traceId }, () => next());
 });
 
 // ── CORS ──────────────────────────────────────────────────────────────────────
-const allowedOrigins = (process.env.CLIENT_ORIGIN ?? 'http://localhost:5173')
-  .split(',')
+const allowedOrigins = (process.env.CLIENT_ORIGIN ?? "http://localhost:5173")
+  .split(",")
   .map((o) => o.trim());
 
 app.use(
@@ -28,17 +30,20 @@ app.use(
       if (!origin) return cb(null, true);
 
       // In development, allow any localhost/127.0.0.1
-      if (origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+      if (
+        origin.startsWith("http://localhost:") ||
+        origin.startsWith("http://127.0.0.1:")
+      ) {
         return cb(null, true);
       }
 
       // Allow Vercel preview domains if you want
-      if (origin.endsWith('.vercel.app')) {
+      if (origin.endsWith(".vercel.app")) {
         return cb(null, true);
       }
 
-      const originsVar = process.env.CLIENT_ORIGIN ?? 'http://localhost:5173';
-      const allowed = originsVar.split(',').map((o) => o.trim());
+      const originsVar = process.env.CLIENT_ORIGIN ?? "http://localhost:5173";
+      const allowed = originsVar.split(",").map((o) => o.trim());
 
       if (allowed.includes(origin)) {
         cb(null, true);
@@ -49,7 +54,7 @@ app.use(
       }
     },
     credentials: true,
-    allowedHeaders: ['Content-Type', 'x-trace-id'],
+    allowedHeaders: ["Content-Type", "x-trace-id"],
   }),
 );
 
@@ -58,13 +63,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ── Health check ─────────────────────────────────────────────────────────────
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', service: 'Chief of AI – biz-flow', ts: new Date().toISOString() });
+app.get("/health", (_req, res) => {
+  res.json({
+    status: "ok",
+    service: "Chief of AI – biz-flow",
+    ts: new Date().toISOString(),
+  });
 });
 
 // ── Routes ───────────────────────────────────────────────────────────────────
-app.use('/auth', authRoutes);
-app.use('/chat', chatRoutes);
+app.use("/auth", authRoutes);
+app.use("/chat", chatRoutes);
+app.use("/files", fileRoutes);
 
 // ── Global error handler (must be last) ──────────────────────────────────────
 app.use(errorHandler);

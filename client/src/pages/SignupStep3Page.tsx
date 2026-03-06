@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProgressBar from '../components/ProgressBar';
-import { useSignup } from '../context/useSignup';
-import { apiSignup } from '../services/api';
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import ProgressBar from "../components/ProgressBar";
+import { useSignup } from "../context/useSignup";
+import { apiSignup } from "../services/api";
 
 const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
       const result = await apiSignup(combined());
       setAccessCode(result.accessCode);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -35,7 +35,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
   }, [accessCode]);
 
   const handleLogin = useCallback(() => {
-    navigate('/login');
+    navigate("/login");
   }, [navigate]);
 
   return (
@@ -45,7 +45,9 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
         <header className="flex items-center justify-between border-b border-primary/10 bg-white dark:bg-slate-900 px-6 py-4 lg:px-20">
           <div className="flex items-center gap-3">
             <div className="size-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="material-symbols-outlined text-white">smart_toy</span>
+              <span className="material-symbols-outlined text-white">
+                smart_toy
+              </span>
             </div>
             <h2 className="text-xl font-bold tracking-tight">Chief of AI</h2>
           </div>
@@ -66,8 +68,8 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-lg">
               {accessCode
-                ? 'Your account is ready! Save your unique access code before continuing.'
-                : 'Review your setup and create your account to get your master access code.'}
+                ? "Your account is ready! Save your unique access code before continuing."
+                : "Review your setup and create your account to get your master access code."}
             </p>
           </div>
 
@@ -76,7 +78,9 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
             <div className="w-full rounded-xl border-2 border-primary/20 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-xl shadow-primary/5">
               <div className="flex flex-col items-center gap-6">
                 <div className="rounded-full bg-primary/10 p-3">
-                  <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl">lock</span>
+                  <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl">
+                    lock
+                  </span>
                 </div>
 
                 <div className="text-center w-full">
@@ -90,22 +94,32 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                     <button
                       onClick={handleCopy}
                       className={`flex h-14 sm:h-16 w-full sm:w-auto items-center justify-center gap-2 rounded-lg px-6 font-bold text-white transition-all ${
-                        copied ? 'bg-green-500 hover:bg-green-500' : 'bg-primary hover:bg-primary/90'
+                        copied
+                          ? "bg-green-500 hover:bg-green-500"
+                          : "bg-primary hover:bg-primary/90"
                       }`}
                     >
                       <span className="material-symbols-outlined text-[20px]">
-                        {copied ? 'check_circle' : 'content_copy'}
+                        {copied ? "check_circle" : "content_copy"}
                       </span>
-                      <span className="text-sm sm:text-base">{copied ? 'Copied!' : 'Copy Code'}</span>
+                      <span className="text-sm sm:text-base">
+                        {copied ? "Copied!" : "Copy Code"}
+                      </span>
                     </button>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 p-4 border border-amber-200 dark:border-amber-900/30 w-full text-left">
-                  <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 shrink-0 text-[18px] sm:text-[24px]">warning</span>
+                  <span className="material-symbols-outlined text-amber-600 dark:text-amber-400 shrink-0 text-[18px] sm:text-[24px]">
+                    warning
+                  </span>
                   <div className="text-xs sm:text-sm leading-relaxed text-amber-800 dark:text-amber-200">
-                    <span className="font-bold uppercase text-[10px] sm:text-xs block mb-1">Crucial Information</span>
-                    Keep this code in a secure location. While we prioritize your privacy, you can recover this code via the "Forgot Access Code" flow if lost.
+                    <span className="font-bold uppercase text-[10px] sm:text-xs block mb-1">
+                      Crucial Information
+                    </span>
+                    Keep this code in a secure location. While we prioritize
+                    your privacy, you can recover this code via the "Forgot
+                    Access Code" flow if lost.
                   </div>
                 </div>
               </div>
@@ -115,16 +129,23 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
             <div className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-md">
               <div className="flex flex-col items-center gap-4">
                 <div className="rounded-full bg-primary/10 p-3">
-                  <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl">rocket_launch</span>
+                  <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl">
+                    rocket_launch
+                  </span>
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm text-center max-w-xs">
-                  Click below to create your account and receive your unique AI access code.
+                  Click below to create your account and receive your unique AI
+                  access code.
                 </p>
 
                 {error && (
                   <div className="w-full flex items-start gap-3 rounded-lg bg-red-50 dark:bg-red-900/20 p-3 sm:p-4 border border-red-200 dark:border-red-900/30">
-                    <span className="material-symbols-outlined text-red-500 shrink-0 text-[18px]">error</span>
-                    <p className="text-xs sm:text-sm text-red-700 dark:text-red-300">{error}</p>
+                    <span className="material-symbols-outlined text-red-500 shrink-0 text-[18px]">
+                      error
+                    </span>
+                    <p className="text-xs sm:text-sm text-red-700 dark:text-red-300">
+                      {error}
+                    </p>
                   </div>
                 )}
               </div>
@@ -143,7 +164,8 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                   <span className="material-symbols-outlined">login</span>
                 </button>
                 <p className="mt-4 text-center text-xs sm:text-sm text-slate-500">
-                  By clicking above, you confirm that you have saved your access code.
+                  By clicking above, you confirm that you have saved your access
+                  code.
                 </p>
               </>
             ) : (
@@ -163,13 +185,17 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                 >
                   {loading ? (
                     <>
-                      <span className="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
+                      <span className="material-symbols-outlined animate-spin text-[20px]">
+                        progress_activity
+                      </span>
                       <span>Creating Account…</span>
                     </>
                   ) : (
                     <>
                       <span>Create My Account</span>
-                      <span className="material-symbols-outlined">arrow_forward</span>
+                      <span className="material-symbols-outlined">
+                        arrow_forward
+                      </span>
                     </>
                   )}
                 </button>

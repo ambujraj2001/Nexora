@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppHeader from '../../../components/AppHeader';
-import { apiForgotAccessCode } from '../../../services/api';
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import AppHeader from "../../../components/AppHeader";
+import { apiForgotAccessCode } from "../../../services/api";
 
 interface EmailStepProps {
   onSuccess: (email: string) => void;
@@ -9,33 +9,39 @@ interface EmailStepProps {
 
 const EmailStep = ({ onSuccess }: EmailStepProps) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!email.trim()) return;
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      await apiForgotAccessCode(email.trim());
-      onSuccess(email.trim());
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
-    } finally {
-      setLoading(false);
-    }
-  }, [email, onSuccess]);
+      try {
+        await apiForgotAccessCode(email.trim());
+        onSuccess(email.trim());
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [email, onSuccess],
+  );
 
-  const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setError(null);
-  }, []);
+  const handleEmailChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value);
+      setError(null);
+    },
+    [],
+  );
 
-  const handleGoToLogin = useCallback(() => navigate('/login'), [navigate]);
+  const handleGoToLogin = useCallback(() => navigate("/login"), [navigate]);
 
   return (
     <div className="relative flex h-full min-h-screen w-full flex-col bg-white dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display overflow-x-hidden">
@@ -46,11 +52,19 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
           <div className="w-full max-w-[420px] flex flex-col gap-6 sm:gap-8 animate-slide-up">
             <div className="flex flex-col gap-3">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary mb-2 mx-auto sm:mx-0">
-                <span className="material-symbols-outlined" style={{ fontSize: '28px' }}>lock_reset</span>
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "28px" }}
+                >
+                  lock_reset
+                </span>
               </div>
-              <h1 className="text-slate-900 dark:text-slate-100 text-2xl sm:text-3xl font-bold tracking-tight">Forgot Access Code</h1>
+              <h1 className="text-slate-900 dark:text-slate-100 text-2xl sm:text-3xl font-bold tracking-tight">
+                Forgot Access Code
+              </h1>
               <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base font-normal leading-relaxed">
-                Enter your registered email address and we'll send you a passcode to reset your access.
+                Enter your registered email address and we'll send you a
+                passcode to reset your access.
               </p>
             </div>
 
@@ -60,7 +74,12 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
                   Email Address
                 </label>
                 <div className="relative">
-                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" style={{ fontSize: '20px' }}>mail</span>
+                  <span
+                    className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    style={{ fontSize: "20px" }}
+                  >
+                    mail
+                  </span>
                   <input
                     type="email"
                     value={email}
@@ -72,7 +91,9 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
                 </div>
                 {error && (
                   <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-sm mt-1">
-                    <span className="material-symbols-outlined text-[16px]">error</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      error
+                    </span>
                     <span>{error}</span>
                   </div>
                 )}
@@ -86,13 +107,23 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
                 >
                   {loading ? (
                     <>
-                      <span className="material-symbols-outlined animate-spin mr-2" style={{ fontSize: '20px' }}>progress_activity</span>
+                      <span
+                        className="material-symbols-outlined animate-spin mr-2"
+                        style={{ fontSize: "20px" }}
+                      >
+                        progress_activity
+                      </span>
                       <span>Sending OTP...</span>
                     </>
                   ) : (
                     <>
                       <span>Send Passcode</span>
-                      <span className="material-symbols-outlined ml-2" style={{ fontSize: '20px' }}>arrow_forward</span>
+                      <span
+                        className="material-symbols-outlined ml-2"
+                        style={{ fontSize: "20px" }}
+                      >
+                        arrow_forward
+                      </span>
                     </>
                   )}
                 </button>
@@ -101,7 +132,12 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
                   onClick={handleGoToLogin}
                   className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-4 bg-transparent text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-bold leading-normal transition-colors"
                 >
-                  <span className="material-symbols-outlined mr-2" style={{ fontSize: '18px' }}>arrow_back</span>
+                  <span
+                    className="material-symbols-outlined mr-2"
+                    style={{ fontSize: "18px" }}
+                  >
+                    arrow_back
+                  </span>
                   <span>Back to Login</span>
                 </button>
               </div>
@@ -109,9 +145,16 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
 
             <div className="pt-8 border-t border-slate-200 dark:border-slate-800">
               <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-900/50">
-                <span className="material-symbols-outlined text-primary" style={{ fontSize: '20px' }}>info</span>
+                <span
+                  className="material-symbols-outlined text-primary"
+                  style={{ fontSize: "20px" }}
+                >
+                  info
+                </span>
                 <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal">
-                  If you no longer have access to this email address, please contact your workspace administrator or our support team for manual verification.
+                  If you no longer have access to this email address, please
+                  contact your workspace administrator or our support team for
+                  manual verification.
                 </p>
               </div>
             </div>
@@ -119,7 +162,12 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
         </main>
 
         <div className="fixed bottom-0 right-0 p-8 opacity-5 pointer-events-none select-none">
-          <span className="material-symbols-outlined text-slate-400 dark:text-slate-600" style={{ fontSize: '300px' }}>smart_toy</span>
+          <span
+            className="material-symbols-outlined text-slate-400 dark:text-slate-600"
+            style={{ fontSize: "300px" }}
+          >
+            smart_toy
+          </span>
         </div>
       </div>
     </div>

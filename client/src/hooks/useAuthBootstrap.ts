@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { apiBootConfig } from '../services/api';
-import { setUser } from '../store/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { type RootState } from '../store';
+import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { apiBootConfig } from "../services/api";
+import { setUser } from "../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { type RootState } from "../store";
 
 export const useAuthBootstrap = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const useAuthBootstrap = () => {
     if (isBooting.current) return;
 
     const run = async () => {
-      const storedCode = localStorage.getItem('accessCode');
+      const storedCode = localStorage.getItem("accessCode");
 
       if (!storedCode) {
         setChecking(false);
@@ -35,16 +35,16 @@ export const useAuthBootstrap = () => {
       try {
         const result = await apiBootConfig(storedCode);
         dispatch(setUser(result));
-        sessionStorage.setItem('chief_user', JSON.stringify(result));
+        sessionStorage.setItem("chief_user", JSON.stringify(result));
 
-        const publicPaths = ['/', '/login', '/signup'];
+        const publicPaths = ["/", "/login", "/signup"];
         if (publicPaths.includes(window.location.pathname)) {
-          navigate('/dashboard', { replace: true });
+          navigate("/dashboard", { replace: true });
         }
       } catch {
-        localStorage.removeItem('accessCode');
-        sessionStorage.removeItem('chief_user');
-        navigate('/login', { replace: true });
+        localStorage.removeItem("accessCode");
+        sessionStorage.removeItem("chief_user");
+        navigate("/login", { replace: true });
       } finally {
         setChecking(false);
         isBooting.current = false;

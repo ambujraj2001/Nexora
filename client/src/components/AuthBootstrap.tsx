@@ -1,5 +1,5 @@
-import React from 'react';
-import { useAuthBootstrap } from '../hooks/useAuthBootstrap';
+import React from "react";
+import { useAuthBootstrap } from "../hooks/useAuthBootstrap";
 
 export const AuthBootstrap = ({ children }: { children: React.ReactNode }) => {
   const { checking } = useAuthBootstrap();
@@ -12,7 +12,9 @@ export const AuthBootstrap = ({ children }: { children: React.ReactNode }) => {
           <span className="material-symbols-outlined text-primary text-5xl animate-spin">
             progress_activity
           </span>
-          <p className="text-sm text-slate-500 font-medium">Loading Chief of AI…</p>
+          <p className="text-sm text-slate-500 font-medium">
+            Loading Chief of AI…
+          </p>
         </div>
       </div>
     );

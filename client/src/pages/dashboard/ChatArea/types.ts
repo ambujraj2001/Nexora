@@ -1,11 +1,9 @@
-import React from 'react';
-
-export type Role = 'ai' | 'user';
+export type Role = "ai" | "user";
 
 export interface Message {
   id: string;
   role: Role;
-  content: string | React.ReactNode;
+  content: string;
   timestamp?: string;
 }
 

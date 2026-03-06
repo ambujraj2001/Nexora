@@ -1,10 +1,19 @@
-import { Request, Response, NextFunction } from 'express';
-import { createUser, findUserByAccessCode, updateUserByAccessCode, findUserByEmail } from '../services/user.service';
-import { SignupBody, BootConfigBody, UpdateProfileBody } from '../types/user.types';
-import { log } from '../utils/logger';
-import { generateOTP } from '../utils/otp';
-import { redis } from '../config/redis';
-import { sendOTP } from '../services/mail.service';
+import { Request, Response, NextFunction } from "express";
+import {
+  createUser,
+  findUserByAccessCode,
+  updateUserByAccessCode,
+  findUserByEmail,
+} from "../services/user.service";
+import {
+  SignupBody,
+  BootConfigBody,
+  UpdateProfileBody,
+} from "../types/user.types";
+import { log } from "../utils/logger";
+import { generateOTP } from "../utils/otp";
+import { redis } from "../config/redis";
+import { sendOTP } from "../services/mail.service";
 
 // ─── POST /auth/signup ──────────────────────────────────────────────────────
 
@@ -27,25 +36,35 @@ export const signup = async (
 
     // ── Basic validation ─────────────────────────────────────────────────────
     if (!fullName?.trim()) {
-      res.status(400).json({ error: 'fullName is required' });
+      res.status(400).json({ error: "fullName is required" });
       return;
     }
     if (!email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      res.status(400).json({ error: 'A valid email is required' });
+      res.status(400).json({ error: "A valid email is required" });
       return;
     }
-    const validTones = ['professional', 'casual', 'technical', 'concise'];
+    const validTones = ["professional", "casual", "technical", "concise"];
     if (!validTones.includes(interactionTone)) {
-      res.status(400).json({ error: `interactionTone must be one of: ${validTones.join(', ')}` });
+      res.status(400).json({
+        error: `interactionTone must be one of: ${validTones.join(", ")}`,
+      });
       return;
     }
-    if (typeof responseComplexity !== 'number' || responseComplexity < 1 || responseComplexity > 5) {
-      res.status(400).json({ error: 'responseComplexity must be a number between 1 and 5' });
+    if (
+      typeof responseComplexity !== "number" ||
+      responseComplexity < 1 ||
+      responseComplexity > 5
+    ) {
+      res
+        .status(400)
+        .json({ error: "responseComplexity must be a number between 1 and 5" });
       return;
     }
-    const validVoices = ['atlas', 'standard'];
+    const validVoices = ["atlas", "standard"];
     if (!validVoices.includes(voiceModel)) {
-      res.status(400).json({ error: `voiceModel must be one of: ${validVoices.join(', ')}` });
+      res.status(400).json({
+        error: `voiceModel must be one of: ${validVoices.join(", ")}`,
+      });
       return;
     }
 
@@ -71,20 +90,20 @@ export const bootconfig = async (
     const { accessCode } = req.body;
 
     if (!accessCode?.trim()) {
-      res.status(400).json({ error: 'accessCode is required' });
+      res.status(400).json({ error: "accessCode is required" });
       return;
     }
 
     const user = await findUserByAccessCode(accessCode.trim());
 
     if (!user) {
-      log({ event: 'bootconfig_failed', message: 'Invalid access code' });
-      res.status(401).json({ error: 'Invalid access code' });
+      log({ event: "bootconfig_failed", message: "Invalid access code" });
+      res.status(401).json({ error: "Invalid access code" });
       return;
     }
 
     log({
-      event: 'bootconfig_successful',
+      event: "bootconfig_successful",
       userId: user.id,
       userName: user.full_name,
     });
@@ -94,7 +113,7 @@ export const bootconfig = async (
         id: user.id,
         fullName: user.full_name,
         email: user.email,
-        role: user.role || 'User',
+        role: user.role || "User",
       },
       preferences: {
         interactionTone: user.interaction_tone,
@@ -120,7 +139,7 @@ export const updateProfile = async (
     const { accessCode, ...updates } = req.body;
 
     if (!accessCode?.trim()) {
-      res.status(400).json({ error: 'accessCode is required' });
+      res.status(400).json({ error: "accessCode is required" });
       return;
     }
 
@@ -131,7 +150,7 @@ export const updateProfile = async (
         id: user.id,
         fullName: user.full_name,
         email: user.email,
-        role: user.role || 'User',
+        role: user.role || "User",
       },
       preferences: {
         interactionTone: user.interaction_tone,
@@ -157,20 +176,20 @@ export const forgotAccessCode = async (
     const { email } = req.body;
 
     if (!email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      res.status(400).json({ error: 'A valid email is required' });
+      res.status(400).json({ error: "A valid email is required" });
       return;
     }
 
     const user = await findUserByEmail(email.trim());
 
     if (!user) {
-      res.status(404).json({ error: 'User not found with this email' });
+      res.status(404).json({ error: "User not found with this email" });
       return;
     }
 
     const otp = generateOTP();
     const redisKey = `accesscode:${email.toLowerCase().trim()}`;
-    
+
     // Store OTP in Redis with 12-hour TTL (43200 seconds)
     await redis.set(redisKey, otp, { ex: 600 });
 
@@ -178,11 +197,11 @@ export const forgotAccessCode = async (
     await sendOTP(email.trim(), otp);
 
     log({
-      event: 'forgot_access_code_requested',
+      event: "forgot_access_code_requested",
       email: email.trim(),
     });
 
-    res.status(200).json({ message: 'OTP sent to your email' });
+    res.status(200).json({ message: "OTP sent to your email" });
   } catch (err) {
     next(err);
   }
@@ -199,7 +218,7 @@ export const verifyOTP = async (
     const { email, otp } = req.body;
 
     if (!email?.trim() || !otp?.trim()) {
-      res.status(400).json({ error: 'Email and OTP are required' });
+      res.status(400).json({ error: "Email and OTP are required" });
       return;
     }
 
@@ -207,21 +226,20 @@ export const verifyOTP = async (
     const storedOTP = await redis.get<string | number>(redisKey);
 
     if (!storedOTP) {
-      res.status(400).json({ error: 'OTP expired or not found' });
+      res.status(400).json({ error: "OTP expired or not found" });
       return;
     }
 
     if (String(storedOTP) !== String(otp).trim()) {
-     
-      res.status(400).json({ error: 'Invalid OTP' });
+      res.status(400).json({ error: "Invalid OTP" });
       return;
     }
 
     // OTP is valid, fetch user to return access code
     const user = await findUserByEmail(email.trim());
-    
+
     if (!user) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
       return;
     }
 
@@ -229,12 +247,12 @@ export const verifyOTP = async (
     await redis.del(redisKey);
 
     log({
-      event: 'otp_verified_successfully',
+      event: "otp_verified_successfully",
       email: email.trim(),
     });
 
     res.status(200).json({
-      message: 'OTP verified successfully',
+      message: "OTP verified successfully",
       accessCode: user.access_code,
     });
   } catch (err) {

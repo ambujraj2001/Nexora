@@ -6,8 +6,8 @@
 //   Model    : MISTRAL_MODEL     → mistral-small-latest
 //   API Key  : MISTRAL_API_KEY   → BHd7...
 
-import { ChatOpenAI } from '@langchain/openai';
-import { StructuredToolInterface } from '@langchain/core/tools';
+import { ChatOpenAI } from "@langchain/openai";
+import { StructuredToolInterface } from "@langchain/core/tools";
 
 const getEnv = (key: string): string => {
   const value = process.env[key];
@@ -16,9 +16,9 @@ const getEnv = (key: string): string => {
 };
 
 export const buildModel = (tools?: StructuredToolInterface[]) => {
-  const apiKey = getEnv('MISTRAL_API_KEY');
-  const modelName = getEnv('MISTRAL_MODEL');
-  const baseURL = getEnv('MISTRAL_API_BASE');
+  const apiKey = getEnv("MISTRAL_API_KEY");
+  const modelName = getEnv("MISTRAL_MODEL");
+  const baseURL = getEnv("MISTRAL_API_BASE");
 
   const llm = new ChatOpenAI({
     modelName,

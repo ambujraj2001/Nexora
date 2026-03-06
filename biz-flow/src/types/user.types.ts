@@ -1,7 +1,11 @@
 // Chief of AI – types/user.types.ts
 
-export type InteractionTone = 'professional' | 'casual' | 'technical' | 'concise';
-export type VoiceModel = 'atlas' | 'standard';
+export type InteractionTone =
+  | "professional"
+  | "casual"
+  | "technical"
+  | "concise";
+export type VoiceModel = "atlas" | "standard";
 
 /** Raw row from the Supabase `users` table */
 export interface UserRow {

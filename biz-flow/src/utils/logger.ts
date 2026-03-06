@@ -1,8 +1,8 @@
-import { Axiom } from '@axiomhq/js';
-import { AsyncLocalStorage } from 'async_hooks';
+import { Axiom } from "@axiomhq/js";
+import { AsyncLocalStorage } from "async_hooks";
 
 const token = process.env.AXIOM_TOKEN;
-const dataset = process.env.AXIOM_DATASET || 'backend-logs';
+const dataset = process.env.AXIOM_DATASET || "backend-logs";
 
 const axiom = token ? new Axiom({ token }) : null;
 
@@ -10,7 +10,7 @@ const axiom = token ? new Axiom({ token }) : null;
 export const tracingStorage = new AsyncLocalStorage<{ traceId: string }>();
 
 if (!axiom) {
-  console.warn('⚠️ AXIOM_TOKEN is missing. Logging will be console-only.');
+  console.warn("⚠️ AXIOM_TOKEN is missing. Logging will be console-only.");
 }
 
 /**
@@ -28,25 +28,28 @@ export interface LogData {
  */
 export const log = (data: LogData) => {
   const store = tracingStorage.getStore();
-  const traceId = store?.traceId || 'no-trace-id';
+  const traceId = store?.traceId || "no-trace-id";
 
   const enrichedData = {
     ...data,
     traceId,
     timestamp: data.timestamp || new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development',
+    environment: process.env.NODE_ENV || "development",
   };
 
   // 1. Log to Console for local dev visibility
-  const consoleLevel = enrichedData.event.includes('error') ? 'error' : 'info';
-  console[consoleLevel](`[${enrichedData.event}]`, JSON.stringify(enrichedData, null, 2));
+  const consoleLevel = enrichedData.event.includes("error") ? "error" : "info";
+  console[consoleLevel](
+    `[${enrichedData.event}]`,
+    JSON.stringify(enrichedData, null, 2),
+  );
 
   // 2. Ingest to Axiom
   if (axiom) {
     try {
       axiom.ingest(dataset, [enrichedData]);
     } catch (err) {
-      console.error('Failed to send log to Axiom:', err);
+      console.error("Failed to send log to Axiom:", err);
     }
   }
 };
@@ -54,7 +57,12 @@ export const log = (data: LogData) => {
 /**
  * Specific utility for error logging
  */
-export const logError = (event: string, err: Error, userId?: string, metadata?: any) => {
+export const logError = (
+  event: string,
+  err: Error,
+  userId?: string,
+  metadata?: any,
+) => {
   log({
     event,
     userId,

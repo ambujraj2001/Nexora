@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
-import SignupStep1Page from './SignupStep1Page';
-import SignupStep2Page from './SignupStep2Page';
-import SignupStep3Page from './SignupStep3Page';
+import { useState, useCallback } from "react";
+import SignupStep1Page from "./SignupStep1Page";
+import SignupStep2Page from "./SignupStep2Page";
+import SignupStep3Page from "./SignupStep3Page";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);

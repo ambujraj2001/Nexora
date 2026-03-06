@@ -5,16 +5,77 @@
 //   3. Import it here and add it to the `tools` array
 // No other code changes are needed.
 
-import { addNumbersTool } from './addNumbersTool';
-import { subtractNumbersTool } from './subtractNumbersTool';
-import { randomJokeTool } from './randomJokeTool';
-import { prettifyResponseTool } from './prettifyTool';
+import { addNumbersTool } from "./addNumbersTool";
+import { subtractNumbersTool } from "./subtractNumbersTool";
+import { randomJokeTool } from "./randomJokeTool";
+import { prettifyResponseTool } from "./prettifyTool";
+import { getChatHistoryTool } from "./getChatHistoryTool";
+
+import {
+  addMemoryTool,
+  updateMemoryTool,
+  deleteMemoryTool,
+  searchMemoryTool,
+} from "./memory";
+import {
+  addJournalTool,
+  updateJournalTool,
+  deleteJournalTool,
+  searchJournalTool,
+} from "./journal";
+import {
+  addKnowledgeTool,
+  updateKnowledgeTool,
+  deleteKnowledgeTool,
+  searchKnowledgeTool,
+} from "./knowledge";
+import {
+  addTaskTool,
+  updateTaskTool,
+  getTasksTool,
+  deleteTaskTool,
+} from "./tasks";
+import {
+  addReminderTool,
+  updateReminderTool,
+  getRemindersTool,
+  deleteReminderTool,
+} from "./reminders";
+import { listFilesTool, deleteFileTool, summarizeFileTool } from "./files";
+import { safetyTool } from "./safetyTool";
+import { helpTool } from "./helpTool";
 
 export const tools = [
   addNumbersTool,
   subtractNumbersTool,
   randomJokeTool,
   prettifyResponseTool,
+  getChatHistoryTool,
+  addMemoryTool,
+  updateMemoryTool,
+  deleteMemoryTool,
+  searchMemoryTool,
+  addJournalTool,
+  updateJournalTool,
+  deleteJournalTool,
+  searchJournalTool,
+  addKnowledgeTool,
+  updateKnowledgeTool,
+  deleteKnowledgeTool,
+  searchKnowledgeTool,
+  addTaskTool,
+  updateTaskTool,
+  getTasksTool,
+  deleteTaskTool,
+  addReminderTool,
+  updateReminderTool,
+  getRemindersTool,
+  deleteReminderTool,
+  listFilesTool,
+  deleteFileTool,
+  summarizeFileTool,
+  safetyTool,
+  helpTool,
 ];
 
-export type AppTool = typeof tools[number];
+export type AppTool = (typeof tools)[number];

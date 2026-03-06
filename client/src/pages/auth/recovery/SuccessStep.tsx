@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppHeader from '../../../components/AppHeader';
+import { useState, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import AppHeader from "../../../components/AppHeader";
 
 interface SuccessStepProps {
   accessCode: string;
@@ -17,11 +17,11 @@ const SuccessStep = ({ accessCode }: SuccessStepProps) => {
     setTimeout(() => setCopied(false), 2000);
   }, [accessCode]);
 
-  const handleGoToLogin = useCallback(() => navigate('/login'), [navigate]);
+  const handleGoToLogin = useCallback(() => navigate("/login"), [navigate]);
 
-  const codeParts = useMemo(() => 
-    accessCode ? accessCode.split('-') : ['AI', 'XXXX', 'XXXX'],
-    [accessCode]
+  const codeParts = useMemo(
+    () => (accessCode ? accessCode.split("-") : ["AI", "XXXX", "XXXX"]),
+    [accessCode],
   );
 
   return (
@@ -34,19 +34,24 @@ const SuccessStep = ({ accessCode }: SuccessStepProps) => {
             <div className="layout-content-container flex flex-col max-w-[420px] w-full bg-white dark:bg-slate-900/50 p-6 sm:p-8 rounded-xl shadow-sm border border-primary/10 h-fit self-center animate-slide-up">
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="size-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center mb-2">
-                  <span className="material-symbols-outlined text-4xl">check_circle</span>
+                  <span className="material-symbols-outlined text-4xl">
+                    check_circle
+                  </span>
                 </div>
                 <h1 className="text-slate-900 dark:text-slate-100 tracking-tight text-2xl sm:text-3xl font-bold leading-tight">
                   Access Code Recovered
                 </h1>
                 <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base font-normal leading-relaxed max-w-sm">
-                  Your identity has been verified. Below is your unique system access code.
+                  Your identity has been verified. Below is your unique system
+                  access code.
                 </p>
               </div>
 
               <div className="mt-10 mb-8">
                 <div className="bg-primary/5 dark:bg-primary/10 border-2 border-dashed border-primary/30 rounded-xl p-6 flex flex-col items-center gap-4">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-primary/70">Your Access Code</span>
+                  <span className="text-xs font-semibold uppercase tracking-widest text-primary/70">
+                    Your Access Code
+                  </span>
                   <div className="flex items-center gap-2 font-mono text-2xl lg:text-3xl font-bold tracking-wider text-primary">
                     <span>{codeParts[0]}</span>
                     <span className="text-primary/30">-</span>
@@ -66,8 +71,12 @@ const SuccessStep = ({ accessCode }: SuccessStepProps) => {
                   onClick={handleCopy}
                   className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white gap-2 text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-all shadow-md shadow-primary/20 active:scale-[0.98]"
                 >
-                  <span className="material-symbols-outlined">{copied ? 'check' : 'content_copy'}</span>
-                  <span className="truncate">{copied ? 'Copied to Clipboard' : 'Copy Access Code'}</span>
+                  <span className="material-symbols-outlined">
+                    {copied ? "check" : "content_copy"}
+                  </span>
+                  <span className="truncate">
+                    {copied ? "Copied to Clipboard" : "Copy Access Code"}
+                  </span>
                 </button>
                 <button
                   onClick={handleGoToLogin}
@@ -80,9 +89,13 @@ const SuccessStep = ({ accessCode }: SuccessStepProps) => {
 
               <div className="mt-8 pt-6 border-t border-primary/10">
                 <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-900/10 rounded-lg">
-                  <span className="material-symbols-outlined text-amber-600 dark:text-amber-500 mt-0.5">warning</span>
+                  <span className="material-symbols-outlined text-amber-600 dark:text-amber-500 mt-0.5">
+                    warning
+                  </span>
                   <p className="text-xs text-amber-800 dark:text-amber-400 leading-normal">
-                    <strong>Security Note:</strong> This code will only be displayed once. If lost, you will need to repeat the recovery process.
+                    <strong>Security Note:</strong> This code will only be
+                    displayed once. If lost, you will need to repeat the
+                    recovery process.
                   </p>
                 </div>
               </div>
