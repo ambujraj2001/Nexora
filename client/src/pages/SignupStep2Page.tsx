@@ -1,62 +1,81 @@
-import { useState, useCallback } from 'react';
-import ProgressBar from '../components/ProgressBar';
-import { useSignup } from '../context/useSignup';
-import type { SignupPayload } from '../services/api';
+import { useState, useCallback } from "react";
+import ProgressBar from "../components/ProgressBar";
+import { useSignup } from "../context/useSignup";
+import type { SignupPayload } from "../services/api";
 
-type Tone = SignupPayload['interactionTone'];
+type Tone = SignupPayload["interactionTone"];
 
 const TONE_OPTIONS: { label: string; value: Tone; icon: string }[] = [
-  { label: 'Professional', value: 'professional', icon: 'work' },
-  { label: 'Casual', value: 'casual', icon: 'chat' },
-  { label: 'Technical', value: 'technical', icon: 'code' },
-  { label: 'Concise', value: 'concise', icon: 'short_text' },
+  { label: "Professional", value: "professional", icon: "work" },
+  { label: "Casual", value: "casual", icon: "chat" },
+  { label: "Technical", value: "technical", icon: "code" },
+  { label: "Concise", value: "concise", icon: "short_text" },
 ];
 
 const COMPLEXITY_LABELS: Record<number, string> = {
-  1: 'Simple',
-  2: 'Simplified',
-  3: 'Balanced',
-  4: 'Detailed',
-  5: 'Expert',
+  1: "Simple",
+  2: "Simplified",
+  3: "Balanced",
+  4: "Detailed",
+  5: "Expert",
 };
 
-const VOICE_OPTIONS: { label: string; value: SignupPayload['voiceModel'] }[] = [
-  { label: 'Atlas (Deep, Professional)', value: 'atlas' },
-  { label: 'Standard', value: 'standard' },
+const VOICE_OPTIONS: { label: string; value: SignupPayload["voiceModel"] }[] = [
+  { label: "Atlas (Deep, Professional)", value: "atlas" },
+  { label: "Standard", value: "standard" },
 ];
 
-const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () => void }) => {
+const SignupStep2Page = ({
+  onNext,
+  onBack,
+}: {
+  onNext: () => void;
+  onBack: () => void;
+}) => {
   const { step2, setStep2 } = useSignup();
 
   const [tone, setTone] = useState<Tone>(step2.interactionTone);
   const [complexity, setComplexity] = useState(step2.responseComplexity);
-  const [voice, setVoice] = useState<SignupPayload['voiceModel']>(step2.voiceModel);
-  const [responseAlerts, setResponseAlerts] = useState(step2.notifyResponseAlerts);
+  const [voice, setVoice] = useState<SignupPayload["voiceModel"]>(
+    step2.voiceModel,
+  );
+  const [responseAlerts, setResponseAlerts] = useState(
+    step2.notifyResponseAlerts,
+  );
   const [dailyBriefing, setDailyBriefing] = useState(step2.notifyDailyBriefing);
 
-  const handleNext = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    setStep2({
-      interactionTone: tone,
-      responseComplexity: complexity,
-      voiceModel: voice,
-      notifyResponseAlerts: responseAlerts,
-      notifyDailyBriefing: dailyBriefing,
-    });
-    onNext();
-  }, [tone, complexity, voice, responseAlerts, dailyBriefing, setStep2, onNext]);
+  const handleNext = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      setStep2({
+        interactionTone: tone,
+        responseComplexity: complexity,
+        voiceModel: voice,
+        notifyResponseAlerts: responseAlerts,
+        notifyDailyBriefing: dailyBriefing,
+      });
+      onNext();
+    },
+    [tone, complexity, voice, responseAlerts, dailyBriefing, setStep2, onNext],
+  );
 
   const handleSetTone = useCallback((value: Tone) => {
     setTone(value);
   }, []);
 
-  const handleComplexityChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setComplexity(Number(e.target.value));
-  }, []);
+  const handleComplexityChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setComplexity(Number(e.target.value));
+    },
+    [],
+  );
 
-  const handleVoiceChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setVoice(e.target.value as SignupPayload['voiceModel']);
-  }, []);
+  const handleVoiceChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setVoice(e.target.value as SignupPayload["voiceModel"]);
+    },
+    [],
+  );
 
   const handleResponseAlertsChange = useCallback(() => {
     setResponseAlerts((v) => !v);
@@ -109,11 +128,17 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
 
             <ProgressBar step={2} totalSteps={3} label="Onboarding Progress" />
 
-            <form id="step2-form" className="space-y-8 sm:space-y-12" onSubmit={handleNext}>
+            <form
+              id="step2-form"
+              className="space-y-8 sm:space-y-12"
+              onSubmit={handleNext}
+            >
               {/* AI Preferences */}
               <section className="space-y-6">
                 <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
-                  <span className="material-symbols-outlined text-primary">psychology</span>
+                  <span className="material-symbols-outlined text-primary">
+                    psychology
+                  </span>
                   <h2 className="text-slate-900 dark:text-slate-100 text-lg sm:text-xl font-bold leading-tight">
                     AI Preferences
                   </h2>
@@ -134,12 +159,16 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
                           onClick={() => handleSetTone(value)}
                           className={`flex flex-col items-center justify-center p-3 sm:p-4 border-2 rounded-xl transition-all ${
                             active
-                              ? 'border-primary bg-primary/5 text-primary'
-                              : 'border-primary/10 hover:border-primary/40 text-slate-600 dark:text-slate-400'
+                              ? "border-primary bg-primary/5 text-primary"
+                              : "border-primary/10 hover:border-primary/40 text-slate-600 dark:text-slate-400"
                           }`}
                         >
-                          <span className="material-symbols-outlined mb-1 text-[20px] sm:text-[24px]">{icon}</span>
-                          <span className={`text-[10px] sm:text-xs ${active ? 'font-bold' : 'font-medium'}`}>
+                          <span className="material-symbols-outlined mb-1 text-[20px] sm:text-[24px]">
+                            {icon}
+                          </span>
+                          <span
+                            className={`text-[10px] sm:text-xs ${active ? "font-bold" : "font-medium"}`}
+                          >
                             {label}
                           </span>
                         </button>
@@ -190,7 +219,9 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
                       ))}
                     </select>
                     <div className="absolute right-3 top-3 pointer-events-none">
-                      <span className="material-symbols-outlined text-slate-400 text-[20px]">keyboard_voice</span>
+                      <span className="material-symbols-outlined text-slate-400 text-[20px]">
+                        keyboard_voice
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -199,7 +230,9 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
               {/* Notification Settings */}
               <section className="space-y-6">
                 <div className="flex items-center gap-2 border-b border-primary/10 pb-2">
-                  <span className="material-symbols-outlined text-primary">notifications</span>
+                  <span className="material-symbols-outlined text-primary">
+                    notifications
+                  </span>
                   <h2 className="text-slate-900 dark:text-slate-100 text-lg sm:text-xl font-bold leading-tight">
                     Notification Settings
                   </h2>
@@ -272,8 +305,10 @@ const SignupStep2Page = ({ onNext, onBack }: { onNext: () => void; onBack: () =>
 
         <footer className="p-6 text-center border-t border-primary/10 bg-white dark:bg-slate-900">
           <p className="text-slate-500 text-[10px] sm:text-xs">
-            © 2026 Chief of AI Inc. All rights reserved.{' '}
-            <a href="#" className="text-primary hover:underline">Privacy</a>
+            © 2026 Chief of AI Inc. All rights reserved.{" "}
+            <a href="#" className="text-primary hover:underline">
+              Privacy
+            </a>
           </p>
         </footer>
       </div>

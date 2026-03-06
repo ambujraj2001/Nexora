@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppHeader from '../components/AppHeader';
-import { apiBootConfig } from '../services/api';
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import AppHeader from "../components/AppHeader";
+import { apiBootConfig } from "../services/api";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [userCode, setUserCode] = useState('');
+  const [userCode, setUserCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [darkMode, setDarkMode] = useState(false);
@@ -13,41 +13,47 @@ const LoginPage = () => {
   const toggleDark = useCallback(() => {
     setDarkMode((prev) => {
       const next = !prev;
-      document.documentElement.classList.toggle('dark', next);
+      document.documentElement.classList.toggle("dark", next);
       return next;
     });
   }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!userCode.trim()) return;
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!userCode.trim()) return;
 
-    setLoading(true);
-    setError(null);
+      setLoading(true);
+      setError(null);
 
-    try {
-      const result = await apiBootConfig(userCode.trim());
-      localStorage.setItem('accessCode', userCode.trim().toUpperCase());
-      sessionStorage.setItem('chief_user', JSON.stringify(result));
-      navigate('/dashboard');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  }, [userCode, navigate]);
+      try {
+        const result = await apiBootConfig(userCode.trim());
+        localStorage.setItem("accessCode", userCode.trim().toUpperCase());
+        sessionStorage.setItem("chief_user", JSON.stringify(result));
+        navigate("/dashboard");
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Login failed");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [userCode, navigate],
+  );
 
-  const handleUserCodeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserCode(e.target.value.toUpperCase());
-    setError(null);
-  }, []);
+  const handleUserCodeChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUserCode(e.target.value.toUpperCase());
+      setError(null);
+    },
+    [],
+  );
 
   const handleForgotAccessCode = useCallback(() => {
-    navigate('/forgot-access-code');
+    navigate("/forgot-access-code");
   }, [navigate]);
 
   const handleSignup = useCallback(() => {
-    navigate('/signup');
+    navigate("/signup");
   }, [navigate]);
 
   return (
@@ -79,7 +85,9 @@ const LoginPage = () => {
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                      <span className="material-symbols-outlined text-[20px]">key</span>
+                      <span className="material-symbols-outlined text-[20px]">
+                        key
+                      </span>
                     </div>
                     <input
                       id="user-code"
@@ -96,7 +104,9 @@ const LoginPage = () => {
                   {/* Error message */}
                   {error && (
                     <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-sm mt-1">
-                      <span className="material-symbols-outlined text-[16px]">error</span>
+                      <span className="material-symbols-outlined text-[16px]">
+                        error
+                      </span>
                       <span>{error}</span>
                     </div>
                   )}
@@ -109,13 +119,17 @@ const LoginPage = () => {
                 >
                   {loading ? (
                     <>
-                      <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+                      <span className="material-symbols-outlined animate-spin text-[18px]">
+                        progress_activity
+                      </span>
                       <span>Logging you in...</span>
                     </>
                   ) : (
                     <>
                       <span>Login to Dashboard</span>
-                      <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                      <span className="material-symbols-outlined text-[18px]">
+                        arrow_forward
+                      </span>
                     </>
                   )}
                 </button>
@@ -132,7 +146,7 @@ const LoginPage = () => {
 
               <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Don't have an access code?{' '}
+                  Don't have an access code?{" "}
                   <button
                     onClick={handleSignup}
                     className="text-primary font-semibold hover:underline decoration-2 underline-offset-4 bg-transparent border-none cursor-pointer"
@@ -156,7 +170,7 @@ const LoginPage = () => {
                 className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
                 title="Toggle dark mode"
               >
-                {darkMode ? 'light_mode' : 'dark_mode'}
+                {darkMode ? "light_mode" : "dark_mode"}
               </span>
             </div>
           </div>

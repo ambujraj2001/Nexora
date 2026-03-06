@@ -1,4 +1,4 @@
-import { customAlphabet } from 'nanoid';
+import { customAlphabet } from "nanoid";
 
 /**
  * Generates a unique access code in the format: AI-[4 digits]-[4 alphanumeric]
@@ -11,7 +11,8 @@ import { customAlphabet } from 'nanoid';
  *
  * Example output: AI-7782-XQ9L
  */
-const digits = customAlphabet('0123456789', 4);
-const alphanumeric = customAlphabet('ABCDEFGHJKLMNPQRSTUVWXYZ23456789', 4);
+const digits = customAlphabet("0123456789", 4);
+const alphanumeric = customAlphabet("ABCDEFGHJKLMNPQRSTUVWXYZ23456789", 4);
 
-export const generateAccessCode = (): string => `AI-${digits()}-${alphanumeric()}`;
+export const generateAccessCode = (): string =>
+  `AI-${digits()}-${alphanumeric()}`;

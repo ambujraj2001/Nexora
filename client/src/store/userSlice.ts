@@ -1,5 +1,5 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { BootConfigResult } from '../services/api';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { BootConfigResult } from "../services/api";
 
 interface UserState {
   fullName: string;
@@ -12,17 +12,17 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  fullName: '',
-  email: '',
-  role: '',
-  accessCode: '',
-  interactionTone: 'professional',
+  fullName: "",
+  email: "",
+  role: "",
+  accessCode: "",
+  interactionTone: "professional",
   responseComplexity: 3,
-  voiceModel: 'atlas',
+  voiceModel: "atlas",
 };
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<BootConfigResult>) {

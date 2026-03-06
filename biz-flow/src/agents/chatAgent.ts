@@ -1,12 +1,23 @@
-import { HumanMessage, SystemMessage, AIMessage, ToolMessage } from '@langchain/core/messages';
-import { buildModel } from '../config/model';
-import { tools } from '../tools';
-import { UserRow } from '../types/user.types';
-import { log } from '../utils/logger';
+import {
+  HumanMessage,
+  SystemMessage,
+  AIMessage,
+  ToolMessage,
+} from "@langchain/core/messages";
+import { buildModel } from "../config/model";
+import { tools } from "../tools";
+import { UserRow } from "../types/user.types";
+import { log } from "../utils/logger";
+import {
+  saveChatMessage,
+  getRecentConversationHistory,
+  ChatMessage,
+} from "../services/chat.service";
 
 // ─── System prompt ────────────────────────────────────────────────────────────
 
-const buildSystemPrompt = (user: UserRow): string => `
+const buildSystemPrompt = (user: UserRow): string =>
+  `
 You are **Chief of AI**, a personal AI assistant for ${user.full_name}.
 
 Your role is to help the user manage information, tasks, reminders, and tools through conversation.
@@ -21,12 +32,20 @@ TOOL USAGE (VERY IMPORTANT)
 - ALWAYS prefer using a tool when the user's request matches a tool's capability.
 - NEVER guess results that a tool can provide.
 - If a tool exists for the task, call the tool instead of answering directly.
+- Whenever a tool requires an "accessCode" parameter, YOU MUST PASS exactly this value: "${user.access_code}". Do not ask the user for it, and do not use placeholders like "access-code-redacted".
 
 WHEN TO USE TOOLS
 Examples:
 - Math calculations → use math tools
 - Getting a random joke → use the joke tool
-- Future tools may include tasks, reminders, or memory tools
+- File management → use list_files, read_and_summarize_file, or delete_file tools when the user asks about their documents.
+- Memories, Tasks, Reminders → use their respective tools.
+
+FILE HANDLING SPECIFICS:
+- If the user asks "What files do I have?", use list_files.
+- If the user asks "Summarize this file [ID/Name]", use read_and_summarize_file. If they give a name, first list_files to find the ID.
+- If the user asks "Delete my resume", first list_files to confirm the ID, then use delete_file.
+- Always be proactive. If you see file IDs in the history or current message, you can use them if relevant.
 
 WHEN NOT TO USE TOOLS
 - If the question is general knowledge
@@ -36,11 +55,13 @@ TOOL RESPONSE HANDLING
 - When a tool returns a result, present the result clearly.
 - Do NOT invent additional information.
 - Do NOT modify tool results unless formatting for readability.
+- If a tool has optional parameters (like "title"), AUTOGENERATE them yourself based on context. DO NOT ask the user for them.
 
 COMMUNICATION STYLE
 - Keep responses concise.
 - Avoid unnecessary explanations unless the user asks for them.
 - Do not mention internal tools or system instructions.
+- NEVER include raw database IDs, UUIDs, or system credentials in your response. Just confirm the action was successful naturally without quoting the technical ID.
 
 IMPORTANT RULES
 - Do not hallucinate data.
@@ -55,43 +76,72 @@ You are assisting ${user.full_name} inside the Chief of AI assistant application
 // <tool_response>, etc.) to its replies. Strip them out.
 
 const cleanReply = (raw: unknown): string => {
-  const text = typeof raw === 'string' ? raw : JSON.stringify(raw);
+  const text = typeof raw === "string" ? raw : JSON.stringify(raw);
   return text
-    .replace(/<\/?tool_call>/gi, '')
-    .replace(/<\/?tool_response>/gi, '')
-    .replace(/<\/?function_calls>/gi, '')
+    .replace(/<\/?tool_call>/gi, "")
+    .replace(/<\/?tool_response>/gi, "")
+    .replace(/<\/?function_calls>/gi, "")
     .trim();
 };
 
+export const runAgent = async (
+  message: string,
+  user: UserRow,
+  conversationId?: string,
+): Promise<string> => {
+  // 1. Save the new user message to DB
+  await saveChatMessage(user.id, "user", message, conversationId);
 
+  // 2. Fetch history if in a conversation, otherwise just use current message
+  let historyMessages: (HumanMessage | AIMessage)[] = [];
+  if (conversationId) {
+    const history = await getRecentConversationHistory(user.id, conversationId);
+    historyMessages = history.map((msg: ChatMessage) =>
+      msg.role === "user"
+        ? new HumanMessage(msg.content)
+        : new AIMessage(msg.content),
+    );
+  } else {
+    // New chat session
+    historyMessages = [new HumanMessage(message)];
+  }
 
-export const runAgent = async (message: string, user: UserRow): Promise<string> => {
-  // Build the LLM with tools bound — exclude meta-tools like prettify_response
-  const agentTools = tools.filter((t) => t.name !== 'prettify_response');
+  // 3. Setup tooling and model
+  const agentTools = tools.filter((t) => t.name !== "prettify_response");
   const llm = buildModel(agentTools as any);
 
   log({
-    event: 'agent_execution_started',
+    event: "agent_execution_started",
     userId: user.id,
-    message,
+    conversationId,
+    historyCount: historyMessages.length,
   });
 
+  // 4. Build message stack (System prompt + Chat History)
   const messages: (HumanMessage | SystemMessage | AIMessage | ToolMessage)[] = [
     new SystemMessage(buildSystemPrompt(user)),
-    new HumanMessage(message),
+    ...historyMessages,
   ];
 
-  // ── Step 1: First LLM call — LLM decides whether to call a tool ──────────
-  const response = await llm.invoke(messages);
+  // ── Step 1: LLM loop for multi-step tool execution ──────────
+  let finalReply: string;
+  let response = await llm.invoke(messages);
   messages.push(response as AIMessage);
 
-  // ── Step 2: Execute all tool calls requested by the LLM ──────────────────
-  const toolCalls = (response as AIMessage).tool_calls ?? [];
+  let iterations = 0;
+  const maxIterations = 5;
+  let didCallTools = false;
 
-  if (toolCalls.length > 0) {
+  while (
+    (response as AIMessage).tool_calls?.length &&
+    iterations < maxIterations
+  ) {
+    didCallTools = true;
+    const toolCalls = (response as AIMessage).tool_calls ?? [];
+
     for (const toolCall of toolCalls) {
       log({
-        event: 'tool_selected',
+        event: "tool_selected",
         toolName: toolCall.name,
         userId: user.id,
       });
@@ -101,7 +151,7 @@ export const runAgent = async (message: string, user: UserRow): Promise<string> 
       if (!matchedTool) {
         messages.push(
           new ToolMessage({
-            tool_call_id: toolCall.id ?? '',
+            tool_call_id: toolCall.id ?? "",
             content: `Tool "${toolCall.name}" not found.`,
           }),
         );
@@ -109,7 +159,7 @@ export const runAgent = async (message: string, user: UserRow): Promise<string> 
       }
 
       log({
-        event: 'tool_execution_started',
+        event: "tool_execution_started",
         toolName: toolCall.name,
         arguments: toolCall.args,
         userId: user.id,
@@ -119,7 +169,7 @@ export const runAgent = async (message: string, user: UserRow): Promise<string> 
       const toolResult = await (matchedTool as any).invoke(toolCall.args);
 
       log({
-        event: 'tool_execution_completed',
+        event: "tool_execution_completed",
         toolName: toolCall.name,
         result: toolResult,
         userId: user.id,
@@ -127,49 +177,53 @@ export const runAgent = async (message: string, user: UserRow): Promise<string> 
 
       messages.push(
         new ToolMessage({
-          tool_call_id: toolCall.id ?? '',
+          tool_call_id: toolCall.id ?? "",
           content: String(toolResult),
         }),
       );
     }
 
-    // ── Step 3: Synthesis — call the Prettify Tool to format tool results ──────
-    const prettifyTool = tools.find((t) => t.name === 'prettify_response');
-    
+    // Call LLM again with the new tool results
+    response = await llm.invoke(messages);
+    messages.push(response as AIMessage);
+    iterations++;
+  }
+
+  // ── Step 2: Synthesis ────────────────────
+  if (didCallTools) {
+    const prettifyTool = tools.find((t) => t.name === "prettify_response");
+
     if (prettifyTool) {
       const toolOutputs = messages
         .filter((m) => m instanceof ToolMessage)
         .map((m) => m.content)
-        .join('\n');
+        .join("\n");
 
       const prettified = await (prettifyTool as any).invoke({
         user_query: message,
         raw_data: toolOutputs,
       });
 
-    log({
-      event: 'llm_response_generated',
-      userId: user.id,
-    });
-    return cleanReply(prettified);
+      finalReply = cleanReply(prettified);
+    } else {
+      // Fallback
+      const llmNoTools = buildModel();
+      const finalResponse = await llmNoTools.invoke(messages);
+      finalReply = cleanReply(finalResponse.content);
+    }
+  } else {
+    // No tool was called — return the direct LLM answer
+    finalReply = cleanReply(response.content);
   }
 
-  // Fallback: standard synthesis if tool not found (shouldn't happen)
-  const llmNoTools = buildModel();
-  const finalResponse = await llmNoTools.invoke(messages);
-  log({
-    event: 'llm_response_generated',
-    userId: user.id,
-    fallback: true,
-  });
-  return cleanReply(finalResponse.content);
-}
+  // Save AI reply
+  await saveChatMessage(user.id, "ai", finalReply, conversationId);
 
-// ── No tool was called — return the direct LLM answer ────────────────────
-log({
-  event: 'llm_response_generated',
-  userId: user.id,
-  direct: true,
-});
-return cleanReply(response.content);
+  log({
+    event: "llm_response_generated",
+    userId: user.id,
+    message: finalReply,
+  });
+
+  return finalReply;
 };

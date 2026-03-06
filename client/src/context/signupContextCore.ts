@@ -1,5 +1,5 @@
-import { createContext } from 'react';
-import type { SignupPayload } from '../services/api';
+import { createContext } from "react";
+import type { SignupPayload } from "../services/api";
 
 export interface Step1Data {
   fullName: string;
@@ -7,9 +7,9 @@ export interface Step1Data {
 }
 
 export interface Step2Data {
-  interactionTone: SignupPayload['interactionTone'];
+  interactionTone: SignupPayload["interactionTone"];
   responseComplexity: number;
-  voiceModel: SignupPayload['voiceModel'];
+  voiceModel: SignupPayload["voiceModel"];
   notifyResponseAlerts: boolean;
   notifyDailyBriefing: boolean;
 }

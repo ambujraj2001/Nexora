@@ -1,14 +1,69 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Outlet } from 'react-router-dom';
-import Sidebar from '../pages/dashboard/Sidebar';
+import { useState, useEffect, useCallback } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { message, Modal, Dropdown } from "antd";
+import type { MenuProps } from "antd";
+import { useSelector } from "react-redux";
+import { type RootState } from "../store";
+import Sidebar from "../pages/dashboard/Sidebar";
 
 const DashboardLayout = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(window.innerWidth < 1024);
+  const navigate = useNavigate();
+  const userName = useSelector((state: RootState) => state.user.fullName);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(
+    window.innerWidth < 1024,
+  );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
 
-  const handleToggleSidebar = useCallback(() => setSidebarCollapsed((p) => !p), []);
-  const handleCloseMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
+  const handleToggleSidebar = useCallback(
+    () => setSidebarCollapsed((p) => !p),
+    [],
+  );
+  const handleCloseMobileMenu = useCallback(
+    () => setIsMobileMenuOpen(false),
+    [],
+  );
   const handleOpenMobileMenu = useCallback(() => setIsMobileMenuOpen(true), []);
+
+  const [darkMode, setDarkMode] = useState(() =>
+    typeof document !== "undefined"
+      ? document.documentElement.classList.contains("dark")
+      : false,
+  );
+
+  const toggleDark = useCallback(() => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      document.documentElement.classList.toggle("dark", next);
+      return next;
+    });
+  }, []);
+
+  const handleShare = useCallback(() => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      message.success("Link copied to clipboard!");
+    });
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("accessCode");
+    sessionStorage.removeItem("chief_user");
+    navigate("/login");
+  }, [navigate]);
+
+  const menuItems: MenuProps["items"] = [
+    {
+      key: "logout",
+      label: (
+        <div className="flex items-center gap-2 text-rose-600 font-bold py-1">
+          <span className="material-symbols-outlined text-[18px]">logout</span>
+          <span>Logout</span>
+        </div>
+      ),
+      onClick: () => setLogoutModalVisible(true),
+    },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,28 +71,68 @@ const DashboardLayout = () => {
         setIsMobileMenuOpen(false);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display relative">
+      {/* Logout Confirmation Modal */}
+      <Modal
+        title={null}
+        open={logoutModalVisible}
+        onCancel={() => setLogoutModalVisible(false)}
+        footer={null}
+        centered
+        width={400}
+        className="dark-modal"
+      >
+        <div className="text-center py-6">
+          <div className="size-16 rounded-full bg-rose-50 dark:bg-rose-900/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
+            <span className="material-symbols-outlined text-3xl">logout</span>
+          </div>
+          <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2">
+            Confirm Logout
+          </h3>
+          <p className="text-slate-500 dark:text-slate-400 mb-8 px-4">
+            Are you sure you want to sign out of your account? You will need to
+            enter your access code to log back in.
+          </p>
+          <div className="flex gap-3 px-4">
+            <button
+              onClick={() => setLogoutModalVisible(false)}
+              className="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all font-display"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex-1 py-3 rounded-xl bg-rose-500 text-white font-bold hover:bg-rose-600 transition-all shadow-lg shadow-rose-500/20 font-display"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </Modal>
+
       {/* Mobile Sidebar Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 lg:hidden"
           onClick={handleCloseMobileMenu}
         />
       )}
 
       {/* Sidebar */}
-      <div className={`
+      <div
+        className={`
         fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 lg:relative lg:translate-x-0
-        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `}>
-        <Sidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={handleToggleSidebar} 
+        ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      `}
+      >
+        <Sidebar
+          collapsed={sidebarCollapsed}
+          onToggle={handleToggleSidebar}
           isMobile={true}
           onCloseMobile={handleCloseMobileMenu}
         />
@@ -45,15 +140,73 @@ const DashboardLayout = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 relative overflow-hidden flex flex-col w-full">
-        {/* Mobile Header with Burger Menu */}
-        <header className="lg:hidden flex items-center h-14 px-4 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shrink-0">
-          <button
-            onClick={handleOpenMobileMenu}
-            className="size-9 flex items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-          >
-            <span className="material-symbols-outlined">menu</span>
-          </button>
-          <h1 className="ml-3 text-sm font-bold tracking-tight text-slate-900 dark:text-white">CHIEF OF AI</h1>
+        {/* Unified App Header */}
+        <header className="h-14 sm:h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-10 w-full">
+          <div className="flex items-center gap-2 sm:gap-4 overflow-hidden w-full">
+            {/* Mobile menu toggle */}
+            <button
+              onClick={handleOpenMobileMenu}
+              className="lg:hidden size-9 flex items-center justify-center rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors shrink-0"
+            >
+              <span className="material-symbols-outlined">menu</span>
+            </button>
+            <h1 className="lg:hidden ml-1 text-sm font-bold tracking-tight text-slate-900 dark:text-white shrink-0 hidden sm:block">
+              CHIEF OF AI
+            </h1>
+
+            <div className="flex flex-col overflow-hidden max-w-full lg:max-w-none">
+              <h2 className="text-xs sm:text-sm font-bold flex items-center gap-1.5 truncate">
+                <span className="truncate">AI Nexus</span>
+              </h2>
+              <div className="flex items-center gap-1.5">
+                <div className="size-1.5 sm:size-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                <span className="text-[9px] sm:text-[10px] font-medium text-slate-500  tracking-tight truncate">
+                  Intelligence Synced
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
+            {/* Share */}
+            <button
+              onClick={handleShare}
+              className="size-8 sm:size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              title="Share Page"
+            >
+              <span className="material-symbols-outlined text-[18px] sm:text-[20px] text-slate-600 dark:text-slate-400">
+                share
+              </span>
+            </button>
+
+            {/* Dark mode toggle */}
+            <button
+              onClick={toggleDark}
+              className="size-8 sm:size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              title="Toggle dark mode"
+            >
+              <span className="material-symbols-outlined text-[18px] sm:text-[20px] text-slate-600 dark:text-slate-400">
+                {darkMode ? "light_mode" : "dark_mode"}
+              </span>
+            </button>
+
+            {/* User Profile Dropdown */}
+            <Dropdown
+              menu={{ items: menuItems }}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <button className="flex items-center gap-2 pl-2 cursor-pointer group outline-none">
+                <div
+                  className="size-8 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 transition-all group-hover:border-primary/50"
+                  style={{
+                    backgroundImage: `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "User")}&background=3c83f6&color=fff&size=64')`,
+                    backgroundSize: "cover",
+                  }}
+                />
+              </button>
+            </Dropdown>
+          </div>
         </header>
 
         <Outlet context={{ sidebarCollapsed, setSidebarCollapsed }} />

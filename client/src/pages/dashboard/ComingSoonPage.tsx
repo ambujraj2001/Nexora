@@ -1,6 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-const ComingSoonPage = ({ title }: { title: string }) => {
+const ComingSoonPage = ({
+  title,
+  message,
+}: {
+  title: string;
+  message?: string;
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -14,15 +20,15 @@ const ComingSoonPage = ({ title }: { title: string }) => {
         {title}
       </h2>
       <p className="text-slate-500 dark:text-slate-400 max-w-md mb-8 leading-relaxed">
-        We're working hard to bring this feature to your digital workplace. 
-        Stay tuned for updates as we continue building the future of AI operations.
+        {message ||
+          "We're working hard to bring this feature to your digital workplace. Stay tuned for updates as we continue building the future of AI operations."}
       </p>
       <button
-        onClick={() => navigate('/dashboard')}
+        onClick={() => navigate("/dashboard")}
         className="px-8 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-2"
       >
         <span className="material-symbols-outlined text-lg">arrow_back</span>
-        Back to Dashboard
+        Back to Chat
       </button>
     </div>
   );

@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppHeader from '../components/AppHeader';
-import ProgressBar from '../components/ProgressBar';
-import { useSignup } from '../context/useSignup';
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import AppHeader from "../components/AppHeader";
+import ProgressBar from "../components/ProgressBar";
+import { useSignup } from "../context/useSignup";
 
 const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
   const navigate = useNavigate();
@@ -13,25 +13,32 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }, []);
 
-  const handleNext = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    setStep1(form);
-    onNext();
-  }, [form, setStep1, onNext]);
+  const handleNext = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      setStep1(form);
+      onNext();
+    },
+    [form, setStep1, onNext],
+  );
 
-  const handleGoToLogin = useCallback(() => navigate('/login'), [navigate]);
+  const handleGoToLogin = useCallback(() => navigate("/login"), [navigate]);
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
       <div className="fixed bottom-0 right-0 p-8 opacity-10 pointer-events-none hidden lg:block">
-        <span className="material-symbols-outlined text-[240px] text-primary">hub</span>
+        <span className="material-symbols-outlined text-[240px] text-primary">
+          hub
+        </span>
       </div>
 
       <div className="layout-container flex h-full grow flex-col">
         <AppHeader
           rightSlot={
             <button className="flex items-center justify-center rounded-lg h-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-4 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-              <span className="material-symbols-outlined text-[20px]">account_circle</span>
+              <span className="material-symbols-outlined text-[20px]">
+                account_circle
+              </span>
             </button>
           }
         />
@@ -45,7 +52,8 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
                 Create your account
               </h1>
               <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base font-normal">
-                Start your journey into AI leadership with a professional profile.
+                Start your journey into AI leadership with a professional
+                profile.
               </p>
             </div>
 
@@ -103,14 +111,16 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
                   className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl h-14 bg-primary text-white text-base font-bold leading-normal tracking-tight hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
                 >
                   <span>Next: AI Preferences</span>
-                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                  <span className="material-symbols-outlined text-[20px]">
+                    arrow_forward
+                  </span>
                 </button>
               </div>
             </form>
 
             <div className="flex justify-center border-t border-slate-200 dark:border-slate-800 pt-6">
               <p className="text-slate-500 dark:text-slate-400 text-sm">
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <button
                   onClick={handleGoToLogin}
                   className="text-primary font-semibold hover:underline bg-transparent border-none cursor-pointer"
