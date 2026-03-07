@@ -77,9 +77,7 @@ export const createAppTool = tool(
 
       // Auto-add creator to any members-like data key
       const layout = parsedSchema.layout as Array<{ component: string }>;
-      const memberComponent = layout.find((c) =>
-        /member/i.test(c.component),
-      );
+      const memberComponent = layout.find((c) => /member/i.test(c.component));
       if (memberComponent) {
         const key = memberComponent.component;
         const existing = seedData[key];
@@ -188,7 +186,8 @@ export const listAppsTool = tool(
 
       const allApps = [...(ownedApps ?? []), ...memberApps];
 
-      if (allApps.length === 0) return "No apps found. The user hasn't created any apps yet.";
+      if (allApps.length === 0)
+        return "No apps found. The user hasn't created any apps yet.";
 
       return allApps
         .map(

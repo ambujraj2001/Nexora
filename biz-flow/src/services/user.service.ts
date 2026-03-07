@@ -108,8 +108,7 @@ export const updateUserByAccessCode = async (
     payload.notify_response_alerts = updates.notifyResponseAlerts;
   if (updates.notifyDailyBriefing !== undefined)
     payload.notify_daily_briefing = updates.notifyDailyBriefing;
-  if (updates.showDemo !== undefined) 
-    payload.show_demo = updates.showDemo;
+  if (updates.showDemo !== undefined) payload.show_demo = updates.showDemo;
   if (updates.twoFactorEnabled !== undefined)
     payload.two_factor_enabled = updates.twoFactorEnabled;
   if (updates.twoFactorSecret !== undefined)
@@ -167,14 +166,12 @@ export const updateUserByEmail = async (
     payload.notify_response_alerts = updates.notifyResponseAlerts;
   if (updates.notifyDailyBriefing !== undefined)
     payload.notify_daily_briefing = updates.notifyDailyBriefing;
-  if (updates.showDemo !== undefined) 
-    payload.show_demo = updates.showDemo;
+  if (updates.showDemo !== undefined) payload.show_demo = updates.showDemo;
   if (updates.twoFactorEnabled !== undefined)
     payload.two_factor_enabled = updates.twoFactorEnabled;
   if (updates.twoFactorSecret !== undefined)
     payload.two_factor_secret = updates.twoFactorSecret;
-  if (updates.isLocked !== undefined)
-    payload.is_locked = updates.isLocked;
+  if (updates.isLocked !== undefined) payload.is_locked = updates.isLocked;
 
   const { data, error } = await supabase
     .from("users")

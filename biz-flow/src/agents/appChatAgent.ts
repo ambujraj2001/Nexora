@@ -19,13 +19,13 @@ import {
 
 // ─── System prompt builder ───────────────────────────────────────────────────
 
-const buildAppSystemPrompt = (
-  app: AppRow,
-  appData: AppDataRow[],
-): string => {
-  const dataSection = appData.length > 0
-    ? appData.map((d) => `${d.key}: ${JSON.stringify(d.value, null, 2)}`).join("\n\n")
-    : "(No data yet)";
+const buildAppSystemPrompt = (app: AppRow, appData: AppDataRow[]): string => {
+  const dataSection =
+    appData.length > 0
+      ? appData
+          .map((d) => `${d.key}: ${JSON.stringify(d.value, null, 2)}`)
+          .join("\n\n")
+      : "(No data yet)";
 
   return `
 You are an AI assistant operating inside an application called "${app.name}".
@@ -82,9 +82,7 @@ IMPORTANT:
 
 const buildChatMessages = (recentChats: AppChatRow[]): BaseMessage[] =>
   recentChats.map((c) =>
-    c.role === "user"
-      ? new HumanMessage(c.message)
-      : new AIMessage(c.message),
+    c.role === "user" ? new HumanMessage(c.message) : new AIMessage(c.message),
   );
 
 // ─── Response cleaner ────────────────────────────────────────────────────────
@@ -111,7 +109,9 @@ interface ParsedAppResponse {
   dataUpdates?: DataUpdate[];
 }
 
-const classifyParsed = (parsed: Record<string, unknown>): ParsedAppResponse | null => {
+const classifyParsed = (
+  parsed: Record<string, unknown>,
+): ParsedAppResponse | null => {
   if (parsed.type === "data_update" && Array.isArray(parsed.data_updates)) {
     return {
       type: "data_update",
@@ -131,7 +131,9 @@ const classifyParsed = (parsed: Record<string, unknown>): ParsedAppResponse | nu
   return null;
 };
 
-const extractLeadingJson = (text: string): { json: Record<string, unknown>; rest: string } | null => {
+const extractLeadingJson = (
+  text: string,
+): { json: Record<string, unknown>; rest: string } | null => {
   const trimmed = text.trimStart();
   if (!trimmed.startsWith("{")) return null;
 
@@ -141,9 +143,18 @@ const extractLeadingJson = (text: string): { json: Record<string, unknown>; rest
 
   for (let i = 0; i < trimmed.length; i++) {
     const ch = trimmed[i];
-    if (escape) { escape = false; continue; }
-    if (ch === "\\") { escape = true; continue; }
-    if (ch === '"') { inString = !inString; continue; }
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (ch === "\\") {
+      escape = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
     if (inString) continue;
     if (ch === "{" || ch === "[") depth++;
     else if (ch === "}" || ch === "]") {

@@ -52,7 +52,9 @@ export const signup = async (
     // ── Check if user already exists ─────────────────────────────────────────
     const existingUser = await findUserByEmail(email.trim());
     if (existingUser) {
-      res.status(400).json({ error: "An account with this email already exists" });
+      res
+        .status(400)
+        .json({ error: "An account with this email already exists" });
       return;
     }
 
@@ -132,8 +134,17 @@ export const bootconfig = async (
     }
 
     if (user.is_locked) {
-      log({ event: "bootconfig_failed", message: "Account is locked", userId: user.id });
-      res.status(403).json({ error: "Your account is locked. Please use the unlock flow to regain access." });
+      log({
+        event: "bootconfig_failed",
+        message: "Account is locked",
+        userId: user.id,
+      });
+      res
+        .status(403)
+        .json({
+          error:
+            "Your account is locked. Please use the unlock flow to regain access.",
+        });
       return;
     }
 
@@ -176,7 +187,9 @@ export const bootconfig = async (
         // 3. Success! Generate a new session sessionToken
         newSessionToken = crypto.randomUUID();
         // Store for 24 hours
-        await redis.set(`2fa_session:${user.id}`, newSessionToken, { ex: 86400 });
+        await redis.set(`2fa_session:${user.id}`, newSessionToken, {
+          ex: 86400,
+        });
       }
     }
 
@@ -394,7 +407,11 @@ export const generate2FA = async (
 
 // ─── POST /auth/2fa/enable ──────────────────────────────────────────────────
 export const enable2FA = async (
-  req: Request<object, object, { accessCode: string; secret: string; code: string }>,
+  req: Request<
+    object,
+    object,
+    { accessCode: string; secret: string; code: string }
+  >,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
@@ -403,10 +420,10 @@ export const enable2FA = async (
     const cleanToken = (code || "").replace(/\s+/g, "");
     const cleanSecret = (secret || "").replace(/\s+/g, "");
 
-    const isValid = (authenticator.verify as any)({ 
-      token: cleanToken, 
+    const isValid = (authenticator.verify as any)({
+      token: cleanToken,
       secret: cleanSecret,
-      window: 1 
+      window: 1,
     });
     if (!isValid) {
       res.status(400).json({ error: "Invalid verification code" });
@@ -487,7 +504,11 @@ export const requestLockOTP = async (
 
 // ─── POST /auth/lock-account ────────────────────────────────────────────────
 export const lockAccount = async (
-  req: Request<object, object, { email: string; otp: string; twoFactorCode?: string }>,
+  req: Request<
+    object,
+    object,
+    { email: string; otp: string; twoFactorCode?: string }
+  >,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
@@ -522,7 +543,9 @@ export const lockAccount = async (
     // If 2FA is enabled, require code for locking
     if (user.two_factor_enabled) {
       if (!twoFactorCode) {
-        res.status(400).json({ error: "2FA verification code is required to lock account" });
+        res
+          .status(400)
+          .json({ error: "2FA verification code is required to lock account" });
         return;
       }
 
@@ -591,7 +614,11 @@ export const requestUnlockOTP = async (
 
 // ─── POST /auth/unlock-account ──────────────────────────────────────────────
 export const unlockAccount = async (
-  req: Request<object, object, { email: string; otp: string; twoFactorCode?: string }>,
+  req: Request<
+    object,
+    object,
+    { email: string; otp: string; twoFactorCode?: string }
+  >,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
@@ -621,7 +648,11 @@ export const unlockAccount = async (
     // Verify 2FA if enabled
     if (user.two_factor_enabled) {
       if (!twoFactorCode) {
-        res.status(400).json({ error: "2FA verification code is required to unlock account" });
+        res
+          .status(400)
+          .json({
+            error: "2FA verification code is required to unlock account",
+          });
         return;
       }
 
@@ -642,7 +673,12 @@ export const unlockAccount = async (
     await redis.del(redisKey); // Clear OTP
 
     log({ event: "account_unlocked", userId: user.id });
-    res.status(200).json({ message: "Account unlocked successfully. You can now login with your access code." });
+    res
+      .status(200)
+      .json({
+        message:
+          "Account unlocked successfully. You can now login with your access code.",
+      });
   } catch (err) {
     next(err);
   }

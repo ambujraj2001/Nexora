@@ -1,7 +1,6 @@
 # Chief of AI: Your Ultimate Executive AI Chief of Staff
 
-Chief of AI is a premium AI-powered productivity workspace designed for high-performance individuals. More than a chatbot, it acts as your intelligent assistant—bringing together tasks, calendar, documents, and memory into one seamless conversational experience.
----
+## Chief of AI is a premium AI-powered productivity workspace designed for high-performance individuals. More than a chatbot, it acts as your intelligent assistant—bringing together tasks, calendar, documents, and memory into one seamless conversational experience.
 
 ## 🚀 The Product Ecosystem
 
