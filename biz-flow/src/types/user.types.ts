@@ -37,6 +37,8 @@ export interface SignupBody {
   notifyResponseAlerts: boolean;
   notifyDailyBriefing: boolean;
   showDemo?: boolean;
+  twoFactorSecret?: string;
+  twoFactorCode?: string;
 }
 
 /** Profile Update request body */
@@ -49,6 +51,8 @@ export interface UpdateProfileBody extends Partial<SignupBody> {
 /** BootConfig request body */
 export interface BootConfigBody {
   accessCode: string;
+  twoFactorCode?: string;
+  sessionToken?: string;
 }
 
 /** Signup response */
@@ -75,4 +79,5 @@ export interface BootConfigResponse {
     twoFactorEnabled: boolean;
   };
   twoFactorRequired?: boolean;
+  sessionToken?: string;
 }

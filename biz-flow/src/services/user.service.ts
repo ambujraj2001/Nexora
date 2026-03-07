@@ -18,44 +18,40 @@ export const createUser = async (
     voiceModel,
     notifyResponseAlerts,
     notifyDailyBriefing,
+    twoFactorSecret,
   } = body;
 
   let accessCode = generateAccessCode();
 
+  const insertData = {
+    access_code: accessCode,
+    full_name: fullName,
+    email,
+    role: role || "User",
+    interaction_tone: interactionTone,
+    response_complexity: responseComplexity,
+    voice_model: voiceModel,
+    notify_response_alerts: notifyResponseAlerts,
+    notify_daily_briefing: notifyDailyBriefing,
+    show_demo: false,
+    two_factor_enabled: !!twoFactorSecret,
+    two_factor_secret: twoFactorSecret || null,
+  };
+
   const { data, error } = await supabase
     .from("users")
-    .insert({
-      access_code: accessCode,
-      full_name: fullName,
-      email,
-      role: role || "User",
-      interaction_tone: interactionTone,
-      response_complexity: responseComplexity,
-      voice_model: voiceModel,
-      notify_response_alerts: notifyResponseAlerts,
-      notify_daily_briefing: notifyDailyBriefing,
-      show_demo: false, // Default to false (meaning demo NOT yet shown)
-    })
+    .insert(insertData)
     .select("id, access_code")
     .single();
 
   if (error) {
-    // 23505 = unique_violation — retry with a new code
     if (error.code === "23505") {
       accessCode = generateAccessCode();
       const retry = await supabase
         .from("users")
         .insert({
+          ...insertData,
           access_code: accessCode,
-          full_name: fullName,
-          email,
-          role: role || "User",
-          interaction_tone: interactionTone,
-          response_complexity: responseComplexity,
-          voice_model: voiceModel,
-          notify_response_alerts: notifyResponseAlerts,
-          notify_daily_briefing: notifyDailyBriefing,
-          show_demo: false,
         })
         .select("id, access_code")
         .single();

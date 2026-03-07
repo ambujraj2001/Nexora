@@ -14,6 +14,8 @@ export interface SignupPayload {
   voiceModel: "atlas" | "standard";
   notifyResponseAlerts: boolean;
   notifyDailyBriefing: boolean;
+  twoFactorSecret?: string;
+  twoFactorCode?: string;
 }
 
 export interface SignupResult {
@@ -33,6 +35,7 @@ export interface BootConfigResult {
     twoFactorEnabled: boolean;
   };
   twoFactorRequired?: boolean;
+  sessionToken?: string;
 }
 
 export interface UpdateProfilePayload extends Partial<SignupPayload> {
@@ -70,8 +73,13 @@ export const apiSignup = (payload: SignupPayload): Promise<SignupResult> =>
 export const apiBootConfig = (
   accessCode: string,
   twoFactorCode?: string,
+  sessionToken?: string,
 ): Promise<BootConfigResult> =>
-  post<BootConfigResult>("/auth/bootconfig", { accessCode, twoFactorCode });
+  post<BootConfigResult>("/auth/bootconfig", {
+    accessCode,
+    twoFactorCode,
+    sessionToken,
+  });
 
 /** POST /auth/update-profile — updates user profile & preferences */
 export const apiUpdateProfile = (
@@ -100,6 +108,13 @@ export const apiDisable2FA = (
   accessCode: string,
 ): Promise<{ message: string }> =>
   post<{ message: string }>("/auth/2fa/disable", { accessCode });
+
+export const apiGenerateSignup2FA = (
+  email: string,
+): Promise<{ secret: string; qrCodeUrl: string }> =>
+  post<{ secret: string; qrCodeUrl: string }>("/auth/2fa/generate-signup", {
+    email,
+  });
 
 /** POST /chat — sends message to AI agent & returns reply */
 export interface ChatResult {

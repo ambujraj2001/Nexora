@@ -73,16 +73,9 @@ const DashboardLayout = () => {
       placement: "left",
     },
     {
-      target: "#sidebar-item-integrations",
+      target: "#sidebar-bottom-nav",
       content:
-        "Connect your favorite tools like Google Calendar, Notion, and Slack to unify your digital workspace.",
-      placement: "right",
-      disableScrolling: true,
-    },
-    {
-      target: "#sidebar-item-settings",
-      content:
-        "Personalize your AI experience, manage your account, and configure security preferences here.",
+        "Access system settings and connect third-party integrations like Calendar and Slack to supercharge your AI.",
       placement: "right",
       disableScrolling: true,
     },

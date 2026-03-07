@@ -25,6 +25,7 @@ export const useAuthBootstrap = () => {
 
     const run = async () => {
       const storedCode = localStorage.getItem("accessCode");
+      const storedSessionToken = localStorage.getItem("2fa_session");
 
       if (!storedCode) {
         setChecking(false);
@@ -33,12 +34,17 @@ export const useAuthBootstrap = () => {
 
       isBooting.current = true;
       try {
-        const result = await apiBootConfig(storedCode);
+        const result = await apiBootConfig(storedCode, undefined, storedSessionToken || undefined);
         
         if (result.twoFactorRequired) {
           // Force login but don't clear storage yet, we just need the 2FA code
           navigate("/login", { replace: true });
           return;
+        }
+
+        // If a new session token was returned, save it
+        if (result.sessionToken) {
+          localStorage.setItem("2fa_session", result.sessionToken);
         }
 
         dispatch(setUser({ ...result, accessCode: storedCode }));
@@ -50,6 +56,7 @@ export const useAuthBootstrap = () => {
         }
       } catch {
         localStorage.removeItem("accessCode");
+        localStorage.removeItem("2fa_session");
         sessionStorage.removeItem("chief_user");
         navigate("/login", { replace: true });
       } finally {

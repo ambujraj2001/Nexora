@@ -44,6 +44,10 @@ const LoginPage = () => {
           return;
         }
 
+        if (result.sessionToken) {
+          localStorage.setItem("2fa_session", result.sessionToken);
+        }
+
         dispatch(
           setUser({ ...result, accessCode: userCode.trim().toUpperCase() }),
         );
