@@ -151,7 +151,7 @@ export const deleteJournalTool = tool(
   {
     name: "delete_journal",
     description:
-      "Delete a specific journal entry by its ID. If the exact ID is unknown, ALWAYS run get_journals first to list available journals. DO NOT guess the ID. Ask the user to confirm the specific ID if unclear.",
+      "Delete a specific journal entry by its ID. IMPORTANT: NEVER call this tool immediately after get_journals. After fetching entries, you MUST first respond with a clarification asking the user which one to delete, then call this tool only after the user confirms. The 'id' parameter must be an exact UUID copied from the get_journals result.",
     schema: z.object({
       accessCode: z.string().describe("The user's access code."),
       id: z.string().describe("The ID of the journal entry to delete."),

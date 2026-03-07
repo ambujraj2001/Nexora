@@ -151,7 +151,7 @@ export const deleteKnowledgeTool = tool(
   {
     name: "delete_knowledge",
     description:
-      "Delete a specific knowledge entry by its ID. If the exact ID is unknown, ALWAYS run get_knowledges first to list available knowledge entries. DO NOT guess the ID. Ask the user to confirm the specific ID if unclear.",
+      "Delete a specific knowledge entry by its ID. IMPORTANT: NEVER call this tool immediately after get_knowledges. After fetching entries, you MUST first respond with a clarification asking the user which one to delete, then call this tool only after the user confirms. The 'id' parameter must be an exact UUID copied from the get_knowledges result.",
     schema: z.object({
       accessCode: z.string().describe("The user's access code."),
       id: z.string().describe("The ID of the knowledge entry to delete."),

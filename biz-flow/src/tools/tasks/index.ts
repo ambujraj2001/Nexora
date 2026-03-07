@@ -164,7 +164,7 @@ export const deleteTaskTool = tool(
   {
     name: "delete_task",
     description:
-      "Deletes a task by ID. If the exact ID is unknown, ALWAYS run get_tasks first to list available tasks. DO NOT guess the ID. Ask the user to specify which one to delete by ID if unclear. Using update_task to mark it as completed is usually better.",
+      "Deletes a task by ID. IMPORTANT: NEVER call this tool immediately after get_tasks. After fetching tasks, you MUST first respond with a clarification asking the user which one to delete, then call this tool only after the user confirms. The 'id' parameter must be an exact UUID copied from the get_tasks result.",
     schema: z.object({
       accessCode: z
         .string()

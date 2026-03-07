@@ -149,7 +149,7 @@ export const deleteMemoryTool = tool(
   {
     name: "delete_memory",
     description:
-      "Delete a specific memory by its ID. If the exact ID is unknown, ALWAYS run get_memories first to list available memories. DO NOT guess the ID. Ask the user to confirm the specific ID if unclear.",
+      "Delete a specific memory by its ID. IMPORTANT: NEVER call this tool immediately after get_memories. After fetching memories, you MUST first respond with a clarification asking the user which memory to delete, then call this tool only after the user confirms. The 'id' parameter must be an exact UUID copied from the get_memories result.",
     schema: z.object({
       accessCode: z.string().describe("The user's access code."),
       id: z.string().describe("The ID of the memory to delete."),
