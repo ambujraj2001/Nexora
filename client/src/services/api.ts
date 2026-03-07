@@ -92,7 +92,9 @@ export interface Generate2FAResult {
   secret: string;
   qrCodeUrl: string;
 }
-export const apiGenerate2FA = (accessCode: string): Promise<Generate2FAResult> =>
+export const apiGenerate2FA = (
+  accessCode: string,
+): Promise<Generate2FAResult> =>
   post<Generate2FAResult>("/auth/2fa/generate", { accessCode });
 
 /** POST /auth/2fa/enable */
@@ -467,11 +469,18 @@ export const apiGetApps = async (
   return data as { apps: AppEntry[] };
 };
 
-/** GET /apps/:appId — fetch app metadata + schema */
+export interface AppMemberInfo {
+  user_id: string;
+  full_name: string;
+  role: string;
+  joined_at: string;
+}
+
+/** GET /apps/:appId — fetch app metadata + schema + members */
 export const apiGetApp = async (
   appId: string,
   accessCode: string,
-): Promise<{ app: AppEntry }> => {
+): Promise<{ app: AppEntry; members: AppMemberInfo[] }> => {
   const res = await fetch(
     `${BASE_URL}/apps/${appId}?accessCode=${encodeURIComponent(accessCode)}`,
     {
@@ -482,7 +491,7 @@ export const apiGetApp = async (
   const data = await res.json();
   if (!res.ok)
     throw new Error(data?.error ?? `Request failed with status ${res.status}`);
-  return data as { app: AppEntry };
+  return data as { app: AppEntry; members: AppMemberInfo[] };
 };
 
 /** GET /apps/:appId/data — fetch current app data */
@@ -529,13 +538,37 @@ export const apiAppChat = (
 ): Promise<AppChatResult> =>
   post<AppChatResult>(`/apps/${appId}/chat`, { message, accessCode });
 
+/** GET /apps/:appId/analyze — analyze app data and generate HTML report */
+export const apiAnalyzeApp = async (
+  appId: string,
+  accessCode: string,
+): Promise<{ html: string }> => {
+  const res = await fetch(
+    `${BASE_URL}/apps/${appId}/analyze?accessCode=${encodeURIComponent(
+      accessCode,
+    )}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as { html: string };
+};
+
 /** Account Lock/Unlock */
 export const apiLockAccount = (
   email: string,
   otp: string,
   twoFactorCode?: string,
 ): Promise<{ message: string }> =>
-  post<{ message: string }>("/auth/lock-account", { email, otp, twoFactorCode });
+  post<{ message: string }>("/auth/lock-account", {
+    email,
+    otp,
+    twoFactorCode,
+  });
 
 export const apiRequestLockOTP = (
   email: string,
@@ -552,4 +585,129 @@ export const apiUnlockAccount = (
   otp: string,
   twoFactorCode?: string,
 ): Promise<{ message: string }> =>
-  post<{ message: string }>("/auth/unlock-account", { email, otp, twoFactorCode });
+  post<{ message: string }>("/auth/unlock-account", {
+    email,
+    otp,
+    twoFactorCode,
+  });
+
+// ─── AI Routines API ────────────────────────────────────────────────────────
+export interface AIRoutineEntry {
+  id: string;
+  name: string;
+  instruction: string;
+  cron_expression: string;
+  is_active: boolean;
+  last_run: string | null;
+  created_at: string;
+}
+
+export interface AIRoutineRunEntry {
+  id: string;
+  routine_id: string;
+  result: string;
+  executed_at: string;
+}
+
+export interface AINotificationEntry {
+  id: string;
+  title: string;
+  message: string;
+  is_read: boolean;
+  created_at: string;
+}
+
+export const apiGetRoutines = async (
+  accessCode: string,
+): Promise<{ routines: AIRoutineEntry[] }> => {
+  const res = await fetch(
+    `${BASE_URL}/routines?accessCode=${encodeURIComponent(accessCode)}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as { routines: AIRoutineEntry[] };
+};
+
+export const apiCreateRoutine = (
+  accessCode: string,
+  name: string,
+  instruction: string,
+  cronExpression: string,
+): Promise<AIRoutineEntry> =>
+  post<AIRoutineEntry>("/routines", {
+    accessCode,
+    name,
+    instruction,
+    cronExpression,
+  });
+
+export const apiUpdateRoutine = async (
+  routineId: string,
+  updates: {
+    name?: string;
+    instruction?: string;
+    cronExpression?: string;
+    isActive?: boolean;
+  },
+): Promise<AIRoutineEntry> => {
+  const res = await fetch(`${BASE_URL}/routines/${routineId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updates),
+  });
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as AIRoutineEntry;
+};
+
+export const apiDeleteRoutine = async (
+  routineId: string,
+): Promise<{ success: boolean }> => {
+  const res = await fetch(`${BASE_URL}/routines/${routineId}`, {
+    method: "DELETE",
+  });
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as { success: boolean };
+};
+
+export const apiGetRoutineRuns = async (
+  routineId: string,
+): Promise<{ runs: AIRoutineRunEntry[] }> => {
+  const res = await fetch(`${BASE_URL}/routines/${routineId}/runs`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as { runs: AIRoutineRunEntry[] };
+};
+
+export const apiGetNotifications = async (
+  accessCode: string,
+): Promise<{ notifications: AINotificationEntry[] }> => {
+  const res = await fetch(
+    `${BASE_URL}/routines/notifications?accessCode=${encodeURIComponent(accessCode)}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as { notifications: AINotificationEntry[] };
+};
+
+export const apiGenerateCron = (
+  prompt: string,
+): Promise<{ cronExpression: string }> =>
+  post<{ cronExpression: string }>("/routines/generate-cron", { prompt });

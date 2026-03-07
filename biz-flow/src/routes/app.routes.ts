@@ -6,6 +6,7 @@ import {
   getApp,
   getAppDataEndpoint,
   getAppChats,
+  analyzeApp,
 } from "../controllers/app.controller";
 
 const router = Router();
@@ -15,6 +16,9 @@ router.get("/", listApps);
 
 // POST /apps/join — join an app using a join code (must be before /:appId)
 router.post("/join", joinApp);
+
+// GET /apps/:appId/analyze — analyze app data and generate HTML report
+router.get("/:appId/analyze", analyzeApp);
 
 // GET /apps/:appId — fetch app metadata + schema
 router.get("/:appId", getApp);

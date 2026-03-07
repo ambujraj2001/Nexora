@@ -3,14 +3,28 @@ import { supabase } from "../config/supabase";
 // ─── Join code generator ─────────────────────────────────────────────────────
 
 const PREFIXES = [
-  "APP", "SPLT", "TASK", "TRCK", "NOTE", "POLL", "HBIT",
-  "BUDG", "PLAN", "LIST", "MEET", "GOAL", "TEAM", "WORK",
+  "APP",
+  "SPLT",
+  "TASK",
+  "TRCK",
+  "NOTE",
+  "POLL",
+  "HBIT",
+  "BUDG",
+  "PLAN",
+  "LIST",
+  "MEET",
+  "GOAL",
+  "TEAM",
+  "WORK",
 ];
 
 export const generateJoinCode = (): string => {
   const prefix = PREFIXES[Math.floor(Math.random() * PREFIXES.length)];
   const hex = Array.from({ length: 4 }, () =>
-    Math.floor(Math.random() * 16).toString(16).toUpperCase(),
+    Math.floor(Math.random() * 16)
+      .toString(16)
+      .toUpperCase(),
   ).join("");
   return `${prefix}-${hex}`;
 };
@@ -66,6 +80,34 @@ export interface AppMemberRow {
   joined_at: string;
 }
 
+export interface AppMemberInfo {
+  user_id: string;
+  full_name: string;
+  email: string;
+  role: string;
+  joined_at: string;
+}
+
+export const getAppMembers = async (
+  appId: string,
+): Promise<AppMemberInfo[]> => {
+  const { data, error } = await supabase
+    .from("app_members")
+    .select("user_id, role, joined_at, users(full_name, email)")
+    .eq("app_id", appId)
+    .order("joined_at", { ascending: true });
+
+  if (error) throw new Error(`Failed to fetch app members: ${error.message}`);
+
+  return (data ?? []).map((row: any) => ({
+    user_id: row.user_id,
+    full_name: row.users?.full_name ?? "Unknown",
+    email: row.users?.email ?? "Unknown",
+    role: row.role,
+    joined_at: row.joined_at,
+  }));
+};
+
 // ─── Queries ─────────────────────────────────────────────────────────────────
 
 export const getUserApps = async (userId: string): Promise<AppRow[]> => {
@@ -76,7 +118,8 @@ export const getUserApps = async (userId: string): Promise<AppRow[]> => {
     .eq("owner_id", userId)
     .order("created_at", { ascending: false });
 
-  if (ownedErr) throw new Error(`Failed to fetch owned apps: ${ownedErr.message}`);
+  if (ownedErr)
+    throw new Error(`Failed to fetch owned apps: ${ownedErr.message}`);
 
   // Apps the user is a member of
   const { data: memberships, error: memberErr } = await supabase
@@ -84,7 +127,8 @@ export const getUserApps = async (userId: string): Promise<AppRow[]> => {
     .select("app_id")
     .eq("user_id", userId);
 
-  if (memberErr) throw new Error(`Failed to fetch memberships: ${memberErr.message}`);
+  if (memberErr)
+    throw new Error(`Failed to fetch memberships: ${memberErr.message}`);
 
   const memberAppIds = (memberships ?? [])
     .map((m) => m.app_id)
@@ -102,7 +146,7 @@ export const getUserApps = async (userId: string): Promise<AppRow[]> => {
     memberApps = (data ?? []) as AppRow[];
   }
 
-  return [...(ownedApps ?? []) as AppRow[], ...memberApps];
+  return [...((ownedApps ?? []) as AppRow[]), ...memberApps];
 };
 
 export const getAppById = async (appId: string): Promise<AppRow | null> => {

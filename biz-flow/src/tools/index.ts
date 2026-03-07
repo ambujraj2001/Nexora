@@ -10,6 +10,7 @@ import { subtractNumbersTool } from "./subtractNumbersTool";
 import { randomJokeTool } from "./randomJokeTool";
 import { prettifyResponseTool } from "./prettifyTool";
 import { getChatHistoryTool } from "./getChatHistoryTool";
+import { webSearchTool } from "./webSearchTool";
 
 import {
   addMemoryTool,
@@ -49,6 +50,8 @@ import { createAppTool, listAppsTool } from "./apps";
 import { safetyTool } from "./safetyTool";
 import { helpTool } from "./helpTool";
 
+import { sendEmailTool } from "./sendEmailTool";
+
 export const tools = [
   addNumbersTool,
   subtractNumbersTool,
@@ -85,6 +88,8 @@ export const tools = [
   listAppsTool,
   safetyTool,
   helpTool,
+  webSearchTool,
+  sendEmailTool,
 ];
 
 export type AppTool = (typeof tools)[number];
