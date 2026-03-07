@@ -96,7 +96,7 @@ export const findUserByAccessCode = async (
  */
 export const updateUserByAccessCode = async (
   accessCode: string,
-  updates: Partial<SignupBody>,
+  updates: any,
 ): Promise<UserRow> => {
   const payload: any = {};
   if (updates.fullName) payload.full_name = updates.fullName;
@@ -113,6 +113,10 @@ export const updateUserByAccessCode = async (
     payload.notify_daily_briefing = updates.notifyDailyBriefing;
   if (updates.showDemo !== undefined) 
     payload.show_demo = updates.showDemo;
+  if (updates.twoFactorEnabled !== undefined)
+    payload.two_factor_enabled = updates.twoFactorEnabled;
+  if (updates.twoFactorSecret !== undefined)
+    payload.two_factor_secret = updates.twoFactorSecret;
 
   const { data, error } = await supabase
     .from("users")

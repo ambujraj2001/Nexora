@@ -14,6 +14,8 @@ import { log } from "../utils/logger";
 import { generateOTP } from "../utils/otp";
 import { redis } from "../config/redis";
 import { sendOTP } from "../services/mail.service";
+import { authenticator } from "otplib";
+import QRCode from "qrcode";
 
 // ─── POST /auth/signup ──────────────────────────────────────────────────────
 
@@ -82,12 +84,12 @@ export const signup = async (
 // ─── POST /auth/bootconfig ──────────────────────────────────────────────────
 
 export const bootconfig = async (
-  req: Request<object, object, BootConfigBody>,
+  req: Request<object, object, BootConfigBody & { twoFactorCode?: string }>,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { accessCode } = req.body;
+    const { accessCode, twoFactorCode } = req.body;
 
     if (!accessCode?.trim()) {
       res.status(400).json({ error: "accessCode is required" });
@@ -100,6 +102,27 @@ export const bootconfig = async (
       log({ event: "bootconfig_failed", message: "Invalid access code" });
       res.status(401).json({ error: "Invalid access code" });
       return;
+    }
+
+    // ── Check 2FA ────────────────────────────────────────────────────────────
+    if (user.two_factor_enabled) {
+      if (!twoFactorCode) {
+        res.status(200).json({
+          twoFactorRequired: true,
+          message: "Authenticator code required",
+        });
+        return;
+      }
+
+      const isValid = authenticator.verify({
+        token: twoFactorCode,
+        secret: user.two_factor_secret || "",
+      });
+
+      if (!isValid) {
+        res.status(401).json({ error: "Invalid authenticator code" });
+        return;
+      }
     }
 
     log({
@@ -122,6 +145,7 @@ export const bootconfig = async (
         notifyResponseAlerts: user.notify_response_alerts,
         notifyDailyBriefing: user.notify_daily_briefing,
         showDemo: user.show_demo,
+        twoFactorEnabled: user.two_factor_enabled,
       },
     });
   } catch (err) {
@@ -257,6 +281,77 @@ export const verifyOTP = async (
       message: "OTP verified successfully",
       accessCode: user.access_code,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/2fa/generate ────────────────────────────────────────────────
+export const generate2FA = async (
+  req: Request<object, object, { accessCode: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { accessCode } = req.body;
+    const user = await findUserByAccessCode(accessCode);
+
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    const secret = authenticator.generateSecret();
+    const otpauth = authenticator.keyuri(user.email, "Chief of AI", secret);
+    const qrCodeUrl = await QRCode.toDataURL(otpauth);
+
+    res.status(200).json({ secret, qrCodeUrl });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/2fa/enable ──────────────────────────────────────────────────
+export const enable2FA = async (
+  req: Request<object, object, { accessCode: string; secret: string; code: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { accessCode, secret, code } = req.body;
+
+    const isValid = authenticator.verify({ token: code, secret });
+    if (!isValid) {
+      res.status(400).json({ error: "Invalid verification code" });
+      return;
+    }
+
+    await updateUserByAccessCode(accessCode, {
+      twoFactorEnabled: true,
+      twoFactorSecret: secret,
+    });
+
+    res.status(200).json({ message: "2FA enabled successfully" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/2fa/disable ──────────────────────────────────────────────────
+export const disable2FA = async (
+  req: Request<object, object, { accessCode: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { accessCode } = req.body;
+
+    await updateUserByAccessCode(accessCode, {
+      twoFactorEnabled: false,
+      twoFactorSecret: null,
+    });
+
+    res.status(200).json({ message: "2FA disabled successfully" });
   } catch (err) {
     next(err);
   }

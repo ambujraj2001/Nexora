@@ -22,20 +22,24 @@ export interface SignupResult {
 }
 
 export interface BootConfigResult {
-  user: { id: string; fullName: string; email: string; role: string };
-  preferences: {
+  user?: { id: string; fullName: string; email: string; role: string };
+  preferences?: {
     interactionTone: string;
     responseComplexity: number;
     voiceModel: string;
     notifyResponseAlerts: boolean;
     notifyDailyBriefing: boolean;
     showDemo: boolean;
+    twoFactorEnabled: boolean;
   };
+  twoFactorRequired?: boolean;
 }
 
 export interface UpdateProfilePayload extends Partial<SignupPayload> {
   accessCode: string;
   showDemo?: boolean;
+  twoFactorEnabled?: boolean;
+  twoFactorSecret?: string;
 }
 
 const post = async <T>(path: string, body: unknown): Promise<T> => {
@@ -63,14 +67,39 @@ export const apiSignup = (payload: SignupPayload): Promise<SignupResult> =>
   post<SignupResult>("/auth/signup", payload);
 
 /** POST /auth/bootconfig — validates access code & returns user profile */
-export const apiBootConfig = (accessCode: string): Promise<BootConfigResult> =>
-  post<BootConfigResult>("/auth/bootconfig", { accessCode });
+export const apiBootConfig = (
+  accessCode: string,
+  twoFactorCode?: string,
+): Promise<BootConfigResult> =>
+  post<BootConfigResult>("/auth/bootconfig", { accessCode, twoFactorCode });
 
 /** POST /auth/update-profile — updates user profile & preferences */
 export const apiUpdateProfile = (
   payload: UpdateProfilePayload,
 ): Promise<BootConfigResult> =>
   post<BootConfigResult>("/auth/update-profile", payload);
+
+/** POST /auth/2fa/generate */
+export interface Generate2FAResult {
+  secret: string;
+  qrCodeUrl: string;
+}
+export const apiGenerate2FA = (accessCode: string): Promise<Generate2FAResult> =>
+  post<Generate2FAResult>("/auth/2fa/generate", { accessCode });
+
+/** POST /auth/2fa/enable */
+export const apiEnable2FA = (
+  accessCode: string,
+  secret: string,
+  code: string,
+): Promise<{ message: string }> =>
+  post<{ message: string }>("/auth/2fa/enable", { accessCode, secret, code });
+
+/** POST /auth/2fa/disable */
+export const apiDisable2FA = (
+  accessCode: string,
+): Promise<{ message: string }> =>
+  post<{ message: string }>("/auth/2fa/disable", { accessCode });
 
 /** POST /chat — sends message to AI agent & returns reply */
 export interface ChatResult {
