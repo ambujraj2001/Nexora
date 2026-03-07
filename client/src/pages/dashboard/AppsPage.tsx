@@ -64,9 +64,7 @@ const AppsPage: React.FC = () => {
       await fetchApps();
       navigate(`/dashboard/app/${result.appId}`);
     } catch (err: unknown) {
-      message.error(
-        err instanceof Error ? err.message : "Failed to join app",
-      );
+      message.error(err instanceof Error ? err.message : "Failed to join app");
     } finally {
       setJoining(false);
     }
@@ -93,9 +91,7 @@ const AppsPage: React.FC = () => {
           onClick={() => setJoinModalOpen(true)}
           className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-xl text-sm font-bold hover:border-primary hover:text-primary transition-all shadow-sm"
         >
-          <span className="material-symbols-outlined text-lg">
-            group_add
-          </span>
+          <span className="material-symbols-outlined text-lg">group_add</span>
           Join App
         </button>
       </div>
@@ -264,9 +260,7 @@ const AppsPage: React.FC = () => {
               </>
             ) : (
               <>
-                <span className="material-symbols-outlined text-lg">
-                  login
-                </span>
+                <span className="material-symbols-outlined text-lg">login</span>
                 Join App
               </>
             )}

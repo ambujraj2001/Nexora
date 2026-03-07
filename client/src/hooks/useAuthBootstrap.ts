@@ -34,8 +34,12 @@ export const useAuthBootstrap = () => {
 
       isBooting.current = true;
       try {
-        const result = await apiBootConfig(storedCode, undefined, storedSessionToken || undefined);
-        
+        const result = await apiBootConfig(
+          storedCode,
+          undefined,
+          storedSessionToken || undefined,
+        );
+
         if (result.twoFactorRequired) {
           // Force login but don't clear storage yet, we just need the 2FA code
           navigate("/login", { replace: true });

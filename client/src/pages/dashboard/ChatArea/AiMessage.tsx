@@ -62,7 +62,10 @@ const AiMessage: React.FC<AiMessageProps> = ({ content, onOptionSelect }) => {
         const { parsed, rest } = extracted;
         if (parsed.type === "clarification" && parsed.options) {
           const data = parsed as unknown as ClarificationData;
-          if (rest) data.question = data.question ? `${data.question}\n\n${rest}` : rest;
+          if (rest)
+            data.question = data.question
+              ? `${data.question}\n\n${rest}`
+              : rest;
           return { kind: "clarification", data };
         }
         const msg = typeof parsed.message === "string" ? parsed.message : "";
