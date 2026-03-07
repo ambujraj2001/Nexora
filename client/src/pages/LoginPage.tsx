@@ -69,7 +69,9 @@ const LoginPage = () => {
 
   const handleTwoFactorChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTwoFactorCode(e.target.value);
+      // Remove any spaces or non-digit characters
+      const val = e.target.value.replace(/[^0-9]/g, "");
+      setTwoFactorCode(val);
       setError(null);
     },
     [],

@@ -114,9 +114,11 @@ export const bootconfig = async (
         return;
       }
 
-      const isValid = authenticator.verify({
-        token: twoFactorCode,
+      const cleanToken = (twoFactorCode || "").replace(/\s+/g, "");
+      const isValid = (authenticator.verify as any)({
+        token: cleanToken,
         secret: user.two_factor_secret || "",
+        window: 1,
       });
 
       if (!isValid) {
@@ -302,7 +304,8 @@ export const generate2FA = async (
     }
 
     const secret = authenticator.generateSecret();
-    const otpauth = authenticator.keyuri(user.email, "Chief of AI", secret);
+    // Use a clean issuer name and include the email in the label
+    const otpauth = authenticator.keyuri(user.email, "ChiefOfAI", secret);
     const qrCodeUrl = await QRCode.toDataURL(otpauth);
 
     res.status(200).json({ secret, qrCodeUrl });
@@ -319,8 +322,14 @@ export const enable2FA = async (
 ): Promise<void> => {
   try {
     const { accessCode, secret, code } = req.body;
+    const cleanToken = (code || "").replace(/\s+/g, "");
+    const cleanSecret = (secret || "").replace(/\s+/g, "");
 
-    const isValid = authenticator.verify({ token: code, secret });
+    const isValid = (authenticator.verify as any)({ 
+      token: cleanToken, 
+      secret: cleanSecret,
+      window: 1 
+    });
     if (!isValid) {
       res.status(400).json({ error: "Invalid verification code" });
       return;

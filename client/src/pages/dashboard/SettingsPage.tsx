@@ -429,15 +429,6 @@ const SettingsPage = () => {
             </section>
           </div>
 
-          {/* Data Management */}
-          <section className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-6 sm:p-8 border border-primary/20">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="material-symbols-outlined text-primary">
-                database
-              </span>
-            </div>
-          </section>
-
           {/* Security Section */}
           <section className="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-2 mb-6">
@@ -566,7 +557,9 @@ const SettingsPage = () => {
                 <Input
                   placeholder="Enter 6-digit code"
                   value={verificationCode}
-                  onChange={(e) => setVerificationCode(e.target.value)}
+                  onChange={(e) =>
+                    setVerificationCode(e.target.value.replace(/[^0-9]/g, ""))
+                  }
                   maxLength={6}
                   className="text-center text-lg tracking-[0.5em] py-3 rounded-xl border-slate-200 dark:border-slate-800"
                 />
