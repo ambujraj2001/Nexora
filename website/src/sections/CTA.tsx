@@ -21,10 +21,13 @@ const CTA = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-2xl text-lg font-bold transition-all shadow-xl shadow-primary/40 hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
+              <a
+                href="https://chief-of-ai.vercel.app/"
+                className="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-2xl text-lg font-bold transition-all shadow-xl shadow-primary/40 hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
+              >
                 Start Using Chief of AI
                 <ArrowRight className="w-6 h-6" />
-              </button>
+              </a>
               <button className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white px-10 py-5 rounded-2xl text-lg font-bold border border-white/10 transition-all flex items-center justify-center gap-2">
                 Talk to Sales
               </button>
