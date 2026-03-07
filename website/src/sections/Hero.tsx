@@ -27,9 +27,9 @@ const Hero = () => {
           </h1>
 
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Chief of AI is a chat-first AI workspace that combines tools,
-            memory, automation, and AI-generated apps into one intelligent
-            assistant.
+            Chief of AI is a chat-first AI workspace powered by traditional
+            email and password login. No complex access codes or separate
+            authenticators required—just sign in and start building.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
