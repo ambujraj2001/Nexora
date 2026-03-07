@@ -10,7 +10,9 @@ import {
   apiGetAppData,
   apiGetAppChats,
   apiAppChat,
+  apiAnalyzeApp,
   type AppEntry,
+  type AppMemberInfo,
 } from "../../services/api";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -27,54 +29,19 @@ interface ClarificationData {
   options: string[];
 }
 
-// ─── Schema-driven UI renderer ───────────────────────────────────────────────
+// ─── Data formatting helpers ─────────────────────────────────────────────────
 
-const AppSchemaRenderer: React.FC<{
-  schema: AppEntry["schema"];
-  appData: Record<string, unknown>;
-}> = ({ schema, appData }) => {
-  const layout = schema?.layout;
-  if (!Array.isArray(layout) || layout.length === 0) {
-    return (
-      <div className="text-center py-8 text-slate-400 text-sm">
-        No UI components defined for this app.
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      {layout.map((item, idx) => {
-        const componentName = item.component;
-        const dataKey = componentName.replace(/_/g, " ");
-        const matchedKey = Object.keys(appData).find(
-          (k) =>
-            k === componentName ||
-            k === dataKey ||
-            k.replace(/_/g, " ") === dataKey,
-        );
-        const value = matchedKey ? appData[matchedKey] : undefined;
-
-        return (
-          <div
-            key={idx}
-            className="p-4 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 shadow-sm"
-          >
-            <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <span className="material-symbols-outlined text-sm text-primary">
-                {getComponentIcon(componentName)}
-              </span>
-              {formatComponentName(componentName)}
-            </h3>
-            <div className="text-sm text-slate-700 dark:text-slate-300">
-              {renderDataValue(value)}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+function formatValue(v: unknown): string {
+  if (v === null || v === undefined) return "";
+  if (typeof v === "string" || typeof v === "number" || typeof v === "boolean")
+    return String(v);
+  if (Array.isArray(v)) return v.map((item) => formatValue(item)).join(", ");
+  if (typeof v === "object")
+    return Object.entries(v)
+      .map(([k, val]) => `${k}: ${formatValue(val)}`)
+      .join(", ");
+  return String(v);
+}
 
 function getComponentIcon(name: string): string {
   const lower = name.toLowerCase();
@@ -90,31 +57,34 @@ function getComponentIcon(name: string): string {
 }
 
 function formatComponentName(name: string): string {
-  return name
-    .replace(/_/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function renderDataValue(value: unknown): React.ReactNode {
-  if (value === undefined || value === null) {
-    return (
-      <span className="text-slate-400 italic text-xs">No data yet</span>
-    );
-  }
+function getItemCount(value: unknown): string {
+  if (Array.isArray(value))
+    return `${value.length} item${value.length !== 1 ? "s" : ""}`;
+  if (typeof value === "object" && value !== null)
+    return `${Object.keys(value).length} field${Object.keys(value).length !== 1 ? "s" : ""}`;
+  return "";
+}
+
+// ─── Full data renderer (for modal) ─────────────────────────────────────────
+
+const FullDataView: React.FC<{ value: unknown }> = ({ value }) => {
+  if (value === undefined || value === null)
+    return <p className="text-slate-400 italic text-sm">No data yet</p>;
 
   if (Array.isArray(value)) {
-    if (value.length === 0) {
-      return (
-        <span className="text-slate-400 italic text-xs">Empty</span>
-      );
-    }
+    if (value.length === 0)
+      return <p className="text-slate-400 italic text-sm">Empty</p>;
+
     if (typeof value[0] === "string" || typeof value[0] === "number") {
       return (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {value.map((v, i) => (
             <span
               key={i}
-              className="px-2.5 py-1 bg-primary/10 text-primary rounded-md text-xs font-medium"
+              className="px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-medium"
             >
               {String(v)}
             </span>
@@ -122,25 +92,30 @@ function renderDataValue(value: unknown): React.ReactNode {
         </div>
       );
     }
+
     return (
-      <div className="space-y-2">
+      <div className="space-y-3">
         {value.map((item, i) => (
           <div
             key={i}
-            className="p-2.5 bg-slate-50 dark:bg-slate-700/40 rounded-lg text-xs space-y-1"
+            className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 text-sm"
           >
-            {typeof item === "object" && item !== null
-              ? Object.entries(item).map(([k, v]) => (
-                  <div key={k} className="flex gap-2">
-                    <span className="font-semibold text-slate-500 dark:text-slate-400 min-w-[80px]">
-                      {k}:
+            {typeof item === "object" && item !== null ? (
+              <div className="space-y-1.5">
+                {Object.entries(item).map(([k, v]) => (
+                  <div key={k} className="flex gap-3">
+                    <span className="font-semibold text-slate-500 dark:text-slate-400 min-w-[100px] shrink-0 capitalize">
+                      {k.replace(/_/g, " ")}
                     </span>
-                    <span className="text-slate-700 dark:text-slate-300">
-                      {Array.isArray(v) ? v.join(", ") : String(v ?? "")}
+                    <span className="text-slate-700 dark:text-slate-300 break-all">
+                      {formatValue(v)}
                     </span>
                   </div>
-                ))
-              : String(item)}
+                ))}
+              </div>
+            ) : (
+              <span>{formatValue(item)}</span>
+            )}
           </div>
         ))}
       </div>
@@ -149,14 +124,14 @@ function renderDataValue(value: unknown): React.ReactNode {
 
   if (typeof value === "object") {
     return (
-      <div className="space-y-1 text-xs">
+      <div className="space-y-2 text-sm">
         {Object.entries(value as Record<string, unknown>).map(([k, v]) => (
-          <div key={k} className="flex gap-2">
-            <span className="font-semibold text-slate-500 dark:text-slate-400 min-w-[80px]">
-              {k}:
+          <div key={k} className="flex gap-3">
+            <span className="font-semibold text-slate-500 dark:text-slate-400 min-w-[100px] shrink-0 capitalize">
+              {k.replace(/_/g, " ")}
             </span>
-            <span className="text-slate-700 dark:text-slate-300">
-              {String(v ?? "")}
+            <span className="text-slate-700 dark:text-slate-300 break-all">
+              {formatValue(v)}
             </span>
           </div>
         ))}
@@ -164,8 +139,179 @@ function renderDataValue(value: unknown): React.ReactNode {
     );
   }
 
-  return <span>{String(value)}</span>;
-}
+  return <span className="text-sm">{String(value)}</span>;
+};
+
+// ─── Schema-driven UI renderer ───────────────────────────────────────────────
+
+const AppSchemaRenderer: React.FC<{
+  schema: AppEntry["schema"];
+  appData: Record<string, unknown>;
+  members: AppMemberInfo[];
+}> = ({ schema, appData, members }) => {
+  const [expandedCard, setExpandedCard] = useState<{
+    name: string;
+    value: unknown;
+  } | null>(null);
+
+  const layout = schema?.layout;
+  if (!Array.isArray(layout) || layout.length === 0) {
+    return (
+      <div className="text-center py-6 text-slate-400 text-sm">
+        No UI components defined for this app.
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+        {layout.map((item, idx) => {
+          const componentName = item.component;
+          const isMemberComponent = /member/i.test(componentName);
+
+          // For members components, use real members from DB
+          let value: unknown;
+          let hasData: boolean;
+          let count: string;
+          let preview: string;
+
+          if (isMemberComponent) {
+            const memberNames = members.map((m) => m.full_name);
+            value = memberNames;
+            hasData = memberNames.length > 0;
+            count = `${memberNames.length} member${memberNames.length !== 1 ? "s" : ""}`;
+            preview =
+              memberNames.slice(0, 3).join(", ") +
+              (memberNames.length > 3 ? "..." : "");
+          } else {
+            const dataKey = componentName.replace(/_/g, " ");
+            const matchedKey = Object.keys(appData).find(
+              (k) =>
+                k === componentName ||
+                k === dataKey ||
+                k.replace(/_/g, " ") === dataKey,
+            );
+            value = matchedKey ? appData[matchedKey] : undefined;
+            hasData =
+              value !== undefined &&
+              value !== null &&
+              !(Array.isArray(value) && value.length === 0);
+            count = getItemCount(value);
+            preview = "";
+            if (hasData) {
+              if (Array.isArray(value)) {
+                if (
+                  typeof value[0] === "string" ||
+                  typeof value[0] === "number"
+                ) {
+                  preview =
+                    value.slice(0, 3).join(", ") +
+                    (value.length > 3 ? "..." : "");
+                } else {
+                  preview = `${value.length} entries`;
+                }
+              } else if (typeof value === "object") {
+                preview = Object.keys(value as Record<string, unknown>)
+                  .slice(0, 3)
+                  .join(", ");
+              } else {
+                preview = String(value);
+              }
+            }
+          }
+
+          // For the modal, pass real members data for member components
+          const modalValue = isMemberComponent
+            ? members.map((m) => ({
+                name: m.full_name,
+                role: m.role,
+              }))
+            : value;
+
+          return (
+            <button
+              key={idx}
+              onClick={() =>
+                setExpandedCard({
+                  name: componentName,
+                  value: modalValue,
+                })
+              }
+              className="p-3 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 shadow-sm hover:border-primary/40 hover:shadow-md transition-all text-left group cursor-pointer"
+            >
+              <div className="flex items-center gap-1.5 mb-2">
+                <span className="material-symbols-outlined text-sm text-primary">
+                  {getComponentIcon(componentName)}
+                </span>
+                <h3 className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider truncate">
+                  {formatComponentName(componentName)}
+                </h3>
+              </div>
+              {hasData ? (
+                <div>
+                  {count && (
+                    <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                      {count}
+                    </p>
+                  )}
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                    {preview}
+                  </p>
+                </div>
+              ) : (
+                <p className="text-[11px] text-slate-400 italic">No data</p>
+              )}
+              <div className="flex items-center gap-1 mt-2 text-[10px] text-primary opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                <span className="material-symbols-outlined text-xs">
+                  open_in_full
+                </span>
+                View
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Fullscreen Card Modal */}
+      <Modal
+        open={!!expandedCard}
+        onCancel={() => setExpandedCard(null)}
+        footer={null}
+        centered
+        width="90vw"
+        style={{ maxWidth: 700, top: 20 }}
+        styles={{
+          body: { maxHeight: "80vh", overflowY: "auto", padding: "16px 20px" },
+        }}
+        closable
+      >
+        {expandedCard && (
+          <div>
+            <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <div className="size-9 rounded-xl bg-primary/10 flex items-center justify-center">
+                <span className="material-symbols-outlined text-primary text-lg">
+                  {getComponentIcon(expandedCard.name)}
+                </span>
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-slate-800 dark:text-white">
+                  {formatComponentName(expandedCard.name)}
+                </h2>
+                {getItemCount(expandedCard.value) && (
+                  <p className="text-xs text-slate-500">
+                    {getItemCount(expandedCard.value)}
+                  </p>
+                )}
+              </div>
+            </div>
+            <FullDataView value={expandedCard.value} />
+          </div>
+        )}
+      </Modal>
+    </>
+  );
+};
 
 // ─── App Chat Message Components ─────────────────────────────────────────────
 
@@ -177,7 +323,10 @@ const AppAiMessage: React.FC<{
     try {
       const parsed = JSON.parse(content);
       if (parsed?.type === "clarification") {
-        return { kind: "clarification" as const, data: parsed as ClarificationData };
+        return {
+          kind: "clarification" as const,
+          data: parsed as ClarificationData,
+        };
       }
       if (parsed?.message) {
         return { kind: "text" as const, text: parsed.message };
@@ -248,11 +397,15 @@ const AppPage = () => {
 
   const [app, setApp] = useState<AppEntry | null>(null);
   const [appData, setAppData] = useState<Record<string, unknown>>({});
+  const [members, setMembers] = useState<AppMemberInfo[]>([]);
   const [messages, setMessages] = useState<UIMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [loading, setLoading] = useState(true);
   const [shareOpen, setShareOpen] = useState(false);
+  const [analysisOpen, setAnalysisOpen] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [analysisHtml, setAnalysisHtml] = useState("");
 
   const chatEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -271,6 +424,7 @@ const AppPage = () => {
         ]);
 
         setApp(appRes.app);
+        setMembers(appRes.members ?? []);
 
         const dataMap: Record<string, unknown> = {};
         for (const entry of dataRes.data) {
@@ -419,6 +573,35 @@ const AppPage = () => {
     [],
   );
 
+  const handleAnalyze = async () => {
+    if (!appId || !accessCode) return;
+    setAnalyzing(true);
+    setAnalysisHtml("");
+    try {
+      const result = await apiAnalyzeApp(appId, accessCode);
+      setAnalysisHtml(result.html);
+      setAnalysisOpen(true);
+    } catch (err) {
+      message.error("Failed to generate analysis report.");
+      console.error(err);
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const downloadReport = () => {
+    if (!analysisHtml) return;
+    const blob = new Blob([analysisHtml], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${app?.name || "App"}_Analysis_Report.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-3 text-slate-400">
@@ -440,8 +623,8 @@ const AppPage = () => {
   return (
     <div className="flex flex-col h-full overflow-hidden bg-white dark:bg-background-dark">
       {/* App Header */}
-      <div className="shrink-0 border-b border-slate-200 dark:border-slate-800 px-4 sm:px-6 py-3">
-        <div className="max-w-4xl mx-auto flex items-center gap-3">
+      <div className="shrink-0 border-b border-slate-200 dark:border-slate-800 px-3 sm:px-4 py-2.5">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/dashboard/apps")}
             className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -467,30 +650,61 @@ const AppPage = () => {
               )}
             </div>
           </div>
-          {app.join_code && (
+          <div className="flex items-center gap-2">
             <button
-              onClick={() => setShareOpen(true)}
-              className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors shadow-sm"
+              onClick={handleAnalyze}
+              disabled={analyzing}
+              className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-primary/10 hover:text-primary transition-all disabled:opacity-50"
             >
-              <span className="material-symbols-outlined text-base">
-                share
-              </span>
-              Share
+              {analyzing ? (
+                <>
+                  <div className="size-3.5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                  Analyzing...
+                </>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined text-base">
+                    analytics
+                  </span>
+                  Analyze
+                </>
+              )}
             </button>
-          )}
+            {app.join_code && (
+              <button
+                onClick={() => setShareOpen(true)}
+                className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors shadow-sm"
+              >
+                <span className="material-symbols-outlined text-base">
+                  share
+                </span>
+                Share
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Scrollable content: App UI + Chat */}
-      <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: "thin", scrollbarColor: "#e2e8f0 transparent" }}>
-        <div className="max-w-4xl mx-auto w-full">
+      <div
+        className="flex-1 overflow-y-auto"
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#e2e8f0 transparent",
+        }}
+      >
+        <div className="w-full">
           {/* App UI from Schema */}
-          <div className="px-4 sm:px-6 py-4 border-b border-slate-100 dark:border-slate-800/50">
-            <AppSchemaRenderer schema={app.schema} appData={appData} />
+          <div className="px-3 sm:px-4 py-3 border-b border-slate-100 dark:border-slate-800/50">
+            <AppSchemaRenderer
+              schema={app.schema}
+              appData={appData}
+              members={members}
+            />
           </div>
 
           {/* Chat Messages */}
-          <div className="px-4 sm:px-6 py-4 space-y-6">
+          <div className="px-3 sm:px-4 py-4 space-y-6 max-w-4xl mx-auto">
             {messages.map((msg) =>
               msg.role === "ai" ? (
                 <AppAiMessage
@@ -511,9 +725,18 @@ const AppPage = () => {
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
                   <div className="flex gap-1.5">
-                    <div className="size-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <div className="size-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <div className="size-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                    <div
+                      className="size-2 rounded-full bg-slate-400 animate-bounce"
+                      style={{ animationDelay: "0ms" }}
+                    />
+                    <div
+                      className="size-2 rounded-full bg-slate-400 animate-bounce"
+                      style={{ animationDelay: "150ms" }}
+                    />
+                    <div
+                      className="size-2 rounded-full bg-slate-400 animate-bounce"
+                      style={{ animationDelay: "300ms" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -524,8 +747,8 @@ const AppPage = () => {
       </div>
 
       {/* Chat Input */}
-      <footer className="shrink-0 p-4 sm:p-6 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800">
-        <div className="max-w-4xl mx-auto">
+      <footer className="shrink-0 px-3 sm:px-4 py-3 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800">
+        <div className="max-w-3xl mx-auto">
           <div className="relative flex items-start bg-slate-100 dark:bg-slate-800 rounded-xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
             <textarea
               ref={textareaRef}
@@ -603,6 +826,56 @@ const AppPage = () => {
           </div>
         </Modal>
       )}
+
+      {/* Analysis Report Modal */}
+      <Modal
+        title={null}
+        open={analysisOpen}
+        onCancel={() => setAnalysisOpen(false)}
+        footer={null}
+        centered
+        width="95vw"
+        style={{ maxWidth: 1000, top: 20 }}
+        styles={{ body: { height: "85vh", padding: 0 } }}
+        closable
+      >
+        <div className="flex flex-col h-full bg-slate-50">
+          <div className="shrink-0 p-4 border-b border-slate-200 flex items-center justify-between bg-white rounded-t-lg">
+            <div className="flex items-center gap-3">
+              <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <span className="material-symbols-outlined text-primary text-2xl font-bold">
+                  analytics
+                </span>
+              </div>
+              <div>
+                <h3 className="text-lg font-black text-slate-900 tracking-tight">
+                  AI Analysis Report
+                </h3>
+                <p className="text-xs text-slate-500 font-medium">{app.name}</p>
+              </div>
+            </div>
+            <button
+              onClick={downloadReport}
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl text-sm font-bold hover:bg-primary/90 transition-all shadow-md shadow-primary/20"
+            >
+              <span className="material-symbols-outlined text-lg">
+                download
+              </span>
+              Download HTML
+            </button>
+          </div>
+          <div className="flex-1 overflow-auto p-4 md:p-8">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden min-h-full">
+              <iframe
+                srcDoc={analysisHtml}
+                title="Analysis Report"
+                className="w-full h-full border-none min-h-[70vh]"
+                sandbox="allow-scripts"
+              />
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

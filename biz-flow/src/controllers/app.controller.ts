@@ -10,9 +10,12 @@ import {
   isAppMember,
   addAppMember,
   upsertAppData,
+  getAppMembers,
 } from "../services/app.service";
 import { runAppChatAgent } from "../agents/appChatAgent";
 import { log } from "../utils/logger";
+import { buildModel } from "../config/model";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 
 // ─── GET /apps ───────────────────────────────────────────────────────────────
 
@@ -200,13 +203,16 @@ export const getApp = async (
       return;
     }
 
-    const app = await getAppById(appId);
+    const [app, members] = await Promise.all([
+      getAppById(appId),
+      getAppMembers(appId),
+    ]);
     if (!app) {
       res.status(404).json({ error: "App not found" });
       return;
     }
 
-    res.status(200).json({ app });
+    res.status(200).json({ app, members });
   } catch (err) {
     next(err);
   }
@@ -280,6 +286,101 @@ export const getAppChats = async (
 
     res.status(200).json({ chats });
   } catch (err) {
+    next(err);
+  }
+};
+
+// ─── GET /apps/:appId/analyze ───────────────────────────────────────────────
+
+export const analyzeApp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { appId } = req.params;
+    const accessCode = req.query.accessCode as string;
+
+    if (!accessCode) {
+      res.status(400).json({ error: "accessCode is required" });
+      return;
+    }
+
+    const user = await findUserByAccessCode(accessCode);
+    if (!user) {
+      res.status(401).json({ error: "Invalid access code" });
+      return;
+    }
+
+    const hasAccess = await verifyAppMembership(appId, user.id);
+    if (!hasAccess) {
+      res.status(403).json({ error: "You do not have access to this app" });
+      return;
+    }
+
+    // 1. Gather all data
+    const [app, members, appData] = await Promise.all([
+      getAppById(appId),
+      getAppMembers(appId),
+      getAppData(appId),
+    ]);
+
+    if (!app) {
+      res.status(404).json({ error: "App not found" });
+      return;
+    }
+
+    // 2. Build the Model
+    const model = buildModel();
+
+    // 3. Prompt the model
+    const systemPrompt = `
+      You are an expert Business Analyst. 
+      Analyze the following data from a collaborative AI application and generate a comprehensive, professional, and visually stunning HTML report.
+      The HTML should be a standalone single file including CSS (use internal <style>).
+      Use modern design: clean typography (Inter/System), nice cards, gradients, and professional colors.
+      The report should include:
+      - App Overview (Name, Description)
+      - Member Analysis (Who is involved, activity profile)
+      - Data Insights (What information is being managed, key metrics, summaries)
+      - Recommendations for improvement/growth.
+      Return ONLY the HTML code. No explanation, no wrap in markdown, just <html>...</html>.
+    `;
+
+    const userContent = {
+      app: {
+        name: app.name,
+        description: app.description,
+        createdAt: app.created_at,
+      },
+      members: members.map((m) => ({
+        name: m.full_name,
+        email: m.email,
+        role: m.role,
+        joinedAt: m.joined_at,
+      })),
+      data: appData.map((d) => ({
+        key: d.key,
+        value: d.value,
+        updatedAt: d.updated_at,
+      })),
+    };
+
+    const response = await model.invoke([
+      new SystemMessage(systemPrompt),
+      new HumanMessage(JSON.stringify(userContent)),
+    ]);
+
+    let html = response.content as string;
+
+    // Clean up if it returned markdown block
+    if (html.startsWith("```html")) {
+      html = html.replace(/^```html\n?/, "").replace(/\n?```$/, "");
+    }
+
+    res.status(200).json({ html });
+  } catch (err) {
+    console.error("Analysis Error:", err);
     next(err);
   }
 };

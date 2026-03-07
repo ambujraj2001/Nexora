@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.routes";
 import chatRoutes from "./routes/chat.routes";
 import fileRoutes from "./routes/file.routes";
 import appRoutes from "./routes/app.routes";
+import routineRoutes from "./routes/routine.routes";
 import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
@@ -77,6 +78,7 @@ app.use("/auth", authRoutes);
 app.use("/chat", chatRoutes);
 app.use("/files", fileRoutes);
 app.use("/apps", appRoutes);
+app.use("/routines", routineRoutes);
 
 // ── Global error handler (must be last) ──────────────────────────────────────
 app.use(errorHandler);

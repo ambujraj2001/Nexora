@@ -50,6 +50,8 @@ import { createAppTool, listAppsTool } from "./apps";
 import { safetyTool } from "./safetyTool";
 import { helpTool } from "./helpTool";
 
+import { sendEmailTool } from "./sendEmailTool";
+
 export const tools = [
   addNumbersTool,
   subtractNumbersTool,
@@ -87,6 +89,7 @@ export const tools = [
   safetyTool,
   helpTool,
   webSearchTool,
+  sendEmailTool,
 ];
 
 export type AppTool = (typeof tools)[number];

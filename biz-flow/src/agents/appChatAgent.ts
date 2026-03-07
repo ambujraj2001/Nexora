@@ -37,6 +37,7 @@ CORE RULES:
 - Use the provided app data to understand the current state before responding.
 - When the user requests an action that changes data, you MUST return a data_updates array.
 - Keep responses concise and helpful.
+- The members list is managed automatically by the system (from the app_members table). Do NOT update members_list in app_data. Only manage non-member data keys.
 
 APP SCHEMA:
 ${JSON.stringify(app.schema, null, 2)}
