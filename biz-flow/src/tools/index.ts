@@ -45,6 +45,7 @@ import {
   deleteReminderTool,
 } from "./reminders";
 import { listFilesTool, deleteFileTool, summarizeFileTool } from "./files";
+import { createAppTool, listAppsTool } from "./apps";
 import { safetyTool } from "./safetyTool";
 import { helpTool } from "./helpTool";
 
@@ -80,6 +81,8 @@ export const tools = [
   listFilesTool,
   deleteFileTool,
   summarizeFileTool,
+  createAppTool,
+  listAppsTool,
   safetyTool,
   helpTool,
 ];
