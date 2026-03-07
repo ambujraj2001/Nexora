@@ -9,6 +9,10 @@ import {
   enable2FA,
   disable2FA,
   generateSignup2FA,
+  lockAccount,
+  requestLockOTP,
+  requestUnlockOTP,
+  unlockAccount,
 } from "../controllers/auth.controller";
 
 const router = Router();
@@ -27,6 +31,12 @@ router.post("/forgot-access-code", forgotAccessCode);
 
 // POST /auth/verify-otp
 router.post("/verify-otp", verifyOTP);
+
+// Account Lock/Unlock
+router.post("/request-lock-otp", requestLockOTP);
+router.post("/lock-account", lockAccount);
+router.post("/request-unlock-otp", requestUnlockOTP);
+router.post("/unlock-account", unlockAccount);
 
 // 2FA Routes
 router.post("/2fa/generate", generate2FA);

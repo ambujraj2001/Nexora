@@ -22,6 +22,7 @@ export interface UserRow {
   show_demo: boolean;
   two_factor_enabled: boolean;
   two_factor_secret: string | null;
+  is_locked: boolean;
   created_at: string;
   updated_at: string;
 }

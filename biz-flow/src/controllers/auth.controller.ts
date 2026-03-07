@@ -4,6 +4,7 @@ import {
   findUserByAccessCode,
   updateUserByAccessCode,
   findUserByEmail,
+  updateUserByEmail,
 } from "../services/user.service";
 import {
   SignupBody,
@@ -48,7 +49,14 @@ export const signup = async (
       return;
     }
 
-    // ── 2FA Validation for Compulsory Signup ──────────────────────────────────
+    // ── Check if user already exists ─────────────────────────────────────────
+    const existingUser = await findUserByEmail(email.trim());
+    if (existingUser) {
+      res.status(400).json({ error: "An account with this email already exists" });
+      return;
+    }
+
+    // ── 2FA Validation for Optional Signup (Default ON) ──────────────────────
     if (twoFactorSecret) {
       if (!twoFactorCode) {
         res.status(400).json({ error: "2FA verification code is required" });
@@ -120,6 +128,12 @@ export const bootconfig = async (
     if (!user) {
       log({ event: "bootconfig_failed", message: "Invalid access code" });
       res.status(401).json({ error: "Invalid access code" });
+      return;
+    }
+
+    if (user.is_locked) {
+      log({ event: "bootconfig_failed", message: "Account is locked", userId: user.id });
+      res.status(403).json({ error: "Your account is locked. Please use the unlock flow to regain access." });
       return;
     }
 
@@ -425,6 +439,210 @@ export const disable2FA = async (
     });
 
     res.status(200).json({ message: "2FA disabled successfully" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/request-lock-otp ────────────────────────────────────────────
+export const requestLockOTP = async (
+  req: Request<object, object, { email: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    if (!email?.trim()) {
+      res.status(400).json({ error: "Email is required" });
+      return;
+    }
+
+    const user = await findUserByEmail(email.trim());
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    if (user.is_locked) {
+      res.status(400).json({ error: "Account is already locked" });
+      return;
+    }
+
+    const otp = generateOTP();
+    const redisKey = `lock_otp:${email.toLowerCase().trim()}`;
+
+    // Store OTP in Redis with 10-minute TTL
+    await redis.set(redisKey, otp, { ex: 600 });
+
+    // Send OTP via email
+    await sendOTP(email.trim(), otp);
+
+    log({ event: "lock_otp_requested", email: email.trim() });
+    res.status(200).json({ message: "Lock OTP sent to your email" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/lock-account ────────────────────────────────────────────────
+export const lockAccount = async (
+  req: Request<object, object, { email: string; otp: string; twoFactorCode?: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { email, otp, twoFactorCode } = req.body;
+
+    if (!email?.trim() || !otp?.trim()) {
+      res.status(400).json({ error: "Email and OTP are required" });
+      return;
+    }
+
+    const user = await findUserByEmail(email.trim());
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    if (user.is_locked) {
+      res.status(400).json({ error: "Account is already locked" });
+      return;
+    }
+
+    // Verify OTP from Redis
+    const redisKey = `lock_otp:${email.toLowerCase().trim()}`;
+    const storedOTP = await redis.get<string | number>(redisKey);
+
+    if (!storedOTP || String(storedOTP) !== String(otp).trim()) {
+      res.status(400).json({ error: "Invalid or expired OTP" });
+      return;
+    }
+
+    // If 2FA is enabled, require code for locking
+    if (user.two_factor_enabled) {
+      if (!twoFactorCode) {
+        res.status(400).json({ error: "2FA verification code is required to lock account" });
+        return;
+      }
+
+      const isValid = (authenticator.verify as any)({
+        token: twoFactorCode.replace(/\s+/g, ""),
+        secret: user.two_factor_secret,
+        window: 1,
+      });
+
+      if (!isValid) {
+        res.status(400).json({ error: "Invalid 2FA verification code" });
+        return;
+      }
+    }
+
+    await updateUserByEmail(email.trim(), { isLocked: true });
+    await redis.del(redisKey); // Clear OTP
+
+    log({ event: "account_locked", userId: user.id });
+    res.status(200).json({ message: "Account locked successfully" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/request-unlock-otp ──────────────────────────────────────────
+export const requestUnlockOTP = async (
+  req: Request<object, object, { email: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    if (!email?.trim()) {
+      res.status(400).json({ error: "Email is required" });
+      return;
+    }
+
+    const user = await findUserByEmail(email.trim());
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    if (!user.is_locked) {
+      res.status(400).json({ error: "Account is not locked" });
+      return;
+    }
+
+    const otp = generateOTP();
+    const redisKey = `unlock_otp:${email.toLowerCase().trim()}`;
+
+    // Store OTP in Redis with 10-minute TTL
+    await redis.set(redisKey, otp, { ex: 600 });
+
+    // Send OTP via email
+    await sendOTP(email.trim(), otp);
+
+    log({ event: "unlock_otp_requested", email: email.trim() });
+    res.status(200).json({ message: "Unlock OTP sent to your email" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── POST /auth/unlock-account ──────────────────────────────────────────────
+export const unlockAccount = async (
+  req: Request<object, object, { email: string; otp: string; twoFactorCode?: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { email, otp, twoFactorCode } = req.body;
+
+    if (!email?.trim() || !otp?.trim()) {
+      res.status(400).json({ error: "Email and OTP are required" });
+      return;
+    }
+
+    const user = await findUserByEmail(email.trim());
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    // Verify OTP from Redis
+    const redisKey = `unlock_otp:${email.toLowerCase().trim()}`;
+    const storedOTP = await redis.get<string | number>(redisKey);
+
+    if (!storedOTP || String(storedOTP) !== String(otp).trim()) {
+      res.status(400).json({ error: "Invalid or expired OTP" });
+      return;
+    }
+
+    // Verify 2FA if enabled
+    if (user.two_factor_enabled) {
+      if (!twoFactorCode) {
+        res.status(400).json({ error: "2FA verification code is required to unlock account" });
+        return;
+      }
+
+      const isValid = (authenticator.verify as any)({
+        token: twoFactorCode.replace(/\s+/g, ""),
+        secret: user.two_factor_secret,
+        window: 1,
+      });
+
+      if (!isValid) {
+        res.status(400).json({ error: "Invalid 2FA verification code" });
+        return;
+      }
+    }
+
+    // Unlock successful, set is_locked = false
+    await updateUserByEmail(email.trim(), { isLocked: false });
+    await redis.del(redisKey); // Clear OTP
+
+    log({ event: "account_unlocked", userId: user.id });
+    res.status(200).json({ message: "Account unlocked successfully. You can now login with your access code." });
   } catch (err) {
     next(err);
   }

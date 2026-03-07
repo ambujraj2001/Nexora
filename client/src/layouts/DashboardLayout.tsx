@@ -76,7 +76,7 @@ const DashboardLayout = () => {
       target: "#sidebar-bottom-nav",
       content:
         "Access system settings and connect third-party integrations like Calendar and Slack to supercharge your AI.",
-      placement: "right",
+      placement: "top",
       disableScrolling: true,
     },
     {

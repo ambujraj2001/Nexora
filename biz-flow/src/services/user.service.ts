@@ -34,6 +34,7 @@ export const createUser = async (
     notify_response_alerts: notifyResponseAlerts,
     notify_daily_briefing: notifyDailyBriefing,
     show_demo: false,
+    is_locked: false,
     two_factor_enabled: !!twoFactorSecret,
     two_factor_secret: twoFactorSecret || null,
   };
@@ -143,5 +144,45 @@ export const findUserByEmail = async (
     throw new Error(error.message);
   }
 
+  return data as UserRow;
+};
+
+/**
+ * Updates a user by their email.
+ */
+export const updateUserByEmail = async (
+  email: string,
+  updates: any,
+): Promise<UserRow> => {
+  const payload: any = {};
+  if (updates.fullName) payload.full_name = updates.fullName;
+  if (updates.email) payload.email = updates.email;
+  if (updates.role) payload.role = updates.role;
+  if (updates.interactionTone)
+    payload.interaction_tone = updates.interactionTone;
+  if (updates.responseComplexity !== undefined)
+    payload.response_complexity = updates.responseComplexity;
+  if (updates.voiceModel) payload.voice_model = updates.voiceModel;
+  if (updates.notifyResponseAlerts !== undefined)
+    payload.notify_response_alerts = updates.notifyResponseAlerts;
+  if (updates.notifyDailyBriefing !== undefined)
+    payload.notify_daily_briefing = updates.notifyDailyBriefing;
+  if (updates.showDemo !== undefined) 
+    payload.show_demo = updates.showDemo;
+  if (updates.twoFactorEnabled !== undefined)
+    payload.two_factor_enabled = updates.twoFactorEnabled;
+  if (updates.twoFactorSecret !== undefined)
+    payload.two_factor_secret = updates.twoFactorSecret;
+  if (updates.isLocked !== undefined)
+    payload.is_locked = updates.isLocked;
+
+  const { data, error } = await supabase
+    .from("users")
+    .update(payload)
+    .eq("email", email.toLowerCase())
+    .select("*")
+    .single();
+
+  if (error) throw new Error(error.message);
   return data as UserRow;
 };

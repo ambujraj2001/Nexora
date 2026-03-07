@@ -397,3 +397,27 @@ export const apiDeleteFile = async (
     throw new Error(data?.error ?? `Request failed with status ${res.status}`);
   return data as { message: string };
 };
+/** Account Lock/Unlock */
+export const apiLockAccount = (
+  email: string,
+  otp: string,
+  twoFactorCode?: string,
+): Promise<{ message: string }> =>
+  post<{ message: string }>("/auth/lock-account", { email, otp, twoFactorCode });
+
+export const apiRequestLockOTP = (
+  email: string,
+): Promise<{ message: string }> =>
+  post<{ message: string }>("/auth/request-lock-otp", { email });
+
+export const apiRequestUnlockOTP = (
+  email: string,
+): Promise<{ message: string }> =>
+  post<{ message: string }>("/auth/request-unlock-otp", { email });
+
+export const apiUnlockAccount = (
+  email: string,
+  otp: string,
+  twoFactorCode?: string,
+): Promise<{ message: string }> =>
+  post<{ message: string }>("/auth/unlock-account", { email, otp, twoFactorCode });

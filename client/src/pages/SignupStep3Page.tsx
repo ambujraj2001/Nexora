@@ -14,6 +14,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
   const [copied, setCopied] = useState(false);
 
   // 2FA State
+  const [use2FA, setUse2FA] = useState(true);
   const [twoFactorSecret, setTwoFactorSecret] = useState("");
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
@@ -33,7 +34,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
   }, [combined]);
 
   const handleSubmit = useCallback(async () => {
-    if (!verificationCode || verificationCode.length !== 6) {
+    if (use2FA && (!verificationCode || verificationCode.length !== 6)) {
       setError("Please enter the 6-digit verification code");
       return;
     }
@@ -41,18 +42,18 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
     setLoading(true);
     setError(null);
     try {
-      const result = await apiSignup({
+      const payload = {
         ...combined(),
-        twoFactorSecret,
-        twoFactorCode: verificationCode,
-      });
+        ...(use2FA ? { twoFactorSecret, twoFactorCode: verificationCode } : {}),
+      };
+      const result = await apiSignup(payload);
       setAccessCode(result.accessCode);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setLoading(false);
     }
-  }, [combined, twoFactorSecret, verificationCode]);
+  }, [combined, twoFactorSecret, verificationCode, use2FA]);
 
   const handleCopy = useCallback(() => {
     if (!accessCode) return;
@@ -156,55 +157,100 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
             /* Pre-submit state — show 2FA setup */
             <div className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-md">
               <div className="flex flex-col items-center gap-6">
-                <div className="text-center space-y-2">
+                <div className="text-center space-y-2 w-full">
                   <div className="rounded-full bg-primary/10 p-3 w-fit mx-auto">
                     <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl">
                       security
                     </span>
                   </div>
-                  <h2 className="text-lg font-bold">
-                    Enable Two-Factor Authentication
-                  </h2>
+                  <h2 className="text-lg font-bold">Security Setup</h2>
                   <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm max-w-sm mx-auto">
-                    Scan this QR code with your authenticator app (Google
-                    Authenticator, Microsoft, etc.) to secure your account.
+                    Protect your account with two-factor authentication.
                   </p>
                 </div>
 
-                {qrCodeUrl ? (
-                  <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-inner">
-                    <img
-                      src={qrCodeUrl}
-                      alt="2FA QR Code"
-                      className="w-40 sm:w-48 h-40 sm:h-48 mx-auto"
-                    />
+                {/* 2FA Toggle */}
+                <div className="flex items-center justify-between w-full mb-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 transition-all">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 rounded-lg transition-colors ${use2FA ? "bg-primary/10 text-primary" : "bg-slate-200 dark:bg-slate-700 text-slate-500"}`}
+                    >
+                      <span className="material-symbols-outlined text-[20px]">
+                        {use2FA ? "shield_lock" : "shield"}
+                      </span>
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-bold">Two-Factor Auth</p>
+                      <p className="text-[10px] text-slate-500">
+                        {use2FA ? "Enabled (Highly Recommended)" : "Disabled"}
+                      </p>
+                    </div>
                   </div>
+                  <button
+                    onClick={() => setUse2FA(!use2FA)}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${use2FA ? "bg-primary" : "bg-slate-300 dark:bg-slate-600"}`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform ${use2FA ? "translate-x-6" : "translate-x-1"}`}
+                    />
+                  </button>
+                </div>
+
+                {use2FA ? (
+                  <>
+                    <div className="text-center space-y-2">
+                      <p className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs">
+                        Scan the QR code with your authenticator app
+                      </p>
+                    </div>
+                    {qrCodeUrl ? (
+                      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-inner">
+                        <img
+                          src={qrCodeUrl}
+                          alt="2FA QR Code"
+                          className="w-40 sm:w-48 h-40 sm:h-48 mx-auto"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-48 h-48 bg-slate-50 dark:bg-slate-800 animate-pulse rounded-xl flex items-center justify-center">
+                        <span className="material-symbols-outlined animate-spin text-slate-300">
+                          progress_activity
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="w-full max-w-[280px] space-y-3">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-widest text-center block">
+                        Verification Code
+                      </label>
+                      <input
+                        type="text"
+                        value={verificationCode}
+                        onChange={(e) =>
+                          setVerificationCode(
+                            e.target.value.replace(/[^0-9]/g, ""),
+                          )
+                        }
+                        placeholder="000000"
+                        maxLength={6}
+                        className="block w-full text-center text-2xl font-mono tracking-[0.5em] py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-primary focus:ring-2 focus:ring-primary outline-none transition-all"
+                      />
+                      <p className="text-[10px] text-slate-500 text-center">
+                        Enter the 6-digit code from your app to verify setup.
+                      </p>
+                    </div>
+                  </>
                 ) : (
-                  <div className="w-48 h-48 bg-slate-50 dark:bg-slate-800 animate-pulse rounded-xl flex items-center justify-center">
-                    <span className="material-symbols-outlined animate-spin text-slate-300">
-                      progress_activity
+                  <div className="w-full py-8 px-4 text-center space-y-4 bg-slate-50/50 dark:bg-slate-800/30 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                    <span className="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600">
+                      lock_open
                     </span>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 max-w-[240px] mx-auto">
+                      You've opted out of additional security. You can always
+                      enable this later from your profile settings.
+                    </p>
                   </div>
                 )}
-
-                <div className="w-full max-w-[280px] space-y-3">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest text-center block">
-                    Verification Code
-                  </label>
-                  <input
-                    type="text"
-                    value={verificationCode}
-                    onChange={(e) =>
-                      setVerificationCode(e.target.value.replace(/[^0-9]/g, ""))
-                    }
-                    placeholder="000000"
-                    maxLength={6}
-                    className="block w-full text-center text-2xl font-mono tracking-[0.5em] py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-primary focus:ring-2 focus:ring-primary outline-none transition-all"
-                  />
-                  <p className="text-[10px] text-slate-500 text-center">
-                    Enter the 6-digit code from your app to verify setup.
-                  </p>
-                </div>
 
                 {error && (
                   <div className="w-full flex items-start gap-3 rounded-lg bg-red-50 dark:bg-red-900/20 p-3 sm:p-4 border border-red-200 dark:border-red-900/30">
@@ -256,13 +302,17 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                       <span className="material-symbols-outlined animate-spin text-[20px]">
                         progress_activity
                       </span>
-                      <span>Verifying & Creating…</span>
+                      <span>
+                        {use2FA ? "Verifying & Creating…" : "Creating Account…"}
+                      </span>
                     </>
                   ) : (
                     <>
-                      <span>Verify & Create Account</span>
+                      <span>
+                        {use2FA ? "Verify & Create Account" : "Create Account"}
+                      </span>
                       <span className="material-symbols-outlined">
-                        security
+                        {use2FA ? "security" : "person_add"}
                       </span>
                     </>
                   )}
