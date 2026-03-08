@@ -4,6 +4,7 @@ import {
   AIMessage,
   type BaseMessage,
 } from "@langchain/core/messages";
+import { z } from "zod";
 import { buildModel } from "../config/model";
 import { log } from "../utils/logger";
 import {
@@ -203,6 +204,21 @@ interface ParsedAppResponse {
   dataUpdates?: DataUpdate[];
 }
 
+const StructuredDataUpdateSchema = z.object({
+  key: z.string(),
+  value: z.unknown(),
+});
+
+const StructuredAppResponseSchema = z
+  .object({
+    type: z.enum(["final", "clarification", "data_update"]),
+    message: z.string().optional(),
+    question: z.string().optional(),
+    options: z.array(z.string()).optional(),
+    data_updates: z.array(StructuredDataUpdateSchema).optional(),
+  })
+  .passthrough();
+
 const classifyParsed = (
   parsed: Record<string, unknown>,
 ): ParsedAppResponse | null => {
@@ -382,6 +398,39 @@ const parseAppResponse = (rawContent: string): ParsedAppResponse => {
   return { type: "final", message: rawContent };
 };
 
+const invokeAndParseAppResponse = async (
+  llm: ReturnType<typeof buildModel>,
+  messages: BaseMessage[],
+): Promise<{ parsed: ParsedAppResponse; rawContent: string }> => {
+  // 1) Preferred path: structured output with schema validation
+  try {
+    const structuredLlm = (llm as any).withStructuredOutput(
+      StructuredAppResponseSchema,
+    );
+    const structured = await structuredLlm.invoke(messages);
+    const normalized = classifyParsed(
+      structured as unknown as Record<string, unknown>,
+    );
+    if (normalized) {
+      return {
+        parsed: normalized,
+        rawContent: JSON.stringify(structured),
+      };
+    }
+  } catch (error) {
+    log({
+      event: "app_chat_structured_output_failed",
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+
+  // 2) Fallback path: free-text parse
+  const response = await llm.invoke(messages);
+  const rawContent = cleanReply(response.content);
+  const parsed = parseAppResponse(rawContent);
+  return { parsed, rawContent };
+};
+
 // ─── Refusal detection ────────────────────────────────────────────────────────
 
 const REFUSAL_PATTERNS = [
@@ -540,8 +589,7 @@ export const runAppChatAgent = async (
   ];
 
   const llm = buildModel();
-  const response = await llm.invoke(messages);
-  let rawContent = cleanReply(response.content);
+  let { parsed, rawContent } = await invokeAndParseAppResponse(llm, messages);
 
   log({
     event: "app_chat_llm_response",
@@ -549,8 +597,6 @@ export const runAppChatAgent = async (
     userId,
     rawContent,
   });
-
-  let parsed = parseAppResponse(rawContent);
 
   if (parsed.type === "final" && isRefusal(parsed.message)) {
     log({
@@ -563,8 +609,8 @@ export const runAppChatAgent = async (
     messages.push(new AIMessage(rawContent));
     messages.push(new HumanMessage(RETRY_REINFORCEMENT));
 
-    const retryResponse = await llm.invoke(messages);
-    rawContent = cleanReply(retryResponse.content);
+    const retryResult = await invokeAndParseAppResponse(llm, messages);
+    rawContent = retryResult.rawContent;
 
     log({
       event: "app_chat_retry_response",
@@ -573,7 +619,7 @@ export const runAppChatAgent = async (
       rawContent,
     });
 
-    parsed = parseAppResponse(rawContent);
+    parsed = retryResult.parsed;
   }
 
   if (parsed.type === "data_update" && parsed.dataUpdates?.length) {
