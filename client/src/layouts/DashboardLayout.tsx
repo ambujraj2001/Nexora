@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { message, Modal, Dropdown } from "antd";
+import { message, Modal, Dropdown, Tooltip } from "antd";
 import type { MenuProps } from "antd";
 import { useSelector } from "react-redux";
 import { type RootState } from "../store";
@@ -26,6 +26,21 @@ const DashboardLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
   const [runTour, setRunTour] = useState(false);
+  const [isIncognito, setIsIncognito] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkIncognito = () => {
+      const stored = localStorage.getItem("incognitoUntil");
+      if (stored) {
+        setIsIncognito(parseInt(stored, 10) > Date.now());
+      } else {
+        setIsIncognito(false);
+      }
+    };
+    checkIncognito();
+    const interval = setInterval(checkIncognito, 5000); // Check every 5 second to keep synced across tabs/actions
+    return () => clearInterval(interval);
+  }, []);
 
   const handleToggleSidebar = useCallback(
     () => setSidebarCollapsed((p) => !p),
@@ -255,6 +270,20 @@ const DashboardLayout = () => {
                 share
               </span>
             </button>
+
+            {/* Incognito Indicator */}
+            {isIncognito && (
+              <Tooltip
+                title="Privacy Mode is active. Chats are not being saved."
+                placement="bottom"
+              >
+                <div className="size-8 sm:size-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-default transition-all">
+                  <span className="material-symbols-outlined text-[18px] sm:text-[20px]">
+                    visibility_off
+                  </span>
+                </div>
+              </Tooltip>
+            )}
 
             {/* Dark mode toggle */}
             <button

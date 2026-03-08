@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { findUserByAccessCode } from "../services/user.service";
 import { getUserTasks } from "../services/task.service";
-import { getUserChatHistory } from "../services/chat.service";
+import {
+  getUserChatHistory,
+  deleteUserChatHistory,
+} from "../services/chat.service";
 import { runAgent } from "../agents/chatAgent";
 import {
   ChatRequestBody,
@@ -18,7 +21,7 @@ export const chat = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { message, accessCode, conversationId } = req.body;
+    const { message, accessCode, conversationId, incognito } = req.body;
 
     log({
       event: "chat_request_received",
@@ -53,7 +56,12 @@ export const chat = async (
     });
 
     // ── Run the AI agent ──────────────────────────────────────────────────────
-    const reply = await runAgent(message.trim(), user, conversationId);
+    const reply = await runAgent(
+      message.trim(),
+      user,
+      conversationId,
+      incognito as boolean | undefined,
+    );
 
     const response: ChatResponse = { reply };
     res.status(200).json(response);
@@ -88,6 +96,41 @@ export const getHistory = async (
     const response: ChatHistoryResponse = { messages };
 
     res.status(200).json(response);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─── DELETE /chat/history ─────────────────────────────────────────────────────
+
+export const deleteHistory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const accessCode = req.query.accessCode as string;
+
+    if (!accessCode) {
+      res.status(400).json({ error: "accessCode is required" });
+      return;
+    }
+
+    const user = await findUserByAccessCode(accessCode);
+
+    if (!user) {
+      res.status(401).json({ error: "Invalid access code" });
+      return;
+    }
+
+    await deleteUserChatHistory(user.id);
+
+    log({
+      event: "chat_history_deleted",
+      userId: user.id,
+    });
+
+    res.status(200).json({ message: "Chat history cleared successfully" });
   } catch (err) {
     next(err);
   }

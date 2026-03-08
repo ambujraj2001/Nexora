@@ -149,9 +149,12 @@ export const runAgent = async (
   message: string,
   user: UserRow,
   conversationId?: string,
+  incognito?: boolean,
 ): Promise<string> => {
   // 1. Save the new user message to DB
-  await saveChatMessage(user.id, "user", message, conversationId);
+  if (!incognito) {
+    await saveChatMessage(user.id, "user", message, conversationId);
+  }
 
   // 2. Fetch history if in a conversation, otherwise just use current message
   let historyMessages: (HumanMessage | AIMessage)[] = [];
@@ -387,7 +390,9 @@ export const runAgent = async (
   }
 
   // Save AI reply
-  await saveChatMessage(user.id, "ai", finalReply, conversationId);
+  if (!incognito) {
+    await saveChatMessage(user.id, "ai", finalReply, conversationId);
+  }
 
   log({
     event: "llm_response_generated",

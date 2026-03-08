@@ -467,7 +467,8 @@ const titleFromKey = (key: string): string =>
   key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
 const toDisplayValue = (value: unknown): string => {
-  if (typeof value === "number") return Number.isFinite(value) ? value.toFixed(2) : String(value);
+  if (typeof value === "number")
+    return Number.isFinite(value) ? value.toFixed(2) : String(value);
   if (typeof value === "boolean") return value ? "Yes" : "No";
   if (value === null || value === undefined) return "";
   return String(value);
@@ -571,7 +572,8 @@ const getDisplayMarkdownFromUpdates = (
   if (!updates?.length || displayComponents.length === 0) return null;
   const displaySet = new Set(displayComponents);
   const hit = updates.find(
-    (u) => displaySet.has(u.key) && typeof u.value === "string" && u.value.trim(),
+    (u) =>
+      displaySet.has(u.key) && typeof u.value === "string" && u.value.trim(),
   );
   return hit ? (hit.value as string).trim() : null;
 };
@@ -582,7 +584,10 @@ const normalizeReplyForChat = (
   displayComponents: string[],
 ): string => {
   const base = (message || "I processed your request.").trim();
-  if (!messagePromisesInlineContent(base) || messageAlreadyHasInlineContent(base)) {
+  if (
+    !messagePromisesInlineContent(base) ||
+    messageAlreadyHasInlineContent(base)
+  ) {
     return base;
   }
 
@@ -590,7 +595,10 @@ const normalizeReplyForChat = (
   if (markdown) return `${base}\n\n${markdown}`;
 
   // If we don't have inline content, avoid promising "Here's ...".
-  return base.replace(/:\s*$/, ".").replace(/\s{2,}/g, " ").trim();
+  return base
+    .replace(/:\s*$/, ".")
+    .replace(/\s{2,}/g, " ")
+    .trim();
 };
 
 // ─── Main agent runner ───────────────────────────────────────────────────────
@@ -604,6 +612,7 @@ export const runAppChatAgent = async (
   appId: string,
   userId: string,
   userMessage: string,
+  incognito?: boolean,
 ): Promise<AppChatResult> => {
   const [app, appData, recentChats] = await Promise.all([
     getAppById(appId),
@@ -624,7 +633,9 @@ export const runAppChatAgent = async (
     chatHistoryCount: recentChats.length,
   });
 
-  await saveAppChatMessage(appId, userId, "user", userMessage);
+  if (!incognito) {
+    await saveAppChatMessage(appId, userId, "user", userMessage);
+  }
 
   const systemPrompt = buildAppSystemPrompt(app, appData);
   const historyMessages = buildChatMessages(recentChats);
@@ -722,7 +733,9 @@ export const runAppChatAgent = async (
     displayComponents,
   );
 
-  await saveAppChatMessage(appId, userId, "ai", replyText);
+  if (!incognito) {
+    await saveAppChatMessage(appId, userId, "ai", replyText);
+  }
 
   log({
     event: "app_chat_completed",

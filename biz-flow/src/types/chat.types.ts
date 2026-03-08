@@ -5,6 +5,7 @@ export interface ChatRequestBody {
   message: string;
   accessCode: string;
   conversationId?: string;
+  incognito?: boolean;
 }
 
 /** POST /chat response */

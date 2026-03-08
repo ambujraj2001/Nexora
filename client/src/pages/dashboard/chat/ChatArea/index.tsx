@@ -164,10 +164,16 @@ const ChatArea = () => {
       setIsTyping(true);
 
       try {
+        const incognitoStored = localStorage.getItem("incognitoUntil");
+        const incognito = incognitoStored
+          ? parseInt(incognitoStored, 10) > Date.now()
+          : false;
+
         const result = await apiChat(
           content,
           accessCode,
           sessionConversationId,
+          incognito,
         );
         const aiReply: Message = {
           id: (Date.now() + 1).toString(),

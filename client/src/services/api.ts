@@ -126,8 +126,9 @@ export const apiChat = (
   message: string,
   accessCode: string,
   conversationId?: string,
+  incognito?: boolean,
 ): Promise<ChatResult> =>
-  post<ChatResult>("/chat", { message, accessCode, conversationId });
+  post<ChatResult>("/chat", { message, accessCode, conversationId, incognito });
 
 /** POST /auth/forgot-access-code — sends OTP to email */
 export const apiForgotAccessCode = (
@@ -172,6 +173,24 @@ export const apiGetChatHistory = async (
   if (!res.ok)
     throw new Error(data?.error ?? `Request failed with status ${res.status}`);
   return data as ChatHistoryResponse;
+};
+
+/** DELETE /chat/history — deletes user chat messages */
+export const apiDeleteChatHistory = async (
+  accessCode: string,
+): Promise<{ message: string }> => {
+  const res = await fetch(
+    `${BASE_URL}/chat/history?accessCode=${encodeURIComponent(accessCode)}`,
+    {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+
+  const data = await res.json();
+  if (!res.ok)
+    throw new Error(data?.error ?? `Request failed with status ${res.status}`);
+  return data as { message: string };
 };
 
 export interface MemoryEntry {
@@ -535,8 +554,13 @@ export const apiAppChat = (
   appId: string,
   message: string,
   accessCode: string,
+  incognito?: boolean,
 ): Promise<AppChatResult> =>
-  post<AppChatResult>(`/apps/${appId}/chat`, { message, accessCode });
+  post<AppChatResult>(`/apps/${appId}/chat`, {
+    message,
+    accessCode,
+    incognito,
+  });
 
 /** GET /apps/:appId/analyze — analyze app data and generate HTML report */
 export const apiAnalyzeApp = async (

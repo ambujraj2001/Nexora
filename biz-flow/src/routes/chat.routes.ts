@@ -8,6 +8,7 @@ import {
   getTasks,
   getReminders,
   getInsights,
+  deleteHistory,
 } from "../controllers/chat.controller";
 
 const router = Router();
@@ -17,6 +18,9 @@ router.post("/", chat);
 
 // GET /chat/history
 router.get("/history", getHistory);
+
+// DELETE /chat/history
+router.delete("/history", deleteHistory);
 
 // GET /chat/memories
 router.get("/memories", getMemories);

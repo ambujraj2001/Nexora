@@ -29,6 +29,20 @@ export const getUserChatHistory = async (
 };
 
 /**
+ * Deletes all chat messages for a specific user.
+ */
+export const deleteUserChatHistory = async (userId: string): Promise<void> => {
+  const { error } = await supabase
+    .from("chat_messages")
+    .delete()
+    .eq("user_id", userId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+};
+
+/**
  * Saves a new chat message to the database.
  */
 export const saveChatMessage = async (

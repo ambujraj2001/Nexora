@@ -501,7 +501,12 @@ const AppPage = () => {
     }
 
     try {
-      const result = await apiAppChat(appId, content, accessCode);
+      const incognitoStored = localStorage.getItem("incognitoUntil");
+      const incognito = incognitoStored
+        ? parseInt(incognitoStored, 10) > Date.now()
+        : false;
+
+      const result = await apiAppChat(appId, content, accessCode, incognito);
 
       const aiReply: UIMessage = {
         id: (Date.now() + 1).toString(),
@@ -542,7 +547,12 @@ const AppPage = () => {
         setMessages((prev) => [...prev, userMsg]);
         setIsTyping(true);
 
-        apiAppChat(appId!, option, accessCode)
+        const incognitoStored = localStorage.getItem("incognitoUntil");
+        const incognito = incognitoStored
+          ? parseInt(incognitoStored, 10) > Date.now()
+          : false;
+
+        apiAppChat(appId!, option, accessCode, incognito)
           .then((result) => {
             const aiReply: UIMessage = {
               id: (Date.now() + 1).toString(),

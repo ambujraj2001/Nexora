@@ -7,9 +7,17 @@ import {
   apiGenerate2FA,
   apiEnable2FA,
   apiDisable2FA,
+  apiDeleteChatHistory,
+  apiGetChatHistory,
+  apiGetMemories,
+  apiGetKnowledge,
+  apiGetJournal,
+  apiGetTasks,
+  apiGetReminders,
   type BootConfigResult,
 } from "../../../services/api";
 import { message, Slider, Switch, Modal, Input } from "antd";
+import dayjs from "dayjs";
 
 const SettingsPage = () => {
   const dispatch = useDispatch();
@@ -38,6 +46,24 @@ const SettingsPage = () => {
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
+
+  // Privacy Mode State
+  const [incognitoUntil, setIncognitoUntil] = useState<number | null>(null);
+
+  // Export Data State
+  const [exporting, setExporting] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("incognitoUntil");
+    if (stored) {
+      const parsed = parseInt(stored, 10);
+      if (parsed > Date.now()) {
+        setIncognitoUntil(parsed);
+      } else {
+        localStorage.removeItem("incognitoUntil");
+      }
+    }
+  }, []);
 
   useEffect(() => {
     setFormData({
@@ -132,6 +158,105 @@ const SettingsPage = () => {
       },
     });
   }, [dispatch, user]);
+
+  const handleClearContext = useCallback(() => {
+    Modal.confirm({
+      title: "Clear Memory?",
+      content:
+        "This will permanently delete your entire chat history. The AI will lose all short-term context of your past conversations. Are you sure you want to proceed?",
+      okText: "Yes, Clear Memory",
+      okType: "danger",
+      cancelText: "Cancel",
+      centered: true,
+      onOk: async () => {
+        try {
+          const accessCode = localStorage.getItem("accessCode") || "";
+          await apiDeleteChatHistory(accessCode);
+          message.success("Chat memory cleared successfully!");
+        } catch (err: unknown) {
+          const msg =
+            err instanceof Error ? err.message : "Failed to clear memory";
+          message.error(msg);
+        }
+      },
+    });
+  }, []);
+
+  const handleToggleIncognito = useCallback(() => {
+    if (incognitoUntil && incognitoUntil > Date.now()) {
+      // Disable
+      localStorage.removeItem("incognitoUntil");
+      setIncognitoUntil(null);
+      message.success("Privacy mode disabled. Chats will be saved.");
+    } else {
+      // Enable for 24 hours
+      const until = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem("incognitoUntil", until.toString());
+      setIncognitoUntil(until);
+      message.success(
+        "Privacy mode active. Next 24 hours of chats will not be saved.",
+      );
+    }
+  }, [incognitoUntil]);
+
+  const handleExportData = useCallback(async () => {
+    setExporting(true);
+    try {
+      const accessCode = localStorage.getItem("accessCode") || "";
+      const [
+        historyRes,
+        memoriesRes,
+        knowledgeRes,
+        journalRes,
+        tasksRes,
+        remindersRes,
+      ] = await Promise.all([
+        apiGetChatHistory(accessCode).catch(() => ({ messages: [] })),
+        apiGetMemories(accessCode).catch(() => ({ memories: [] })),
+        apiGetKnowledge(accessCode).catch(() => ({ knowledge: [] })),
+        apiGetJournal(accessCode).catch(() => ({ journal: [] })),
+        apiGetTasks(accessCode).catch(() => ({ tasks: [] })),
+        apiGetReminders(accessCode).catch(() => ({ reminders: [] })),
+      ]);
+
+      const exportData = {
+        exportedAt: new Date().toISOString(),
+        user: {
+          fullName: user.fullName,
+          email: user.email,
+          role: user.role,
+        },
+        chatHistory: historyRes.messages,
+        memories:
+          "memories" in memoriesRes ? memoriesRes.memories : memoriesRes,
+        knowledge:
+          "knowledge" in knowledgeRes ? knowledgeRes.knowledge : knowledgeRes,
+        journal: "journal" in journalRes ? journalRes.journal : journalRes,
+        tasks: "tasks" in tasksRes ? tasksRes.tasks : tasksRes,
+        reminders:
+          "reminders" in remindersRes ? remindersRes.reminders : remindersRes,
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `chief_of_ai_export_${dayjs().format("YYYYMMDD_HHmmss")}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      message.success("Data exported successfully!");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to export data";
+      message.error(msg);
+    } finally {
+      setExporting(false);
+    }
+  }, [user]);
 
   const handleSave = useCallback(async () => {
     setLoading(true);
@@ -492,7 +617,7 @@ const SettingsPage = () => {
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center space-y-4">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-between space-y-4">
               <div className="flex flex-col items-center gap-2">
                 <span className="material-symbols-outlined text-slate-900 dark:text-white text-[24px]">
                   download
@@ -504,11 +629,15 @@ const SettingsPage = () => {
                   Download all AI logs and configurations.
                 </p>
               </div>
-              <button className="w-full py-3.5 border border-slate-100 dark:border-slate-800 text-slate-900 dark:text-white rounded-xl text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
-                Export JSON
+              <button
+                onClick={handleExportData}
+                disabled={exporting}
+                className="w-full py-3.5 border border-slate-100 dark:border-slate-800 text-slate-900 dark:text-white rounded-xl text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all disabled:opacity-50"
+              >
+                {exporting ? "Exporting..." : "Export JSON"}
               </button>
             </div>
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center space-y-4">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-between space-y-4">
               <div className="flex flex-col items-center gap-2">
                 <span className="material-symbols-outlined text-amber-500 text-[24px]">
                   delete_sweep
@@ -518,22 +647,40 @@ const SettingsPage = () => {
                   Wipe the short-term contextual memory.
                 </p>
               </div>
-              <button className="w-full py-3.5 bg-amber-50 dark:bg-amber-900/10 text-amber-600 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all">
+              <button
+                onClick={handleClearContext}
+                className="w-full py-3.5 bg-amber-50 dark:bg-amber-900/10 text-amber-600 rounded-xl text-xs font-bold hover:bg-amber-100 transition-all font-display"
+              >
                 Clear Context
               </button>
             </div>
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center space-y-4">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-between space-y-4">
               <div className="flex flex-col items-center gap-2">
-                <span className="material-symbols-outlined text-primary text-[24px]">
-                  visibility_off
+                <span
+                  className={`material-symbols-outlined text-[24px] ${incognitoUntil ? "text-slate-400" : "text-primary"}`}
+                >
+                  {incognitoUntil ? "visibility_off" : "visibility_off"}
                 </span>
-                <p className="text-sm font-bold text-primary">Privacy Mode</p>
+                <p
+                  className={`text-sm font-bold ${incognitoUntil ? "text-slate-600 dark:text-slate-400" : "text-primary"}`}
+                >
+                  Privacy Mode
+                </p>
                 <p className="text-[11px] text-slate-400 font-medium px-4">
-                  Disable data logging for the next 24 hours.
+                  {incognitoUntil
+                    ? `Active for another ${Math.max(1, Math.ceil((incognitoUntil - Date.now()) / (1000 * 60 * 60)))}h`
+                    : "Disable data logging for the next 24 hours."}
                 </p>
               </div>
-              <button className="w-full py-3.5 bg-[#EEF2FF] dark:bg-primary/10 text-primary rounded-xl text-xs font-bold hover:bg-[#E0E7FF] transition-all">
-                Go Incognito
+              <button
+                onClick={handleToggleIncognito}
+                className={`w-full py-3.5 rounded-xl text-xs font-bold transition-all font-display ${
+                  incognitoUntil
+                    ? "bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200"
+                    : "bg-[#EEF2FF] dark:bg-primary/10 text-primary hover:bg-[#E0E7FF]"
+                }`}
+              >
+                {incognitoUntil ? "Disable Incognito" : "Go Incognito"}
               </button>
             </div>
           </div>

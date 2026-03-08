@@ -132,7 +132,7 @@ export const appChat = async (
 ): Promise<void> => {
   try {
     const { appId } = req.params;
-    const { message, accessCode } = req.body;
+    const { message, accessCode, incognito } = req.body;
 
     if (!accessCode?.trim()) {
       res.status(400).json({ error: "accessCode is required" });
@@ -165,7 +165,12 @@ export const appChat = async (
       userId: user.id,
     });
 
-    const result = await runAppChatAgent(appId, user.id, message.trim());
+    const result = await runAppChatAgent(
+      appId,
+      user.id,
+      message.trim(),
+      incognito as boolean | undefined,
+    );
 
     res.status(200).json({
       reply: result.reply,

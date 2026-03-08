@@ -33,7 +33,12 @@ const RecentChatsPage = () => {
   const [customDates, setCustomDates] = useState<
     [dayjs.Dayjs, dayjs.Dayjs] | null
   >(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const hasFetched = useRef(false);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [range, customDates]);
 
   useEffect(() => {
     if (hasFetched.current) return;
@@ -208,49 +213,51 @@ const RecentChatsPage = () => {
             />
           </div>
         ) : (
-          conversations.map((conv: Conversation) => (
-            <div
-              key={conv.id}
-              onClick={() => navigate(`/dashboard/chat/${conv.id}`)}
-              className="group flex items-center gap-4 bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all cursor-pointer"
-            >
-              <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 overflow-hidden">
-                <span className="material-symbols-outlined text-2xl">
-                  smart_toy
-                </span>
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white truncate">
-                    {conv.firstMessage.length > 40
-                      ? conv.firstMessage.substring(0, 40) + "..."
-                      : conv.firstMessage}
-                  </h3>
-                  <span className="text-xs font-medium text-slate-400">
-                    {dayjs(conv.timestamp).fromNow()}
+          conversations
+            .slice((currentPage - 1) * 10, currentPage * 10)
+            .map((conv: Conversation) => (
+              <div
+                key={conv.id}
+                onClick={() => navigate(`/dashboard/chat/${conv.id}`)}
+                className="group flex items-center gap-4 bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all cursor-pointer"
+              >
+                <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 overflow-hidden">
+                  <span className="material-symbols-outlined text-2xl">
+                    smart_toy
                   </span>
                 </div>
-                <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
-                  {conv.lastMessage}
-                </p>
-                <div className="mt-2 flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">
-                    Chief of AI
-                  </span>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-                    {conv.messageCount} messages
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white truncate">
+                      {conv.firstMessage.length > 40
+                        ? conv.firstMessage.substring(0, 40) + "..."
+                        : conv.firstMessage}
+                    </h3>
+                    <span className="text-xs font-medium text-slate-400">
+                      {dayjs(conv.timestamp).fromNow()}
+                    </span>
+                  </div>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
+                    {conv.lastMessage}
+                  </p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">
+                      Chief of AI
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                      {conv.messageCount} messages
+                    </span>
+                  </div>
+                </div>
+
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity translate-x-1 group-hover:translate-x-0">
+                  <span className="material-symbols-outlined text-slate-400 text-lg">
+                    arrow_forward_ios
                   </span>
                 </div>
               </div>
-
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity translate-x-1 group-hover:translate-x-0">
-                <span className="material-symbols-outlined text-slate-400 text-lg">
-                  arrow_forward_ios
-                </span>
-              </div>
-            </div>
-          ))
+            ))
         )}
       </div>
 
@@ -260,7 +267,8 @@ const RecentChatsPage = () => {
           theme={{ token: { colorPrimary: "#3c83f6", borderRadius: 8 } }}
         >
           <Pagination
-            defaultCurrent={1}
+            current={currentPage}
+            onChange={(page) => setCurrentPage(page)}
             total={conversations.length}
             pageSize={10}
             showSizeChanger={false}
