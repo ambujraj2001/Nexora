@@ -5,8 +5,10 @@ import { log } from "../utils/logger";
 import { debugGraphState } from "../utils/debugGraphState";
 
 const extractJSON = (text: string): string | null => {
-  const match = text.match(/\{[\s\S]*?\}/);
-  return match ? match[0] : null;
+  const first = text.indexOf("{");
+  const last = text.lastIndexOf("}");
+  if (first === -1 || last === -1 || last < first) return null;
+  return text.slice(first, last + 1);
 };
 
 const cleanReply = (raw: unknown): string => {

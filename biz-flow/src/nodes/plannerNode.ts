@@ -19,6 +19,33 @@ const extractJSON = (text: string): string | null => {
   return text.slice(first, last + 1);
 };
 
+const isSystemMessage = (m: any) =>
+  m instanceof SystemMessage || m?._getType?.() === "system";
+
+const coerceClarificationToolCall = (response: AIMessage): AIMessage => {
+  const calls = response.tool_calls || [];
+  if (calls.length !== 1 || calls[0].name !== "clarification") {
+    return response;
+  }
+
+  const args = calls[0].args || {};
+  const question =
+    typeof args.question === "string"
+      ? args.question
+      : "Could you clarify what you want me to do?";
+  const options = Array.isArray(args.options)
+    ? args.options.filter((v) => typeof v === "string")
+    : [];
+
+  return new AIMessage({
+    content: JSON.stringify({
+      type: "clarification",
+      question,
+      options,
+    }),
+  });
+};
+
 export const plannerNode = async (state: GraphState) => {
   debugGraphState("plannerNode_start", state);
 
@@ -110,8 +137,8 @@ interface UpdateTaskArgs { accessCode: string; id: string; status?: "pending" | 
 interface DeleteTaskArgs { accessCode: string; id: string; }
 interface GetTasksArgs { accessCode: string; status?: "pending" | "completed"; }
 
-interface AddReminderArgs { accessCode: string; title: string; due_date: string; }
-interface UpdateReminderArgs { accessCode: string; id: string; title?: string; due_date?: string; }
+interface AddReminderArgs { accessCode: string; title: string; remindAt: string; }
+interface UpdateReminderArgs { accessCode: string; id: string; title?: string; remindAt?: string; }
 interface DeleteReminderArgs { accessCode: string; id: string; }
 interface GetRemindersArgs { accessCode: string; }
 
@@ -173,11 +200,9 @@ If you simply print the JSON parameters, the system will fail.
    * Mistral AI API strict schema check: Only exactly one SystemMessage is allowed at the start.
    * We merge the planner prompt with any existing system prompts from the state.
    */
-  const systemMessages = [plannerPrompt, ...state.messages].filter(
-    (m) => m instanceof SystemMessage || m._getType() === "system",
-  );
+  const systemMessages = [plannerPrompt, ...state.messages].filter(isSystemMessage);
   const otherMessages = state.messages.filter(
-    (m) => !(m instanceof SystemMessage || m._getType() === "system"),
+    (m) => !isSystemMessage(m),
   );
 
   const mergedSystemContent = systemMessages
@@ -207,6 +232,9 @@ If you simply print the JSON parameters, the system will fail.
     finalSystemPrompt,
     ...safeOtherMessages,
   ]);
+
+  // Some models may hallucinate a "clarification" tool. Treat it as structured output.
+  response = coerceClarificationToolCall(response as AIMessage);
 
   /**
    * If the response contains tool calls, return immediately
@@ -279,11 +307,25 @@ If you meant to execute a tool, USE THE NATIVE TOOL API instead of returning JSO
 `.trim(),
     );
 
-    response = await llm.invoke([
-      plannerPrompt,
-      retryPrompt,
-      ...state.messages,
-    ]);
+    const retrySystemPrompt = new SystemMessage(
+      `${mergedSystemContent}\n\n---\n\n${retryPrompt.content}`,
+    );
+
+    response = await llm.invoke([retrySystemPrompt, ...safeOtherMessages]);
+    response = coerceClarificationToolCall(response as AIMessage);
+
+    if ((response as AIMessage).tool_calls?.length) {
+      log({
+        event: "planner_node_completed",
+        userId: state.userId,
+        toolCalls: (response as AIMessage).tool_calls?.length || 0,
+      });
+
+      return {
+        messages: [response],
+        iterations: state.iterations + 1,
+      };
+    }
 
     const retryContent =
       typeof response.content === "string"
