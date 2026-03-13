@@ -1,48 +1,48 @@
 {
-  "conversationId": "aba2ed82-cb13-499b-a786-a11d02015fa7",
+  "conversationId": "144cda7a-acc4-4b5b-995a-a88fac453b5d",
   "entries": [
     {
-      "timestamp": "2026-03-13T22:13:20.055Z",
+      "timestamp": "2026-03-13T22:43:40.356Z",
       "user": "Test",
-      "request": "tell me about planet",
+      "request": "tell me facts about the iconic paris city",
       "events": [
         {
-          "id": "9x3k0j",
+          "id": "75dcq8",
           "type": "input_received",
           "message": "User request received",
           "status": "info",
-          "timestamp": 1773439998018
+          "timestamp": 1773441818120
         },
         {
           "event": "input_received",
           "message": "User request received",
           "status": "info",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.018Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:38.120Z",
           "environment": "development"
         },
         {
           "event": "agent_execution_started",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "conversationId": "aba2ed82-cb13-499b-a786-a11d02015fa7",
+          "conversationId": "144cda7a-acc4-4b5b-995a-a88fac453b5d",
           "historyCount": 1,
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.327Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:38.411Z",
           "environment": "development"
         },
         {
-          "id": "aurvow",
+          "id": "8p3irj",
           "type": "thinking",
           "message": "Agent thinking...",
           "status": "pending",
-          "timestamp": 1773439998438
+          "timestamp": 1773441818516
         },
         {
           "event": "thinking",
           "message": "Agent thinking...",
           "status": "pending",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.438Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:38.516Z",
           "environment": "development"
         },
         {
@@ -52,24 +52,24 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.455Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:38.534Z",
           "environment": "development"
         },
         {
           "event": "router_node_started",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
           "messageCount": 2,
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.455Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:38.534Z",
           "environment": "development"
         },
         {
           "event": "router_node_completed",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
           "intent": "general_chat",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.837Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:39.323Z",
           "environment": "development"
         },
         {
@@ -79,23 +79,23 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.837Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:39.323Z",
           "environment": "development"
         },
         {
-          "id": "x5fez9",
+          "id": "jsjwl3",
           "type": "intent_detected",
           "message": "Intent detected: general_chat",
           "status": "success",
-          "timestamp": 1773439998842
+          "timestamp": 1773441819332
         },
         {
           "event": "intent_detected",
           "message": "Intent detected: general_chat",
           "status": "success",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.842Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:39.332Z",
           "environment": "development"
         },
         {
@@ -105,16 +105,16 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:18.843Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:39.333Z",
           "environment": "development"
         },
         {
           "event": "chat_node_completed",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "content": "{\n  \"type\": \"clarification\",\n  \"question\": \"Which planet would you like to know about?\",\n  \"options\": [\"Mercury\", \"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\", \"Neptune\"]\n}",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:19.902Z",
+          "content": "```json\n{\n  \"type\": \"final\",\n  \"message\": \"Paris, the capital of France, is known for its iconic landmarks such as the Eiffel Tower, Notre-Dame Cathedral, and the Louvre Museum. It is often referred to as the 'City of Light' (La Ville Lumière) due to its leading role during the Age of Enlightenment and its early adoption of street lighting. Paris is also famous for its art, fashion, and cuisine, making it a major global center for culture and tourism.\"\n}\n```",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.202Z",
           "environment": "development"
         },
         {
@@ -124,23 +124,23 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:19.902Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.202Z",
           "environment": "development"
         },
         {
-          "id": "76rzu5",
+          "id": "djl6s",
           "type": "thinking",
           "message": "Processing conversation...",
           "status": "pending",
-          "timestamp": 1773439999906
+          "timestamp": 1773441820206
         },
         {
           "event": "thinking",
           "message": "Processing conversation...",
           "status": "pending",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:19.906Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.207Z",
           "environment": "development"
         },
         {
@@ -150,8 +150,8 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:19.908Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.208Z",
           "environment": "development"
         },
         {
@@ -161,418 +161,36 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "finalReply": "{\"type\":\"clarification\",\"question\":\"Which planet would you like to know about?\",\"options\":[\"Mercury\",\"Venus\",\"Earth\",\"Mars\",\"Jupiter\",\"Saturn\",\"Uranus\",\"Neptune\"]}",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:19.908Z",
+          "finalReply": "Paris, the capital of France, is known for its iconic landmarks such as the Eiffel Tower, Notre-Dame Cathedral, and the Louvre Museum. It is often referred to as the 'City of Light' (La Ville Lumière) due to its leading role during the Age of Enlightenment and its early adoption of street lighting. Paris is also famous for its art, fashion, and cuisine, making it a major global center for culture and tourism.",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.209Z",
           "environment": "development"
         },
         {
-          "id": "m8m5d",
+          "id": "n8o2d8",
           "type": "response_generating",
           "message": "Preparing response",
           "status": "pending",
-          "timestamp": 1773439999914
+          "timestamp": 1773441820217
         },
         {
           "event": "response_generating",
           "message": "Preparing response",
           "status": "pending",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:19.915Z",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.217Z",
           "environment": "development"
         },
         {
           "event": "llm_response_generated",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "message": "{\"type\":\"clarification\",\"question\":\"Which planet would you like to know about?\",\"options\":[\"Mercury\",\"Venus\",\"Earth\",\"Mars\",\"Jupiter\",\"Saturn\",\"Uranus\",\"Neptune\"]}",
-          "traceId": "67ad5e2b-5044-4da9-8ab4-2261b7e582e2",
-          "timestamp": "2026-03-13T22:13:20.054Z",
+          "message": "Paris, the capital of France, is known for its iconic landmarks such as the Eiffel Tower, Notre-Dame Cathedral, and the Louvre Museum. It is often referred to as the 'City of Light' (La Ville Lumière) due to its leading role during the Age of Enlightenment and its early adoption of street lighting. Paris is also famous for its art, fashion, and cuisine, making it a major global center for culture and tourism.",
+          "traceId": "f17096be-e3cf-4ac0-b5d9-7a8d82becb66",
+          "timestamp": "2026-03-13T22:43:40.355Z",
           "environment": "development"
         }
       ],
-      "finalReply": "{\"type\":\"clarification\",\"question\":\"Which planet would you like to know about?\",\"options\":[\"Mercury\",\"Venus\",\"Earth\",\"Mars\",\"Jupiter\",\"Saturn\",\"Uranus\",\"Neptune\"]}"
-    },
-    {
-      "timestamp": "2026-03-13T22:13:29.030Z",
-      "user": "Test",
-      "request": "narendra modi",
-      "events": [
-        {
-          "id": "uo6phm",
-          "type": "input_received",
-          "message": "User request received",
-          "status": "info",
-          "timestamp": 1773440007060
-        },
-        {
-          "event": "input_received",
-          "message": "User request received",
-          "status": "info",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.060Z",
-          "environment": "development"
-        },
-        {
-          "event": "agent_execution_started",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "conversationId": "aba2ed82-cb13-499b-a786-a11d02015fa7",
-          "historyCount": 3,
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.342Z",
-          "environment": "development"
-        },
-        {
-          "id": "uczn2",
-          "type": "thinking",
-          "message": "Agent thinking...",
-          "status": "pending",
-          "timestamp": 1773440007344
-        },
-        {
-          "event": "thinking",
-          "message": "Agent thinking...",
-          "status": "pending",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.344Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "routerNode_start",
-          "messageCount": 4,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.350Z",
-          "environment": "development"
-        },
-        {
-          "event": "router_node_started",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "messageCount": 4,
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.350Z",
-          "environment": "development"
-        },
-        {
-          "event": "router_node_completed",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "intent": "general_chat",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.717Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "routerNode_end",
-          "messageCount": 4,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.718Z",
-          "environment": "development"
-        },
-        {
-          "id": "tsn3j",
-          "type": "intent_detected",
-          "message": "Intent detected: general_chat",
-          "status": "success",
-          "timestamp": 1773440007724
-        },
-        {
-          "event": "intent_detected",
-          "message": "Intent detected: general_chat",
-          "status": "success",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.724Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "chatNode_start",
-          "messageCount": 4,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:27.725Z",
-          "environment": "development"
-        },
-        {
-          "event": "chat_node_completed",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "content": "{\n  \"type\": \"final\",\n  \"message\": \"Narendra Modi is the current Prime Minister of India, serving since 2014. He is a prominent leader of the Bharatiya Janata Party (BJP) and has been a significant figure in Indian politics for several decades. Modi was born on September 17, 1950, in Vadnagar, Gujarat. Before becoming Prime Minister, he served as the Chief Minister of Gujarat from 2001 to 2014. His leadership has been marked by various economic and social initiatives, including the Make in India campaign, Digital India, and the Swachh Bharat Abhiyan (Clean India Mission).\"\n}",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:28.889Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "chatNode_end",
-          "messageCount": 4,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:28.890Z",
-          "environment": "development"
-        },
-        {
-          "id": "iguchn",
-          "type": "thinking",
-          "message": "Processing conversation...",
-          "status": "pending",
-          "timestamp": 1773440008894
-        },
-        {
-          "event": "thinking",
-          "message": "Processing conversation...",
-          "status": "pending",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:28.894Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "responseNode_start",
-          "messageCount": 5,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:28.895Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "responseNode",
-          "messageCount": 5,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "finalReply": "Narendra Modi is the current Prime Minister of India, serving since 2014. He is a prominent leader of the Bharatiya Janata Party (BJP) and has been a significant figure in Indian politics for several decades. Modi was born on September 17, 1950, in Vadnagar, Gujarat. Before becoming Prime Minister, he served as the Chief Minister of Gujarat from 2001 to 2014. His leadership has been marked by various economic and social initiatives, including the Make in India campaign, Digital India, and the Swachh Bharat Abhiyan (Clean India Mission).",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:28.896Z",
-          "environment": "development"
-        },
-        {
-          "id": "li9wj",
-          "type": "response_generating",
-          "message": "Preparing response",
-          "status": "pending",
-          "timestamp": 1773440008900
-        },
-        {
-          "event": "response_generating",
-          "message": "Preparing response",
-          "status": "pending",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:28.900Z",
-          "environment": "development"
-        },
-        {
-          "event": "llm_response_generated",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "message": "Narendra Modi is the current Prime Minister of India, serving since 2014. He is a prominent leader of the Bharatiya Janata Party (BJP) and has been a significant figure in Indian politics for several decades. Modi was born on September 17, 1950, in Vadnagar, Gujarat. Before becoming Prime Minister, he served as the Chief Minister of Gujarat from 2001 to 2014. His leadership has been marked by various economic and social initiatives, including the Make in India campaign, Digital India, and the Swachh Bharat Abhiyan (Clean India Mission).",
-          "traceId": "d6833ba5-3b00-430b-87b8-80a8127e944b",
-          "timestamp": "2026-03-13T22:13:29.030Z",
-          "environment": "development"
-        }
-      ],
-      "finalReply": "Narendra Modi is the current Prime Minister of India, serving since 2014. He is a prominent leader of the Bharatiya Janata Party (BJP) and has been a significant figure in Indian politics for several decades. Modi was born on September 17, 1950, in Vadnagar, Gujarat. Before becoming Prime Minister, he served as the Chief Minister of Gujarat from 2001 to 2014. His leadership has been marked by various economic and social initiatives, including the Make in India campaign, Digital India, and the Swachh Bharat Abhiyan (Clean India Mission)."
-    },
-    {
-      "timestamp": "2026-03-13T22:13:43.112Z",
-      "user": "Test",
-      "request": "whsikey of scotland",
-      "events": [
-        {
-          "id": "oezgz9",
-          "type": "input_received",
-          "message": "User request received",
-          "status": "info",
-          "timestamp": 1773440021042
-        },
-        {
-          "event": "input_received",
-          "message": "User request received",
-          "status": "info",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.042Z",
-          "environment": "development"
-        },
-        {
-          "event": "agent_execution_started",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "conversationId": "aba2ed82-cb13-499b-a786-a11d02015fa7",
-          "historyCount": 5,
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.320Z",
-          "environment": "development"
-        },
-        {
-          "id": "vmsd9",
-          "type": "thinking",
-          "message": "Agent thinking...",
-          "status": "pending",
-          "timestamp": 1773440021322
-        },
-        {
-          "event": "thinking",
-          "message": "Agent thinking...",
-          "status": "pending",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.322Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "routerNode_start",
-          "messageCount": 6,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.329Z",
-          "environment": "development"
-        },
-        {
-          "event": "router_node_started",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "messageCount": 6,
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.329Z",
-          "environment": "development"
-        },
-        {
-          "event": "router_node_completed",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "intent": "general_chat",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.934Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "routerNode_end",
-          "messageCount": 6,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.934Z",
-          "environment": "development"
-        },
-        {
-          "id": "p54loh",
-          "type": "intent_detected",
-          "message": "Intent detected: general_chat",
-          "status": "success",
-          "timestamp": 1773440021938
-        },
-        {
-          "event": "intent_detected",
-          "message": "Intent detected: general_chat",
-          "status": "success",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.938Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "chatNode_start",
-          "messageCount": 6,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:41.938Z",
-          "environment": "development"
-        },
-        {
-          "event": "chat_node_completed",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "content": "{\n  \"type\": \"final\",\n  \"message\": \"Whisky from Scotland is known as Scotch whisky. It is a type of whisky that is distilled and aged in Scotland. There are several types of Scotch whisky, including single malt, single grain, blended malt, blended grain, and blended Scotch whisky. The most well-known types are single malt and blended Scotch. Scotch whisky must be aged in oak barrels for at least three years and must have an alcohol content of at least 40% ABV (alcohol by volume). The Scotch Whisky Regulations 2009 define the requirements for a whisky to be labeled as Scotch.\"\n}",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:42.949Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "chatNode_end",
-          "messageCount": 6,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:42.949Z",
-          "environment": "development"
-        },
-        {
-          "id": "1dpjtn",
-          "type": "thinking",
-          "message": "Processing conversation...",
-          "status": "pending",
-          "timestamp": 1773440022953
-        },
-        {
-          "event": "thinking",
-          "message": "Processing conversation...",
-          "status": "pending",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:42.953Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "responseNode_start",
-          "messageCount": 7,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:42.955Z",
-          "environment": "development"
-        },
-        {
-          "event": "graph_node_debug",
-          "node": "responseNode",
-          "messageCount": 7,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "finalReply": "Whisky from Scotland is known as Scotch whisky. It is a type of whisky that is distilled and aged in Scotland. There are several types of Scotch whisky, including single malt, single grain, blended malt, blended grain, and blended Scotch whisky. The most well-known types are single malt and blended Scotch. Scotch whisky must be aged in oak barrels for at least three years and must have an alcohol content of at least 40% ABV (alcohol by volume). The Scotch Whisky Regulations 2009 define the requirements for a whisky to be labeled as Scotch.",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:42.955Z",
-          "environment": "development"
-        },
-        {
-          "id": "y6c1qt",
-          "type": "response_generating",
-          "message": "Preparing response",
-          "status": "pending",
-          "timestamp": 1773440022960
-        },
-        {
-          "event": "response_generating",
-          "message": "Preparing response",
-          "status": "pending",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:42.960Z",
-          "environment": "development"
-        },
-        {
-          "event": "llm_response_generated",
-          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "message": "Whisky from Scotland is known as Scotch whisky. It is a type of whisky that is distilled and aged in Scotland. There are several types of Scotch whisky, including single malt, single grain, blended malt, blended grain, and blended Scotch whisky. The most well-known types are single malt and blended Scotch. Scotch whisky must be aged in oak barrels for at least three years and must have an alcohol content of at least 40% ABV (alcohol by volume). The Scotch Whisky Regulations 2009 define the requirements for a whisky to be labeled as Scotch.",
-          "traceId": "f96c6719-01ea-4bff-bfbc-64b1d1ec28b3",
-          "timestamp": "2026-03-13T22:13:43.111Z",
-          "environment": "development"
-        }
-      ],
-      "finalReply": "Whisky from Scotland is known as Scotch whisky. It is a type of whisky that is distilled and aged in Scotland. There are several types of Scotch whisky, including single malt, single grain, blended malt, blended grain, and blended Scotch whisky. The most well-known types are single malt and blended Scotch. Scotch whisky must be aged in oak barrels for at least three years and must have an alcohol content of at least 40% ABV (alcohol by volume). The Scotch Whisky Regulations 2009 define the requirements for a whisky to be labeled as Scotch."
+      "finalReply": "Paris, the capital of France, is known for its iconic landmarks such as the Eiffel Tower, Notre-Dame Cathedral, and the Louvre Museum. It is often referred to as the 'City of Light' (La Ville Lumière) due to its leading role during the Age of Enlightenment and its early adoption of street lighting. Paris is also famous for its art, fashion, and cuisine, making it a major global center for culture and tourism."
     }
   ]
 }
