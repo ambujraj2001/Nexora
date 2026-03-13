@@ -492,9 +492,13 @@ export const runAgent = async (
         emitAIEvent('intent_detected', `Intent detected: ${update.intent}`, 'success');
       }
 
-      // 3️⃣ Action Planning
+      // 3️⃣ Action Planning / Chat Logic
       if (node === 'planner') {
         emitAIEvent('plan_created', 'Execution plan created', 'success');
+      }
+
+      if (node === 'chat') {
+        emitAIEvent('thinking', 'Processing conversation...', 'pending');
       }
 
       // 5️⃣ Context Update

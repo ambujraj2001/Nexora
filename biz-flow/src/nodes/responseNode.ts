@@ -1,5 +1,5 @@
 import { GraphState } from "../graphs/state";
-import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { buildModel } from "../config/model";
 import { log } from "../utils/logger";
 import { debugGraphState } from "../utils/debugGraphState";

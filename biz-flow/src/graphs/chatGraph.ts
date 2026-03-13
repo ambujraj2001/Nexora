@@ -5,6 +5,7 @@ import { memoryNode } from "../nodes/memoryNode";
 import { plannerNode } from "../nodes/plannerNode";
 import { toolNode } from "../nodes/toolNode";
 import { responseNode } from "../nodes/responseNode";
+import { chatNode } from "../nodes/chatNode";
 import { AIMessage } from "@langchain/core/messages";
 
 import { toolDiscoveryNode } from "../nodes/toolDiscoveryNode";
@@ -30,6 +31,7 @@ const graphBuilder = new StateGraph(GraphStateAnnotation)
   .addNode("planner", plannerNode)
   .addNode("tools", toolNode)
   .addNode("respond", responseNode)
+  .addNode("chat", chatNode)
 
   .addEdge(START, "router")
 
@@ -38,7 +40,7 @@ const graphBuilder = new StateGraph(GraphStateAnnotation)
     (state: GraphState) => {
       if (state.intent === "bound_action") return "tools";
 
-      if (state.intent === "general_chat") return "respond";
+      if (state.intent === "general_chat") return "chat";
 
       if (state.intent === "memory_write") return "discovery";
 
@@ -50,11 +52,14 @@ const graphBuilder = new StateGraph(GraphStateAnnotation)
     },
     {
       respond: "respond",
+      chat: "chat",
       memory: "memory",
       discovery: "discovery",
       tools: "tools",
     },
   )
+
+  .addEdge("chat", "respond")
 
   .addEdge("memory", "discovery")
   .addEdge("discovery", "planner")
