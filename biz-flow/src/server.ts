@@ -7,6 +7,6 @@ import { initCronJobs } from "./services/cron.service";
 const PORT = Number(process.env.PORT ?? 4000);
 
 app.listen(PORT, () => {
-  console.log(`✅  Chief of AI – biz-flow running on http://localhost:${PORT}`);
+  console.log(`✅  Nexora – biz-flow running on http://localhost:${PORT}`);
   initCronJobs();
 });

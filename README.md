@@ -1,6 +1,6 @@
-# 🤖 Chief of AI
+# 🤖 Nexora
 
-**Chief of AI** is a professional, enterprise-grade AI assistant platform designed to orchestrate complex operations through a unified, high-performance interface. Managed with precision, secured by zero-knowledge architecture, and observed with state-of-the-art telemetry.
+**Nexora** is a professional, enterprise-grade AI assistant platform designed to orchestrate complex operations through a unified, high-performance interface. Managed with precision, secured by zero-knowledge architecture, and observed with state-of-the-art telemetry.
 
 ---
 
@@ -9,9 +9,9 @@
 | Module                | Link                                                                                    |
 | :-------------------- | :-------------------------------------------------------------------------------------- |
 | **🌐 Landing Page**   | [rad-belekoy-2e127e.netlify.app](https://rad-belekoy-2e127e.netlify.app/)               |
-| **🚀 Production App** | [chief-of-ai.vercel.app](https://chief-of-ai.vercel.app/login)                          |
-| **⚡ Backend API**    | [chief-of-ai.onrender.com](https://chief-of-ai.onrender.com)                            |
-| **📊 Axiom Logs**     | [Real-time Stream](https://app.axiom.co/ambuj-amwx/stream/chief-of-ai-logs)             |
+| **🚀 Production App** | [nexora-ai.vercel.app](https://nexora-ai.vercel.app/login)                          |
+| **⚡ Backend API**    | [nexora-api.onrender.com](https://nexora-api.onrender.com)                            |
+| **📊 Axiom Logs**     | [Real-time Stream](https://app.axiom.co/ambuj-amwx/stream/nexora-logs)             |
 | **🧪 LangSmith**      | [smith.langchain.com](https://smith.langchain.com/)                                     |
 | **🎨 UX Design**      | [Stitch Workspace](https://stitch.withgoogle.com/projects/1326706984944929208)          |
 | **✉️ Brevo SMTP**     | [Real-time SMTP Logs](https://app-smtp.brevo.com/real-time)                             |
@@ -59,7 +59,7 @@ We employ a robust observability strategy to ensure maximum reliability and tran
 ### **Centralized Logging**
 
 - **Axiom Cloud Logging**: Structured JSON logs streamed directly to Axiom for advanced analysis and dashboarding.
-- **Log Stream**: [Chief of AI Axiom Dashboard](https://app.axiom.co/ambuj-amwx/stream/chief-of-ai-logs)
+- **Log Stream**: [Nexora Axiom Dashboard](https://app.axiom.co/ambuj-amwx/stream/nexora-logs)
 
 ---
 
@@ -76,8 +76,8 @@ We employ a robust observability strategy to ensure maximum reliability and tran
 
 ```bash
 # Clone the repository
-git clone https://github.com/ambujraj2001/Chief-of-AI.git
-cd Chief-of-AI
+git clone https://github.com/ambujraj2001/Nexora.git
+cd Nexora
 
 # Install Workspace Dependencies
 cd biz-flow && npm install
@@ -120,6 +120,7 @@ cd client && npm run dev
 
 ```text
 .
+123
 ├── client/           # React Frontend (Vite)
 ├── biz-flow/         # Node.js Backend (Express)
 ├── .gitignore        # Monorepo ignore configuration

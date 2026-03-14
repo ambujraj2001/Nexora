@@ -142,9 +142,9 @@ const Sidebar = ({
           onClick={handleOpenDashboard}
           style={{ cursor: "pointer" }}
         >
-          <h1 className="text-sm font-bold tracking-tight">CHIEF OF AI</h1>
+          <h1 className="text-sm font-bold tracking-tight">NEXORA</h1>
           <p className="text-[10px] text-slate-500 font-medium uppercase tracking-widest">
-            Enterprise Version
+            Intelligence Workspace
           </p>
         </div>
       </div>

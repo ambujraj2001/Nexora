@@ -1,6 +1,6 @@
-# GCP Migration Plan -- Chief of AI
+# GCP Migration Plan -- Nexora
 
-> Migrate the entire Chief of AI stack (2 React frontends + Express backend) to GCP using the cheapest services available, switching LLM from Mistral to Gemini 2.5 Flash, keeping Upstash Redis as-is. Target well under $300/month.
+> Migrate the entire Nexora stack (2 React frontends + Express backend) to GCP using the cheapest services available, switching LLM from Mistral to Gemini 2.5 Flash, keeping Upstash Redis as-is. Target well under $300/month.
 
 ---
 
@@ -73,7 +73,7 @@ flowchart LR
 
 Before any code changes, create these resources on your GCP project:
 
-1. **GCP Project** -- Create a new project (e.g., `chief-of-ai`)
+1. **GCP Project** -- Create a new project (e.g., `nexora`)
 2. **Enable APIs**:
    - Cloud Run API
    - Cloud SQL Admin API
@@ -89,7 +89,7 @@ Before any code changes, create these resources on your GCP project:
    - Region: `us-central1` (cheapest)
    - Storage: 10GB SSD
    - Enable `pgvector` and `pgcrypto` extensions
-4. **Cloud Storage Bucket**: `chief-of-ai-files` (Standard, `us-central1`)
+4. **Cloud Storage Bucket**: `nexora-files` (Standard, `us-central1`)
 5. **Artifact Registry**: Docker repo for container images
 6. **Secret Manager**: Store all env vars as secrets
 7. **Service Account**: For Cloud Run with roles:
@@ -167,7 +167,7 @@ This is a key change. All LangChain agent files currently use:
 ├── firebase.json                 # Frontend hosting config
 ├── .firebaserc                   # Firebase project config
 ├── cloudbuild.yaml               # CI/CD pipeline
-└── infra/
+├── infra/
     └── setup.sh                  # gcloud CLI script to provision all resources
 ```
 

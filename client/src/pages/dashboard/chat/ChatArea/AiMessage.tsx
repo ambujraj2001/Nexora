@@ -113,7 +113,7 @@ const AiMessage: React.FC<AiMessageProps> = ({ content, onOptionSelect }) => {
       </div>
       <div className="flex flex-col gap-1.5 max-w-[85%]">
         <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-          Chief of AI
+          Nexora
         </p>
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-100 dark:border-slate-800 shadow-sm prose dark:prose-invert max-w-none">
           {processed.kind === "clarification" ? (

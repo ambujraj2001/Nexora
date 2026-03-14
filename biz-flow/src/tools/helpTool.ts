@@ -11,7 +11,7 @@ export const helpTool = tool(
     });
 
     return `
-I am Chief of AI, your personal assistant. Here is a quick overview of what I can currently do for you:
+I am Nexora, your personal assistant. Here is a quick overview of what I can currently do for you:
 
 🧠 **Memories (Personal details & preferences)**
 I can save, search, update, and forget your personal preferences or data.

@@ -1,5 +1,9 @@
 import { GraphState } from "../graphs/state";
-import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import {
+  AIMessage,
+  HumanMessage,
+  SystemMessage,
+} from "@langchain/core/messages";
 import { buildModel } from "../config/model";
 import { debugGraphState } from "../utils/debugGraphState";
 import { log } from "../utils/logger";
@@ -16,7 +20,7 @@ export const chatNode = async (state: GraphState) => {
 
   // We provide a specific, lean system prompt for general conversation.
   const chatPrompt = new SystemMessage(
-    `You are Chief of AI, a helpful personal assistant.
+    `You are Nexora, a helpful personal assistant.
     
     CRITICAL RULES:
     1. Focus ONLY on the user's LATEST request.
@@ -36,13 +40,10 @@ export const chatNode = async (state: GraphState) => {
       "options": ["option 1", "option 2"]
     }
     
-    Do NOT include markdown markers or extra text.`.trim()
+    Do NOT include markdown markers or extra text.`.trim(),
   );
 
-  const response = await llm.invoke([
-    chatPrompt,
-    ...lastMessages,
-  ]);
+  const response = await llm.invoke([chatPrompt, ...lastMessages]);
 
   log({
     event: "chat_node_completed",

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Bot, ArrowRight } from "lucide-react";
 
-const CTA_URL = "https://chief-of-ai.vercel.app/";
+const CTA_URL = "https://nexora-ai.vercel.app/";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="container mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2 font-heading font-bold text-lg">
           <Bot className="w-6 h-6 text-primary" />
-          Chief of AI
+          Nexora
         </a>
 
         <div className="hidden sm:flex items-center gap-8">

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-const CTA_URL = "https://chief-of-ai.vercel.app/";
+const CTA_URL = "https://nexora-ai.vercel.app/";
 
 const Hero = () => {
   return (
@@ -43,7 +43,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Chief of AI is a chat-first workspace where you manage tasks, build apps,
+          Nexora is a chat-first workspace where you manage tasks, build apps,
           automate workflows, and organize knowledge — all through one intelligent assistant.
         </motion.p>
 
@@ -59,7 +59,7 @@ const Hero = () => {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold text-lg glow-primary transition-all duration-300 hover:scale-105"
           >
-            Try Chief of AI
+            Try Nexora
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </a>
           <a

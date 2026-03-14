@@ -1,6 +1,6 @@
-# GCP Migration Guide -- Chief of AI
+# GCP Migration Guide -- Nexora
 
-> Step-by-step instructions for migrating Chief of AI to Google Cloud Platform.
+> Step-by-step instructions for migrating Nexoraoogle Cloud Platform.
 > Estimated monthly cost: ~$10-20/month | GCP Credits: $300
 
 ---
@@ -48,7 +48,7 @@ brew install google-cloud-sdk
 gcloud auth login
 
 # Set default project (after creating it in step 2)
-gcloud config set project chief-of-ai
+gcloud config set project nexora
 ```
 
 ---
@@ -61,7 +61,7 @@ gcloud config set project chief-of-ai
 2. Click the project dropdown at the top bar
 3. Click **"New Project"**
 4. Enter:
-   - **Project name**: `chief-of-ai`
+   - **Project name**: `nexora`
    - **Organization**: Leave as "No organization" (personal account)
    - **Location**: Leave default
 5. Click **"Create"**
@@ -70,14 +70,14 @@ gcloud config set project chief-of-ai
 ### Via CLI
 
 ```bash
-gcloud projects create chief-of-ai --name="Chief of AI"
-gcloud config set project chief-of-ai
+gcloud projects create nexora --name="NexorNexora
+gcloud config set project nexora
 ```
 
 ### Activate Billing
 
 1. Go to [Billing](https://console.cloud.google.com/billing)
-2. Link your billing account to the `chief-of-ai` project
+2. Link your billing account to the `nexora` project
 3. If you have $300 free credits, they will be applied automatically
 
 ---
@@ -115,7 +115,7 @@ This replaces your Supabase PostgreSQL database.
 ### Create the Instance
 
 ```bash
-gcloud sql instances create chief-of-ai-db \
+gcloud sql instances create nexora-db \
   --database-version=POSTGRES_15 \
   --tier=db-f1-micro \
   --region=us-central1 \
@@ -130,7 +130,7 @@ gcloud sql instances create chief-of-ai-db \
 
 ```bash
 gcloud sql users set-password postgres \
-  --instance=chief-of-ai-db \
+  --instance=nexora-db \
   --password=YOUR_SECURE_PASSWORD_HERE
 ```
 
@@ -139,8 +139,8 @@ gcloud sql users set-password postgres \
 ### Create the application database
 
 ```bash
-gcloud sql databases create chiefofai \
-  --instance=chief-of-ai-db
+gcloud sql databases create nexora \
+  --instance=nexora-db
 ```
 
 ### Enable required extensions
@@ -148,7 +148,7 @@ gcloud sql databases create chiefofai \
 Connect to the database:
 
 ```bash
-gcloud sql connect chief-of-ai-db --user=postgres --database=chiefofai
+gcloud sql connect nexora-db --user=postgres --database=nexora
 ```
 
 Then run these SQL commands:
@@ -162,10 +162,10 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 ### Get the connection name (you'll need this later)
 
 ```bash
-gcloud sql instances describe chief-of-ai-db --format="value(connectionName)"
+gcloud sql instances describe nexora-db --format="value(connectionName)"
 ```
 
-> Save this value. It looks like: `chief-of-ai:us-central1:chief-of-ai-db`
+> Save this value. It looks like: `nexora:us-central1:nexora-db`
 
 ---
 
@@ -176,7 +176,7 @@ This replaces Supabase Storage for file uploads.
 ### Create the bucket
 
 ```bash
-gcloud storage buckets create gs://chief-of-ai-files \
+gcloud storage buckets create gs://nexora-files \
   --location=us-central1 \
   --default-storage-class=STANDARD \
   --uniform-bucket-level-access
@@ -200,8 +200,8 @@ Create a file called `cors.json`:
 Apply it:
 
 ```bash
-gcloud storage buckets update gs://chief-of-ai-files --cors-file=cors.json
-rm cors.json
+gcloud storage buckets update gs://nexora-files --cors-file=cors.json
+204: rm cors.json
 ```
 
 ---
@@ -211,10 +211,10 @@ rm cors.json
 This stores your Docker container images for Cloud Run.
 
 ```bash
-gcloud artifacts repositories create chief-of-ai-repo \
+gcloud artifacts repositories create nexora-repo \
   --repository-format=docker \
   --location=us-central1 \
-  --description="Chief of AI container images"
+  --description="Nexoraainer images"
 ```
 
 ### Configure Docker to use Artifact Registry
@@ -237,11 +237,11 @@ echo -n "YOUR_CLOUD_SQL_CONNECTION_STRING" | \
   gcloud secrets create DATABASE_URL --data-file=-
 
 # Cloud Storage bucket name
-echo -n "chief-of-ai-files" | \
+echo -n "nexora-files" | \
   gcloud secrets create GCS_BUCKET --data-file=-
 
 # Gemini / Vertex AI (uses Application Default Credentials on Cloud Run, but set project)
-echo -n "chief-of-ai" | \
+echo -n "nexora" | \
   gcloud secrets create GCP_PROJECT_ID --data-file=-
 
 # Upstash Redis (keep existing values)
@@ -282,11 +282,11 @@ echo -n "YOUR_TAVILY_API_KEY" | \
   gcloud secrets create TAVILY_API_KEY --data-file=-
 
 # Frontend URL
-echo -n "https://chief-of-ai.web.app" | \
+echo -n "https://nexora-ai.web.app" | \
   gcloud secrets create FRONTEND_URL --data-file=-
 
 # Client origin for CORS
-echo -n "https://chief-of-ai.web.app" | \
+echo -n "https://nexora-ai.web.app" | \
   gcloud secrets create CLIENT_ORIGIN --data-file=-
 ```
 
@@ -307,33 +307,33 @@ Create a dedicated service account for Cloud Run with the minimum required permi
 ### Create the service account
 
 ```bash
-gcloud iam service-accounts create chief-of-ai-runner \
-  --display-name="Chief of AI Cloud Run Service Account"
+gcloud iam service-accounts create nexora-runner \
+  --display-name="Nexorad Run Service Account"
 ```
 
 ### Grant required roles
 
 ```bash
-PROJECT_ID=chief-of-ai
+PROJECT_ID=nexora
 
 # Cloud SQL access
 gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:chief-of-ai-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --member="serviceAccount:nexora-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/cloudsql.client"
 
 # Cloud Storage access
 gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:chief-of-ai-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --member="serviceAccount:nexora-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/storage.objectAdmin"
 
 # Secret Manager access
 gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:chief-of-ai-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --member="serviceAccount:nexora-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/secretmanager.secretAccessor"
 
 # Vertex AI access (for Gemini 2.5 Flash)
 gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member="serviceAccount:chief-of-ai-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
+  --member="serviceAccount:nexora-runner@${PROJECT_ID}.iam.gserviceaccount.com" \
   --role="roles/aiplatform.user"
 ```
 
@@ -354,7 +354,8 @@ firebase init hosting
 ```
 
 When prompted:
-- **Project**: Select `chief-of-ai` (or create a new Firebase project linked to your GCP project)
+
+- **Project**: Select `nexora` (or create a new Firebase project linked to your GCP project)
 - **Public directory**: `client/dist` (we'll configure multi-site later)
 - **Single-page app**: **Yes**
 - **GitHub deploys**: **No** (we'll use Cloud Build)
@@ -375,21 +376,21 @@ After the code migration is complete (Dockerfile + GCP config changes), deploy:
 # From the biz-flow directory
 cd biz-flow
 
-docker build -t us-central1-docker.pkg.dev/chief-of-ai/chief-of-ai-repo/biz-flow:latest .
+docker build -t us-central1-docker.pkg.dev/nexora/nexora-repo/biz-flow:latest .
 
-docker push us-central1-docker.pkg.dev/chief-of-ai/chief-of-ai-repo/biz-flow:latest
+docker push us-central1-docker.pkg.dev/nexora/nexora-repo/biz-flow:latest
 ```
 
 ### Deploy to Cloud Run
 
 ```bash
-gcloud run deploy chief-of-ai-api \
-  --image=us-central1-docker.pkg.dev/chief-of-ai/chief-of-ai-repo/biz-flow:latest \
+gcloud run deploy nexora-api \
+  --image=us-central1-docker.pkg.dev/nexora/nexora-repo/biz-flow:latest \
   --region=us-central1 \
   --platform=managed \
   --allow-unauthenticated \
-  --service-account=chief-of-ai-runner@chief-of-ai.iam.gserviceaccount.com \
-  --add-cloudsql-instances=chief-of-ai:us-central1:chief-of-ai-db \
+  --service-account=nexora-runner@nexora.iam.gserviceaccount.com \
+  --add-cloudsql-instances=nexora:us-central1:nexora-db \
   --set-env-vars="NODE_ENV=production" \
   --set-secrets="DATABASE_URL=DATABASE_URL:latest,GCS_BUCKET=GCS_BUCKET:latest,UPSTASH_REDIS_REST_URL=UPSTASH_REDIS_REST_URL:latest,UPSTASH_REDIS_REST_TOKEN=UPSTASH_REDIS_REST_TOKEN:latest,SMTP_HOST=SMTP_HOST:latest,SMTP_PORT=SMTP_PORT:latest,SMTP_USER=SMTP_USER:latest,SMTP_PASS=SMTP_PASS:latest,SMTP_SENDER_EMAIL=SMTP_SENDER_EMAIL:latest,SMTP_SENDER_NAME=SMTP_SENDER_NAME:latest,LANGSMITH_API_KEY=LANGSMITH_API_KEY:latest,LANGSMITH_PROJECT=LANGSMITH_PROJECT:latest,TAVILY_API_KEY=TAVILY_API_KEY:latest,FRONTEND_URL=FRONTEND_URL:latest,CLIENT_ORIGIN=CLIENT_ORIGIN:latest" \
   --memory=512Mi \
@@ -402,12 +403,12 @@ gcloud run deploy chief-of-ai-api \
 ### Get your Cloud Run URL
 
 ```bash
-gcloud run services describe chief-of-ai-api \
+gcloud run services describe nexora-api \
   --region=us-central1 \
   --format="value(status.url)"
 ```
 
-> Save this URL -- your frontends will point to it (e.g., `https://chief-of-ai-api-xxxxx-uc.a.run.app`)
+> Save this URL -- your frontends will point to it (e.g., `https://nexora-api-xxxxx-uc.a.run.app`)
 
 ---
 
@@ -439,8 +440,9 @@ firebase deploy --only hosting
 ### Get your Firebase Hosting URLs
 
 After deploy, Firebase will print the URLs:
-- Client app: `https://chief-of-ai.web.app`
-- Website: `https://chief-of-ai-website.web.app` (if multi-site configured)
+
+- Client app: `https://nexora-ai.web.app`
+- Website: `https://nexora-ai-website.web.app` (if multi-site configured)
 
 ---
 
@@ -453,7 +455,7 @@ Cloud Build will automatically build and deploy when you push to the `production
 1. Go to [Cloud Build Triggers](https://console.cloud.google.com/cloud-build/triggers)
 2. Click **"Connect Repository"**
 3. Select **GitHub** as the source
-4. Authorize and select your `Chief-of-AI` repository
+4. Authorize and select your `Nexora` repository
 5. Click **"Connect"**
 
 ### Create the build trigger
@@ -461,7 +463,7 @@ Cloud Build will automatically build and deploy when you push to the `production
 ```bash
 gcloud builds triggers create github \
   --name="deploy-production" \
-  --repo-name="Chief-of-AI" \
+  --repo-name="Nexora" \
   --repo-owner="YOUR_GITHUB_USERNAME" \
   --branch-pattern="^production$" \
   --build-config="cloudbuild.yaml"
@@ -472,21 +474,21 @@ gcloud builds triggers create github \
 ### Grant Cloud Build permissions
 
 ```bash
-PROJECT_NUMBER=$(gcloud projects describe chief-of-ai --format="value(projectNumber)")
+PROJECT_NUMBER=$(gcloud projects describe nexora --format="value(projectNumber)")
 
 # Allow Cloud Build to deploy to Cloud Run
-gcloud projects add-iam-policy-binding chief-of-ai \
+gcloud projects add-iam-policy-binding nexora \
   --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
   --role="roles/run.admin"
 
 # Allow Cloud Build to act as the service account
 gcloud iam service-accounts add-iam-policy-binding \
-  chief-of-ai-runner@chief-of-ai.iam.gserviceaccount.com \
+  nexora-runner@nexora.iam.gserviceaccount.com \
   --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
   --role="roles/iam.serviceAccountUser"
 
 # Allow Cloud Build to push to Artifact Registry
-gcloud projects add-iam-policy-binding chief-of-ai \
+gcloud projects add-iam-policy-binding nexora \
   --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
   --role="roles/artifactregistry.writer"
 ```
@@ -517,22 +519,22 @@ pg_dump "postgresql://postgres:YOUR_SUPABASE_PASSWORD@YOUR_SUPABASE_HOST:5432/po
 
 ```bash
 # Upload the dump to Cloud Storage (required for Cloud SQL import)
-gcloud storage cp supabase_dump.sql gs://chief-of-ai-files/migration/supabase_dump.sql
+gcloud storage cp supabase_dump.sql gs://nexora-files/migration/supabase_dump.sql
 
 # Import into Cloud SQL
-gcloud sql import sql chief-of-ai-db \
-  gs://chief-of-ai-files/migration/supabase_dump.sql \
-  --database=chiefofai
+gcloud sql import sql nexora-db \
+  gs://nexora-files/migration/supabase_dump.sql \
+  --database=nexora
 
 # Clean up the migration file
-gcloud storage rm gs://chief-of-ai-files/migration/supabase_dump.sql
+gcloud storage rm gs://nexora-files/migration/supabase_dump.sql
 rm supabase_dump.sql
 ```
 
 ### Verify the data
 
 ```bash
-gcloud sql connect chief-of-ai-db --user=postgres --database=chiefofai
+gcloud sql connect nexora-db --user=postgres --database=nexora
 ```
 
 ```sql
@@ -579,42 +581,42 @@ SELECT count(*) FROM tools_registry;
 
 ### Old (Supabase/Mistral) -> New (GCP/Gemini)
 
-| Old Variable | New Variable | Notes |
-|---|---|---|
-| `SUPABASE_URL` | `DATABASE_URL` | Cloud SQL connection string |
-| `SUPABASE_SERVICE_ROLE_KEY` | _(removed)_ | Not needed, using pg directly |
-| `MISTRAL_API_KEY` | _(removed)_ | Using Vertex AI ADC instead |
-| `MISTRAL_API_BASE` | _(removed)_ | Not needed |
-| `MISTRAL_MODEL` | _(removed)_ | Hardcoded to `gemini-2.5-flash` |
-| `AXIOM_TOKEN` | _(removed)_ | Using Cloud Logging |
-| `AXIOM_DATASET` | _(removed)_ | Using Cloud Logging |
-| _(new)_ | `GCP_PROJECT_ID` | Your GCP project ID |
-| _(new)_ | `GCS_BUCKET` | Cloud Storage bucket name |
-| _(new)_ | `CLOUD_SQL_CONNECTION_NAME` | Cloud SQL instance connection |
+| Old Variable                | New Variable                | Notes                           |
+| --------------------------- | --------------------------- | ------------------------------- |
+| `SUPABASE_URL`              | `DATABASE_URL`              | Cloud SQL connection string     |
+| `SUPABASE_SERVICE_ROLE_KEY` | _(removed)_                 | Not needed, using pg directly   |
+| `MISTRAL_API_KEY`           | _(removed)_                 | Using Vertex AI ADC instead     |
+| `MISTRAL_API_BASE`          | _(removed)_                 | Not needed                      |
+| `MISTRAL_MODEL`             | _(removed)_                 | Hardcoded to `gemini-2.5-flash` |
+| `AXIOM_TOKEN`               | _(removed)_                 | Using Cloud Logging             |
+| `AXIOM_DATASET`             | _(removed)_                 | Using Cloud Logging             |
+| _(new)_                     | `GCP_PROJECT_ID`            | Your GCP project ID             |
+| _(new)_                     | `GCS_BUCKET`                | Cloud Storage bucket name       |
+| _(new)_                     | `CLOUD_SQL_CONNECTION_NAME` | Cloud SQL instance connection   |
 
 ### Kept Unchanged
 
-| Variable | Service |
-|---|---|
-| `UPSTASH_REDIS_REST_URL` | Upstash Redis |
-| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis |
-| `SMTP_HOST` | Brevo |
-| `SMTP_PORT` | Brevo |
-| `SMTP_USER` | Brevo |
-| `SMTP_PASS` | Brevo |
-| `SMTP_SENDER_EMAIL` | Brevo |
-| `SMTP_SENDER_NAME` | Brevo |
-| `LANGSMITH_API_KEY` | LangSmith |
-| `LANGSMITH_PROJECT` | LangSmith |
-| `LANGCHAIN_TRACING_V2` | LangSmith |
-| `LANGCHAIN_ENDPOINT` | LangSmith |
-| `LANGCHAIN_API_KEY` | LangSmith |
-| `LANGCHAIN_PROJECT` | LangSmith |
-| `TAVILY_API_KEY` | Tavily |
-| `PORT` | Express server port |
-| `CLIENT_ORIGIN` | CORS origin |
-| `FRONTEND_URL` | Email links |
-| `NODE_ENV` | Node environment |
+| Variable                   | Service             |
+| -------------------------- | ------------------- |
+| `UPSTASH_REDIS_REST_URL`   | Upstash Redis       |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis       |
+| `SMTP_HOST`                | Brevo               |
+| `SMTP_PORT`                | Brevo               |
+| `SMTP_USER`                | Brevo               |
+| `SMTP_PASS`                | Brevo               |
+| `SMTP_SENDER_EMAIL`        | Brevo               |
+| `SMTP_SENDER_NAME`         | Brevo               |
+| `LANGSMITH_API_KEY`        | LangSmith           |
+| `LANGSMITH_PROJECT`        | LangSmith           |
+| `LANGCHAIN_TRACING_V2`     | LangSmith           |
+| `LANGCHAIN_ENDPOINT`       | LangSmith           |
+| `LANGCHAIN_API_KEY`        | LangSmith           |
+| `LANGCHAIN_PROJECT`        | LangSmith           |
+| `TAVILY_API_KEY`           | Tavily              |
+| `PORT`                     | Express server port |
+| `CLIENT_ORIGIN`            | CORS origin         |
+| `FRONTEND_URL`             | Email links         |
+| `NODE_ENV`                 | Node environment    |
 
 ---
 
@@ -631,16 +633,16 @@ SELECT count(*) FROM tools_registry;
 
 ### Monthly cost breakdown (estimated)
 
-| Service | Est. Cost |
-|---|---|
-| Cloud SQL (db-f1-micro) | ~$7-10 |
-| Cloud Run (free tier) | ~$0-5 |
-| Cloud Storage | ~$0-2 |
-| Gemini 2.5 Flash | ~$0-3 |
-| Firebase Hosting (free tier) | $0 |
-| Cloud Build (free 120 min/day) | $0 |
-| Cloud Logging (free 50GB/mo) | $0 |
-| **Total** | **~$10-20/mo** |
+| Service                        | Est. Cost      |
+| ------------------------------ | -------------- |
+| Cloud SQL (db-f1-micro)        | ~$7-10         |
+| Cloud Run (free tier)          | ~$0-5          |
+| Cloud Storage                  | ~$0-2          |
+| Gemini 2.5 Flash               | ~$0-3          |
+| Firebase Hosting (free tier)   | $0             |
+| Cloud Build (free 120 min/day) | $0             |
+| Cloud Logging (free 50GB/mo)   | $0             |
+| **Total**                      | **~$10-20/mo** |
 
 With $300 credits, this setup lasts **15-30 months**.
 
@@ -650,19 +652,19 @@ With $300 credits, this setup lasts **15-30 months**.
 
 ```bash
 # View Cloud Run logs
-gcloud run services logs read chief-of-ai-api --region=us-central1
+gcloud run services logs read nexora-api --region=us-central1
 
 # Redeploy backend
-gcloud run deploy chief-of-ai-api --image=us-central1-docker.pkg.dev/chief-of-ai/chief-of-ai-repo/biz-flow:latest --region=us-central1
+gcloud run deploy nexora-api --image=us-central1-docker.pkg.dev/nexora/nexora-repo/biz-flow:latest --region=us-central1
 
 # Connect to Cloud SQL
-gcloud sql connect chief-of-ai-db --user=postgres --database=chiefofai
+gcloud sql connect nexora-db --user=postgres --database=nexora
 
 # View secrets
 gcloud secrets list
 
 # Check Cloud Run status
-gcloud run services describe chief-of-ai-api --region=us-central1
+gcloud run services describe nexora-api --region=us-central1
 
 # Redeploy frontends
 firebase deploy --only hosting

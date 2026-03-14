@@ -12,7 +12,7 @@ export const safetyTool = tool(
 
     // Provide a standardized response for safety violations.
     // The prettifier tool (if used) or the agent itself will return this to the user.
-    return "I am Chief of AI, a professional assistant. I am programmed to be helpful, safe, and respectful. I cannot fulfill or engage with requests involving hate speech, explicit content, violence, or harmful behavior. If you need help with a professional task or information, please let me know.";
+    return "I am Nexora, a professional assistant. I am programmed to be helpful, safe, and respectful. I cannot fulfill or engage with requests involving hate speech, explicit content, violence, or harmful behavior. If you need help with a professional task or information, please let me know.";
   },
   {
     name: "handle_inappropriate_request",

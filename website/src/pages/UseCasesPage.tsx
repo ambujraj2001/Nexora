@@ -25,7 +25,7 @@ const useCases = [
     title: "Expense Tracking",
     tagline: "Split bills and track spending with AI.",
     description:
-      "Chief of AI keeps a running ledger of every expense you mention in chat. It can split costs between friends, categorise spending, and send reminders for outstanding balances — all without leaving the conversation.",
+      "Nexora keeps a running ledger of every expense you mention in chat. It can split costs between friends, categorise spending, and send reminders for outstanding balances — all without leaving the conversation.",
     features: [
       "Auto-categorise expenses from natural language",
       "Split bills across group members instantly",
@@ -38,7 +38,7 @@ const useCases = [
     title: "Daily Briefings",
     tagline: "Automated news and updates every morning.",
     description:
-      "Wake up to a personalised briefing delivered right to your chat. Chief of AI aggregates news, calendar events, weather, and task reminders into a single, digestible morning update.",
+      "Wake up to a personalised briefing delivered right to your chat. Nexora aggregates news, calendar events, weather, and task reminders into a single, digestible morning update.",
     features: [
       "Customisable topics and sources",
       "Calendar and task integration",
@@ -51,7 +51,7 @@ const useCases = [
     title: "Project Management",
     tagline: "Tasks, deadlines, and progress — managed by AI.",
     description:
-      "Tell Chief of AI about your project and it creates tasks, assigns priorities, tracks deadlines, and gives you status updates. It's like having a project manager that never sleeps.",
+      "Tell Nexora about your project and it creates tasks, assigns priorities, tracks deadlines, and gives you status updates. It's like having a project manager that never sleeps.",
     features: [
       "Create tasks from natural conversation",
       "Automatic priority and deadline suggestions",
@@ -64,7 +64,7 @@ const useCases = [
     title: "Knowledge Assistant",
     tagline: "Store, search, and retrieve information instantly.",
     description:
-      "Save articles, notes, links, and ideas in chat. Chief of AI indexes everything and lets you search your personal knowledge base with simple questions — no folders or tags required.",
+      "Save articles, notes, links, and ideas in chat. Nexora indexes everything and lets you search your personal knowledge base with simple questions — no folders or tags required.",
     features: [
       "Save anything by sending it in chat",
       "Semantic search across all saved items",
@@ -77,7 +77,7 @@ const useCases = [
     title: "Team Coordination",
     tagline: "Keep your team aligned without the meetings.",
     description:
-      "Chief of AI facilitates async stand-ups, collects status updates, and surfaces blockers — so your team stays in sync without scheduling another meeting.",
+      "Nexora facilitates async stand-ups, collects status updates, and surfaces blockers — so your team stays in sync without scheduling another meeting.",
     features: [
       "Automated daily stand-up prompts",
       "Blocker detection and escalation",
@@ -90,7 +90,7 @@ const useCases = [
     title: "Personal CRM",
     tagline: "Never forget a conversation or commitment.",
     description:
-      "Mention a contact and Chief of AI remembers context — past conversations, commitments, birthdays, and follow-ups. Build deeper relationships effortlessly.",
+      "Mention a contact and Nexora remembers context — past conversations, commitments, birthdays, and follow-ups. Build deeper relationships effortlessly.",
     features: [
       "Auto-link mentions to contact profiles",
       "Follow-up reminders",
@@ -108,7 +108,7 @@ const UseCasesPage = () => {
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 font-heading font-bold text-lg">
             <Bot className="w-6 h-6 text-primary" />
-            Chief of AI
+            Nexora
           </Link>
           <Link
             to="/"
@@ -138,7 +138,7 @@ const UseCasesPage = () => {
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               From building apps with a prompt to automating daily workflows —
-              see everything Chief of AI can do for you.
+              see everything Nexora can do for you.
             </p>
           </motion.div>
         </div>
@@ -168,7 +168,7 @@ const UseCasesPage = () => {
               <span className="text-gradient">one prompt</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Describe what you want and Chief of AI scaffolds the entire application —
+              Describe what you want and Nexora scaffolds the entire application —
               UI, data models, and business logic — ready to use immediately.
             </p>
           </motion.div>
@@ -176,7 +176,7 @@ const UseCasesPage = () => {
           {/* How it works steps */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             {[
-              { step: "01", icon: Sparkles, title: "Describe your app", desc: "Tell Chief of AI what you want to build in plain language." },
+              { step: "01", icon: Sparkles, title: "Describe your app", desc: "Tell Nexora what you want to build in plain language." },
               { step: "02", icon: Code2, title: "AI generates everything", desc: "UI components, data models, and logic are created instantly." },
               { step: "03", icon: Palette, title: "Customise & ship", desc: "Tweak the design, add features, and deploy — all from chat." },
             ].map((s, i) => (
@@ -304,10 +304,10 @@ const UseCasesPage = () => {
               Ready to get started?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Try Chief of AI and turn your conversations into real productivity.
+              Try Nexora and turn your conversations into real productivity.
             </p>
             <a
-              href="https://chief-of-ai.vercel.app/"
+              href="https://nexora-ai.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-primary text-primary-foreground font-medium transition-all hover:scale-105"

@@ -243,7 +243,7 @@ const SettingsPage = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `chief_of_ai_export_${dayjs().format("YYYYMMDD_HHmmss")}.json`;
+      a.download = `nexora_export_${dayjs().format("YYYYMMDD_HHmmss")}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -394,7 +394,7 @@ const SettingsPage = () => {
                   type="text"
                   value={formData.role}
                   onChange={handleRoleChange}
-                  placeholder="e.g. Chief of AI Operations"
+                  placeholder="e.g. Nexora Operations Manager"
                 />
               </div>
             </div>

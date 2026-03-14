@@ -269,7 +269,7 @@ const ChatDemo = () => {
             Watch it <span className="text-gradient">think</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Chief of AI doesn't just answer — it reasons, plans, and executes multi-step workflows in real time.
+            Nexora doesn't just answer — it reasons, plans, and executes multi-step workflows in real time.
           </p>
         </motion.div>
 
@@ -289,7 +289,7 @@ const ChatDemo = () => {
                 <div className="w-2.5 h-2.5 rounded-full bg-primary/40" />
               </div>
               <div className="flex-1 text-center">
-                <span className="text-xs text-muted-foreground font-medium">Chief of AI</span>
+                <span className="text-xs text-muted-foreground font-medium">Nexora</span>
               </div>
             </div>
 
@@ -380,7 +380,7 @@ const ChatDemo = () => {
             {/* Input bar */}
             <div className="px-5 py-4 border-t border-border">
               <div className="flex items-center gap-3 bg-secondary/40 rounded-xl px-4 py-3 border border-border">
-                <span className="text-sm text-muted-foreground flex-1">Ask Chief anything...</span>
+                <span className="text-sm text-muted-foreground flex-1">Ask Nexora anything...</span>
                 <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-primary" />
                 </div>

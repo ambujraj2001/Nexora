@@ -471,7 +471,7 @@ const LoginPage = () => {
 
         <footer className="py-8 px-6 text-center mt-auto">
           <p className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-widest px-4">
-            © 2026 Chief of AI • Secure Enterprise Version
+            © 2026 Nexora • Secure Intelligence Workspace
           </p>
         </footer>
       </div>

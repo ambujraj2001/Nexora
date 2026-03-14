@@ -16,7 +16,7 @@ const prettifySchema = z.object({
 /**
  * Prettify Tool: Converts raw data into a polished, human-friendly response.
  * This is used to ensure tool outputs (like numbers or raw API responses)
- * are presented gracefully in the Chief of AI tone.
+ * are presented gracefully in the Nexora tone.
  */
 export const prettifyResponseTool = tool(
   async ({
@@ -36,7 +36,7 @@ export const prettifyResponseTool = tool(
 
     const response = await llm.invoke([
       new SystemMessage(`
-        You are a Response Prettifier for Chief of AI.
+        You are a Response Prettifier for Nexora.
         Your job is to take raw tool output and the user's original query, then combine them into a single, polished, and professional sentence or two.
         
         RULES:

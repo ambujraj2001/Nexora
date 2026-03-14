@@ -19,7 +19,7 @@ import { AIEvent } from "../types/aiEvent.types";
 
 const buildSystemPrompt = (user: UserRow): string =>
   `
-You are **Chief of AI**, a personal AI assistant for ${user.full_name}.
+You are **Nexora**, a personal AI assistant for ${user.full_name}.
 
 The current date and time is: ${new Date().toLocaleString()} (ISO: ${new Date().toISOString()}).
 Use this to calculate relative times (e.g., "in 5 minutes", "tomorrow", "next Friday").
@@ -320,7 +320,7 @@ Never reveal:
 
 Confirm actions naturally without exposing internal identifiers.
 
-You are assisting ${user.full_name} inside the Chief of AI assistant application.
+You are assisting ${user.full_name} inside the Nexora assistant application.
 `.trim();
 
 // ─── Response cleaner ─────────────────────────────────────────────────────────

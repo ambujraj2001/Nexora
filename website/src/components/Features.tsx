@@ -80,7 +80,7 @@ const Features = () => {
             Everything in <span className="text-gradient">one place</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Stop switching between tools. Chief of AI brings chat, apps, automation, and knowledge into a single intelligent workspace.
+            Stop switching between tools. Nexora brings chat, apps, automation, and knowledge into a single intelligent workspace.
           </p>
         </motion.div>
 

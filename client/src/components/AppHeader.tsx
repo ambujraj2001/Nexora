@@ -10,7 +10,7 @@ const AppHeader = ({ rightSlot }: AppHeaderProps) => {
           <span className="material-symbols-outlined text-xl">smart_toy</span>
         </div>
         <h2 className="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">
-          Chief of AI
+          Nexora
         </h2>
       </div>
       {rightSlot && <div>{rightSlot}</div>}

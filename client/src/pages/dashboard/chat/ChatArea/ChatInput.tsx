@@ -357,14 +357,17 @@ const ChatInput: React.FC<ChatInputProps> = ({
 
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
           <p className="text-[10px] sm:text-[11px] text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
-            <span className="material-symbols-outlined text-[14px]">bolt</span>
-            Supercharged by AI
+            <span className="material-symbols-outlined text-[14px]">
+              auto_awesome
+            </span>
+            Powered by Nexora AI
           </p>
+
           <p className="text-[10px] sm:text-[11px] text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
             <span className="material-symbols-outlined text-[14px]">
-              shield_person
+              verified_user
             </span>
-            Enterprise Encryption
+            Secure & Private
           </p>
         </div>
       </div>

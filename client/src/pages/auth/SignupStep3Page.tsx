@@ -78,7 +78,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                 smart_toy
               </span>
             </div>
-            <h2 className="text-xl font-bold tracking-tight">Chief of AI</h2>
+            <h2 className="text-xl font-bold tracking-tight">Nexora</h2>
           </div>
           <button className="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
             <span className="material-symbols-outlined text-[20px]">help</span>
@@ -326,7 +326,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
         </main>
 
         <footer className="mt-auto px-6 py-6 sm:py-8 text-center text-slate-500 text-[10px] sm:text-sm">
-          <p>© 2026 Chief of AI Inc. Built for the era of intelligence.</p>
+          <p>© 2026 Nexora Inc. Built for the era of intelligence.</p>
         </footer>
       </div>
     </div>

@@ -23,7 +23,10 @@ const INITIAL_MESSAGES: Message[] = [
     id: "1",
     role: "ai",
     content:
-      "Welcome to Chief of AI. I can help you manage tasks, reminders, knowledge, and tools through chat. Just tell me what you want to do.",
+      `Welcome to Nexora.
+
+Your AI workspace for tasks, knowledge, and automation.
+Just tell me what you want to do.`,
   },
 ];
 
@@ -190,7 +193,7 @@ const ChatArea = () => {
         const errMsg =
           err instanceof Error
             ? err.message
-            : "Failed to get response from Chief of AI";
+            : "Failed to get response from Nexora";
         message.error(errMsg);
       } finally {
         setIsTyping(false);

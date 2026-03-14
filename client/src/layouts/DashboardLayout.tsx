@@ -191,7 +191,7 @@ const DashboardLayout = () => {
       >
         <div className="text-center py-6">
           <div className="size-16 rounded-full bg-rose-50 dark:bg-rose-900/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
-            <h1 className="text-sm font-black tracking-tighter">CHIEF OF AI</h1>
+            <h1 className="text-sm font-black tracking-tighter">NEXORA</h1>
             <p className="text-[10px] text-primary font-bold uppercase tracking-[0.2em]">
               AI OPERATING SYSTEM
             </p>
@@ -256,16 +256,16 @@ const DashboardLayout = () => {
               <span className="material-symbols-outlined">menu</span>
             </button>
             <h1 className="lg:hidden ml-1 text-sm font-bold tracking-tight text-slate-900 dark:text-white shrink-0 hidden sm:block">
-              CHIEF OF AI
+              NEXORA
             </h1>
 
             <div className="flex flex-col overflow-hidden max-w-full lg:max-w-none">
-              <h2 className="text-xs sm:text-sm font-black flex items-center gap-1.5 truncate uppercase tracking-tight">
-                <span className="truncate">AI Nexus</span>
+              <h2 className="text-xs sm:text-sm font-black flex items-center gap-1.5 truncate  tracking-tight">
+                <span className="truncate">AI Engine</span>
               </h2>
               <div className="flex items-center gap-1.5">
                 <div className="size-1.5 sm:size-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse shrink-0" />
-                <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-widest truncate">
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 tracking-widest truncate">
                   System Online
                 </span>
               </div>

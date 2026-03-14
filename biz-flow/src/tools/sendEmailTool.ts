@@ -43,7 +43,7 @@ export const sendEmailTool = new DynamicStructuredTool({
         },
       });
 
-      const fromName = process.env.SMTP_SENDER_NAME || "Chief of AI";
+      const fromName = process.env.SMTP_SENDER_NAME || "Nexora";
       const fromEmail = process.env.SMTP_SENDER_EMAIL || process.env.SMTP_USER;
 
       const mailOptions = {
@@ -60,7 +60,7 @@ export const sendEmailTool = new DynamicStructuredTool({
               ${message}
             </div>
             <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 32px 0;" />
-            <p style="font-size: 12px; color: #94a3b8; text-align: center; margin: 0;">Sent via Chief of AI Automation</p>
+            <p style="font-size: 12px; color: #94a3b8; text-align: center; margin: 0;">Sent via Nexora Automation</p>
           </div>
         `,
       };

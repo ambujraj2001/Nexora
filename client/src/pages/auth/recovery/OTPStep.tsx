@@ -194,7 +194,7 @@ const OTPStep = ({ email, onSuccess }: OTPStepProps) => {
           </main>
 
           <footer className="p-6 text-center text-slate-400 dark:text-slate-600 text-xs">
-            © 2026 Chief of AI. All rights reserved.
+            © 2026 Nexora. All rights reserved.
           </footer>
         </div>
       </div>

@@ -13,7 +13,7 @@ export const AuthBootstrap = ({ children }: { children: React.ReactNode }) => {
             progress_activity
           </span>
           <p className="text-sm text-slate-500 font-medium">
-            Loading Chief of AI…
+            Booting Nexora…
           </p>
         </div>
       </div>

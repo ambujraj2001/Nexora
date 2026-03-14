@@ -38,10 +38,17 @@ export class ListRemindersFlow implements IFlow {
       if (!reminders || reminders.length === 0) {
         reply = "You don't have any reminders yet.";
       } else {
-        const reminderList = reminders
-          .map((r: any) => `• ${r.title}${r.remind_at ? ` (at ${new Date(r.remind_at).toLocaleString()})` : ""}`)
-          .join("\n");
-        reply = `You have ${reminders.length} reminder${reminders.length > 1 ? "s" : ""}:\n${reminderList}`;
+        // Return a UI component for the frontend to render a premium card
+        const uiComponent = {
+          type: "ui_component",
+          component: "reminder_list",
+          data: reminders.map((r: any) => ({
+            title: r.title,
+            reminder_at: r.remind_at,
+            status: r.status || 'pending'
+          }))
+        };
+        reply = JSON.stringify(uiComponent);
       }
 
       // 4. Send final reply through SSE and return success

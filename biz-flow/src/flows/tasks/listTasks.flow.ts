@@ -26,10 +26,16 @@ export class ListTasksFlow implements IFlow {
       if (!tasks || tasks.length === 0) {
         reply = "You don't have any tasks yet.";
       } else {
-        const taskList = tasks
-          .map((t: any, i: number) => `${i + 1}. ${t.title}${t.status ? ` [${t.status}]` : ""}`)
-          .join("\n");
-        reply = `You have ${tasks.length} task${tasks.length > 1 ? "s" : ""}:\n${taskList}`;
+        const uiComponent = {
+          type: "ui_component",
+          component: "task_list",
+          data: tasks.map((t: any) => ({
+            title: t.title,
+            is_completed: t.status === 'completed',
+            status: t.status
+          }))
+        };
+        reply = JSON.stringify(uiComponent);
       }
 
       context.sse.sendFinal(reply);

@@ -1,6 +1,6 @@
-# Chief of AI - Database Structure
+# Nexora - Database Structure
 
-This document outlines the tables, column names, and data types used in the Chief of AI Supabase/PostgreSQL database.
+This document outlines the tables, column names, and data types used in the Nexora Supabase/PostgreSQL database.
 
 ---
 

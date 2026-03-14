@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendOTP = async (email: string, otp: string) => {
-  const fromName = process.env.SMTP_SENDER_NAME || "Chief of AI";
+  const fromName = process.env.SMTP_SENDER_NAME || "Nexora";
   const fromEmail = process.env.SMTP_SENDER_EMAIL || process.env.SMTP_USER;
 
   const mailOptions = {
@@ -24,7 +24,7 @@ export const sendOTP = async (email: string, otp: string) => {
     text: `Your OTP for access code recovery is ${otp}. It will expire in 10 minutes.`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
-        <h2 style="color: #333; text-align: center;">Chief of AI</h2>
+        <h2 style="color: #333; text-align: center;">Nexora</h2>
         <p>Hello,</p>
         <p>You requested an OTP for access code recovery. Please use the following code to proceed:</p>
         <div style="background-color: #f4f4f4; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 5px; color: #007bff; border-radius: 5px; margin: 20px 0;">
@@ -33,7 +33,7 @@ export const sendOTP = async (email: string, otp: string) => {
         <p>This code will expire in <strong>10 minutes</strong>.</p>
         <p>If you did not request this, please ignore this email.</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
-        <p style="font-size: 12px; color: #777; text-align: center;">&copy; 2026 Chief of AI. All rights reserved.</p>
+        <p style="font-size: 12px; color: #777; text-align: center;">&copy; 2026 Nexora. All rights reserved.</p>
       </div>
     `,
   };
@@ -46,7 +46,7 @@ export const sendReminderEmail = async (
   title: string,
   remindAt: string,
 ) => {
-  const fromName = process.env.SMTP_SENDER_NAME || "Chief of AI";
+  const fromName = process.env.SMTP_SENDER_NAME || "Nexora";
   const fromEmail = process.env.SMTP_SENDER_EMAIL || process.env.SMTP_USER;
 
   const mailOptions = {
@@ -79,7 +79,7 @@ export const sendReminderEmail = async (
         </div>
 
         <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 32px 0;" />
-        <p style="font-size: 12px; color: #94a3b8; text-align: center; margin: 0;">&copy; 2026 Chief of AI. Stay productive.</p>
+        <p style="font-size: 12px; color: #94a3b8; text-align: center; margin: 0;">&copy; 2026 Nexora. Stay productive.</p>
       </div>
     `,
   };
@@ -92,7 +92,7 @@ export const sendRoutineResultEmail = async (
   routineName: string,
   result: string,
 ) => {
-  const fromName = process.env.SMTP_SENDER_NAME || "Chief of AI";
+  const fromName = process.env.SMTP_SENDER_NAME || "Nexora";
   const fromEmail = process.env.SMTP_SENDER_EMAIL || process.env.SMTP_USER;
 
   const mailOptions = {
@@ -121,7 +121,7 @@ export const sendRoutineResultEmail = async (
         </div>
 
         <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 32px 0;" />
-        <p style="font-size: 12px; color: #94a3b8; text-align: center; margin: 0;">Sent via Chief of AI Automation Hub</p>
+        <p style="font-size: 12px; color: #94a3b8; text-align: center; margin: 0;">Sent via Nexora Automation Hub</p>
       </div>
     `,
   };

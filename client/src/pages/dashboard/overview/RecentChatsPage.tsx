@@ -243,7 +243,7 @@ const RecentChatsPage = () => {
                   </p>
                   <div className="mt-2 flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">
-                      Chief of AI
+                      Nexora
                     </span>
                     <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
                       {conv.messageCount} messages

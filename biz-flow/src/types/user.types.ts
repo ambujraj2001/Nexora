@@ -1,4 +1,4 @@
-// Chief of AI – types/user.types.ts
+// Nexora – types/user.types.ts
 
 export type InteractionTone =
   | "professional"

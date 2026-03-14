@@ -1,6 +1,6 @@
 # Deterministic Flow System Documentation
 
-This document outlines the architecture, implementation, and flows of the Deterministic Flow System in the Chief of AI backend.
+This document outlines the architecture, implementation, and flows of the Deterministic Flow System in the Nexora backend.
 
 ---
 

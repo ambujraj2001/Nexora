@@ -95,7 +95,7 @@ const SignupStep2Page = ({
               <span className="material-symbols-outlined">smart_toy</span>
             </div>
             <h2 className="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">
-              Chief of AI
+              Nexora
             </h2>
           </div>
           <div className="flex items-center gap-4">
@@ -305,7 +305,7 @@ const SignupStep2Page = ({
 
         <footer className="p-6 text-center border-t border-primary/10 bg-white dark:bg-slate-900">
           <p className="text-slate-500 text-[10px] sm:text-xs">
-            © 2026 Chief of AI Inc. All rights reserved.{" "}
+            © 2026 Nexora Inc. All rights reserved.{" "}
             <a href="#" className="text-primary hover:underline">
               Privacy
             </a>

@@ -1,4 +1,4 @@
-// Chief of AI – types/chat.types.ts
+// Nexora – types/chat.types.ts
 
 /** POST /chat request body */
 export interface ChatRequestBody {

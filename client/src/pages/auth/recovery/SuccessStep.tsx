@@ -103,7 +103,7 @@ const SuccessStep = ({ accessCode }: SuccessStepProps) => {
           </main>
 
           <footer className="py-6 text-center text-slate-500 dark:text-slate-500 text-xs">
-            © 2026 Chief of AI • Secure Access Management Systems
+            © 2026 Nexora • Secure Access Management Systems
           </footer>
         </div>
       </div>

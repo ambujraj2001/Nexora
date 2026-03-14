@@ -68,7 +68,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/health", (_req, res) => {
   res.json({
     status: "ok",
-    service: "Chief of AI – biz-flow",
+    service: "Nexora – biz-flow",
     ts: new Date().toISOString(),
   });
 });
