@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, lazy, Suspense } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { message, Modal, Dropdown, Tooltip, Spin } from "antd";
 import type { MenuProps } from "antd";
 import { useSelector } from "react-redux";
@@ -15,7 +15,13 @@ const IntelligencePanel = lazy(() => import("../features/intelligence/Intelligen
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
+  
+  const isChatPage = 
+    location.pathname === "/dashboard" || 
+    location.pathname === "/dashboard/" || 
+    location.pathname.startsWith("/dashboard/chat/");
   const user = useSelector((state: RootState) => state.user);
   const userName = user.fullName;
   const showDemo = user.showDemo;
@@ -325,13 +331,15 @@ const DashboardLayout = () => {
              <Outlet context={{ sidebarCollapsed, setSidebarCollapsed }} />
           </div>
           
-          <Suspense fallback={
-            <div className="w-[280px] xl:w-[320px] h-full border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-center">
-              <Spin />
-            </div>
-          }>
-            <IntelligencePanel />
-          </Suspense>
+          {isChatPage && (
+            <Suspense fallback={
+              <div className="w-[280px] xl:w-[320px] h-full border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-center">
+                <Spin />
+              </div>
+            }>
+              <IntelligencePanel />
+            </Suspense>
+          )}
         </div>
       </main>
       
