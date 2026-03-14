@@ -21,10 +21,8 @@ export const buildModel = (tools?: StructuredToolInterface[]) => {
   const llm = new ChatOpenAI({
     modelName,
     apiKey,
-    openAIApiKey: apiKey,
     configuration: {
       baseURL,
-      apiKey: apiKey,
     },
     temperature: 0.3,
   });
