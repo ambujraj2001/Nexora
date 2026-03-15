@@ -200,7 +200,7 @@ const LoginPage = () => {
       return step === 1 ? (
         <div className="space-y-2">
           <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-            User Code
+            Access Code
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
@@ -576,10 +576,18 @@ const LoginPage = () => {
             </div>
 
             <div className="flex justify-center gap-6 mt-8 text-slate-400 dark:text-slate-600">
-              <span className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors">
+              <span
+                onClick={() => window.open("https://get-nexora-ai.netlify.app/use-cases", "_blank")}
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Use Cases"
+              >
                 help_outline
               </span>
-              <span className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors">
+              <span
+                onClick={() => window.open("https://get-nexora-ai.netlify.app/", "_blank")}
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Website"
+              >
                 language
               </span>
               <span

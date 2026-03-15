@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Spin, message, Modal, Input, Button } from "antd";
+import { Spin, message, Modal, Input } from "antd";
 import {
   apiGetMemories,
   apiShareMemory,
@@ -149,55 +149,58 @@ const MemoriesPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
-        <Input 
-          placeholder="Enter Memory Code (e.g. MEM-XXXXXX)" 
-          value={joinCode}
-          onChange={(e) => setJoinCode(e.target.value)}
-          className="max-w-xs dark:!bg-card-dark dark:!border-border-dark dark:!text-slate-100"
-        />
-        <Button 
-          type="primary" 
-          onClick={handleJoin} 
-          loading={joiningMemory}
-          disabled={!joinCode.trim()}
-          className="dark:!shadow-none"
-        >
-          Join Memory
-        </Button>
-      </div>
-
-      <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-start gap-3">
-          <span className="material-symbols-outlined text-primary mt-1">
-            info
-          </span>
-          <div>
-            <p className="text-slate-900 dark:text-slate-100 font-bold text-sm">
-              Read-only View
-            </p>
-            <p className="text-slate-600 dark:text-slate-400 text-sm">
-              This view is currently read-only. To modify these notes, ask me to{" "}
-              <span className="font-mono bg-slate-200 dark:bg-border-dark px-1 rounded">
-                "update"
-              </span>{" "}
-              or{" "}
-              <span className="font-mono bg-slate-200 dark:bg-border-dark px-1 rounded">
-                "forget"
-              </span>{" "}
-              items in the Chat.
-            </p>
-          </div>
+      <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-xl p-4 mb-8 flex flex-col lg:flex-row lg:items-center gap-6">
+        {/* Left Side: Join Memory */}
+        <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+          <Input 
+            placeholder="Enter Memory Code" 
+            value={joinCode}
+            onChange={(e) => setJoinCode(e.target.value)}
+            className="w-full sm:w-48 h-11 !rounded-xl !pl-4 dark:!bg-background-dark dark:!border-border-dark dark:!text-slate-100 dark:placeholder:!text-slate-500 transition-all focus:!border-primary focus:!ring-2 focus:!ring-primary/20"
+          />
+          <button
+            onClick={handleJoin}
+            disabled={!joinCode.trim() || joiningMemory}
+            className="h-11 px-6 rounded-xl bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px] shadow-sm active:scale-95"
+          >
+            {joiningMemory ? (
+              <span className="material-symbols-outlined animate-spin text-[20px]">
+                progress_activity
+              </span>
+            ) : (
+              "Join Memory"
+            )}
+          </button>
         </div>
-        <Link
-          to="/dashboard"
-          className="whitespace-nowrap inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all"
-        >
-          Go to Chat
-          <span className="material-symbols-outlined text-sm">
-            arrow_forward
-          </span>
-        </Link>
+
+        {/* Divider */}
+        <div className="hidden lg:block w-px h-10 bg-slate-200 dark:bg-border-dark shrink-0" />
+
+        {/* Right Side: Info & Go to Chat */}
+        <div className="flex-1 flex flex-col sm:flex-row items-center justify-between gap-4 bg-primary/5 dark:bg-primary/10 px-4 py-3 rounded-xl border border-primary/10">
+          <div className="flex items-start gap-3">
+            <span className="material-symbols-outlined text-primary text-xl shrink-0">
+              info
+            </span>
+            <div className="flex flex-col">
+              <p className="text-slate-900 dark:text-slate-100 font-bold text-xs uppercase tracking-wider">
+                Read-only Vault
+              </p>
+              <p className="text-slate-600 dark:text-slate-400 text-xs">
+                To modify, ask me to <span className="font-mono bg-slate-200/50 dark:bg-border-dark px-1 rounded">"update"</span> items in the Chat.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/dashboard"
+            className="whitespace-nowrap flex items-center gap-2 text-primary font-bold text-sm hover:underline"
+          >
+            Go to Chat
+            <span className="material-symbols-outlined text-sm">
+              arrow_forward
+            </span>
+          </Link>
+        </div>
       </div>
 
       {loading ? (

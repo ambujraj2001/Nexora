@@ -350,7 +350,7 @@ const DashboardLayout = () => {
         callback={handleJoyrideCallback}
         styles={{
           options: {
-            primaryColor: "#3c83f6",
+            primaryColor: "#3caff6",
             zIndex: 1000,
           },
         }}

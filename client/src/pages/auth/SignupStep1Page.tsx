@@ -14,6 +14,19 @@ const SignupStep1Page = ({
   const navigate = useNavigate();
   const { step1, setStep1 } = useSignup();
   const [form, setForm] = useState(step1);
+  const [darkMode, setDarkMode] = useState(() =>
+    typeof document !== "undefined"
+      ? document.documentElement.classList.contains("dark")
+      : false,
+  );
+
+  const toggleDark = useCallback(() => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      document.documentElement.classList.toggle("dark", next);
+      return next;
+    });
+  }, []);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -39,15 +52,7 @@ const SignupStep1Page = ({
       </div>
 
       <div className="layout-container flex h-full grow flex-col">
-        <AppHeader
-          rightSlot={
-            <button className="flex items-center justify-center rounded-lg h-10 bg-slate-100 dark:bg-background-dark text-slate-700 dark:text-slate-300 px-4 hover:bg-slate-200 dark:hover:bg-border-dark transition-colors">
-              <span className="material-symbols-outlined text-[20px]">
-                account_circle
-              </span>
-            </button>
-          }
-        />
+        <AppHeader />
 
         <main className="flex flex-1 justify-center py-6 sm:py-10 px-4">
           <div className="flex flex-col max-w-[520px] w-full flex-1 gap-6 sm:gap-8 animate-slide-up">
@@ -142,8 +147,45 @@ const SignupStep1Page = ({
                 </button>
               </p>
             </div>
+
+            <div className="flex justify-center gap-6 mt-8 text-slate-400 dark:text-slate-600">
+              <span
+                onClick={() =>
+                  window.open(
+                    "https://get-nexora-ai.netlify.app/use-cases",
+                    "_blank",
+                  )
+                }
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Use Cases"
+              >
+                help_outline
+              </span>
+              <span
+                onClick={() =>
+                  window.open("https://get-nexora-ai.netlify.app/", "_blank")
+                }
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Website"
+              >
+                language
+              </span>
+              <span
+                onClick={toggleDark}
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Toggle dark mode"
+              >
+                {darkMode ? "light_mode" : "dark_mode"}
+              </span>
+            </div>
           </div>
         </main>
+
+        <footer className="py-8 px-6 text-center mt-auto">
+          <p className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-widest px-4">
+            © 2026 Nexora • Secure Intelligence Workspace
+          </p>
+        </footer>
       </div>
     </div>
   );

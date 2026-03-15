@@ -17,6 +17,19 @@ const SignupPage = () => {
   const [step, setStep] = useState(0); // 0: Selection, 1: Details, 2: Preferences, 3: Security
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(() =>
+    typeof document !== "undefined"
+      ? document.documentElement.classList.contains("dark")
+      : false,
+  );
+
+  const toggleDark = useCallback(() => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      document.documentElement.classList.toggle("dark", next);
+      return next;
+    });
+  }, []);
 
   const handleGoogleSuccess = useCallback(
     async (credentialResponse: CredentialResponse) => {
@@ -187,8 +200,45 @@ const SignupPage = () => {
                 </p>
               </div>
             </div>
+
+            <div className="flex justify-center gap-6 mt-8 text-slate-400 dark:text-slate-600">
+              <span
+                onClick={() =>
+                  window.open(
+                    "https://get-nexora-ai.netlify.app/use-cases",
+                    "_blank",
+                  )
+                }
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Use Cases"
+              >
+                help_outline
+              </span>
+              <span
+                onClick={() =>
+                  window.open("https://get-nexora-ai.netlify.app/", "_blank")
+                }
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Website"
+              >
+                language
+              </span>
+              <span
+                onClick={toggleDark}
+                className="material-symbols-outlined hover:text-primary cursor-pointer transition-colors"
+                title="Toggle dark mode"
+              >
+                {darkMode ? "light_mode" : "dark_mode"}
+              </span>
+            </div>
           </div>
         </main>
+
+        <footer className="py-8 px-6 text-center mt-auto">
+          <p className="text-xs text-slate-400 dark:text-slate-600 uppercase tracking-widest px-4">
+            © 2026 Nexora • Secure Intelligence Workspace
+          </p>
+        </footer>
       </div>
     </div>
   );

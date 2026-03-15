@@ -268,7 +268,7 @@ const RecentChatsPage = () => {
       {/* Pagination Footer */}
       <div className="p-6 border-t border-slate-200 dark:border-border-dark bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm flex justify-center">
         <ConfigProvider
-          theme={{ token: { colorPrimary: "#3c83f6", borderRadius: 8 } }}
+          theme={{ token: { colorPrimary: "#3caff6", borderRadius: 8 } }}
         >
           <Pagination
             current={currentPage}

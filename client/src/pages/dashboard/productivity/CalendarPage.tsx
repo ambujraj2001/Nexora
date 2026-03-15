@@ -321,13 +321,13 @@ const CalendarPage: React.FC = () => {
             font-weight: 600;
         }
         .rbc-toolbar button:hover {
-            color: #3c83f6;
+            color: #3caff6;
             background-color: #f1f5f9;
         }
         .rbc-toolbar button.rbc-active {
-            background-color: #3c83f6;
+            background-color: #3caff6;
             color: white;
-            border-color: #3c83f6;
+            border-color: #3caff6;
             box-shadow: none;
         }
         .rbc-month-view, .rbc-time-view {
@@ -380,13 +380,13 @@ const CalendarPage: React.FC = () => {
             color: #94a3b8;
         }
         .dark .rbc-toolbar button:hover {
-            color: #3c83f6;
+            color: #3caff6;
             background-color: #1e293b;
         }
         .dark .rbc-toolbar button.rbc-active {
-            background-color: #3c83f6;
+            background-color: #3caff6;
             color: white;
-            border-color: #3c83f6;
+            border-color: #3caff6;
         }
         .dark .rbc-header {
             color: #cbd5e1;
