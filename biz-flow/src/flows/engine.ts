@@ -53,7 +53,10 @@ export class FlowEngine {
     });
 
     const context = this.createContext(user, parameters, options);
-    const session = await sessionManager.getSession(user.id);
+    const session = await sessionManager.getSession(
+      user.id,
+      options.conversationId,
+    );
 
     try {
       const result = await flow.execute(context, session || undefined);
@@ -94,9 +97,17 @@ export class FlowEngine {
     routerMatch?: any // Optional pre-matched router result
   ): Promise<FlowResult | null> {
     // 1. Check for Active Session
-    const session = await sessionManager.getSession(user.id);
+    const session = await sessionManager.getSession(
+      user.id,
+      options.conversationId,
+    );
     if (session) {
-      return this.executeFlow(session.flowId, user, {}, options);
+      return this.executeFlow(
+        session.flowId,
+        user,
+        { originalMessage: message, normalizedMessage: message.trim().toLowerCase() },
+        options,
+      );
     }
 
     // 2. Attempt Routing

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { type RootState } from "../../../../store";
 import { message, Spin } from "antd";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   apiChatStream,
   apiGetChatHistory,
@@ -32,6 +32,7 @@ Just tell me what you want to do.`,
 
 const ChatArea = () => {
   const user = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
   const { conversationId: urlConversationId } = useParams<{
     conversationId: string;
   }>();
@@ -167,6 +168,10 @@ const ChatArea = () => {
       }
       setIsTyping(true);
 
+      if (!urlConversationId) {
+        navigate(`/dashboard/chat/${sessionConversationId}`, { replace: true });
+      }
+
       try {
         const incognitoStored = localStorage.getItem("incognitoUntil");
         const incognito = incognitoStored
@@ -199,7 +204,7 @@ const ChatArea = () => {
         setIsTyping(false);
       }
     },
-    [inputValue, accessCode, sessionConversationId],
+    [inputValue, accessCode, navigate, sessionConversationId, urlConversationId],
   );
 
   const handleOptionSelect = useCallback(

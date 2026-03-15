@@ -52,7 +52,7 @@ export class UpdateTaskFlow implements IFlow {
         flowVersion: this.version,
         step: "await_selection",
         context: { tasks }
-      });
+      }, context.conversationId);
 
       context.sse.sendFinal(prompt);
 
@@ -88,7 +88,7 @@ export class UpdateTaskFlow implements IFlow {
       ...session,
       step: "await_new_title",
       context: { ...session.context, taskId: selected.id, oldTitle: selected.title }
-    });
+    }, context.conversationId);
 
     context.sse.sendFinal(nextPrompt);
     return { type: "success", reply: nextPrompt };
@@ -113,12 +113,12 @@ export class UpdateTaskFlow implements IFlow {
       const reply = `Task updated successfully!\nOld: ~~${oldTitle}~~\nNew: **${message}**`;
       context.sse.sendFinal(reply);
 
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
 
       return { type: "success", reply };
     } catch (error: any) {
       context.logger.error("Failed to update task in flow", error);
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
       return { type: "fallback" };
     }
   }

@@ -47,7 +47,7 @@ export class DeleteTaskFlow implements IFlow {
         flowVersion: this.version,
         step: "await_selection",
         context: { tasks }
-      });
+      }, context.conversationId);
 
       context.sse.sendFinal(prompt);
 
@@ -87,12 +87,12 @@ export class DeleteTaskFlow implements IFlow {
       const reply = `Task deleted: **${selected.title}**.`;
       context.sse.sendFinal(reply);
 
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
 
       return { type: "success", reply };
     } catch (error: any) {
       context.logger.error("Failed to delete task in flow", error);
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
       return { type: "fallback" };
     }
   }

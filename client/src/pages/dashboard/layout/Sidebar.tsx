@@ -82,8 +82,19 @@ const Sidebar = ({
   );
 
   const activeItem = useMemo(
-    () =>
-      allItems.find((item) => item.path === location.pathname)?.label || "Chat",
+    () => {
+      if (
+        location.pathname === "/dashboard" ||
+        location.pathname.startsWith("/dashboard/chat/")
+      ) {
+        return "New Chat";
+      }
+
+      return (
+        allItems.find((item) => item.path === location.pathname)?.label ||
+        "Chat"
+      );
+    },
     [location, allItems],
   );
 

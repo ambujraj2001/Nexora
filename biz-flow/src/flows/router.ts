@@ -6,7 +6,8 @@ export class FlowRouter {
    * Orchestrates the 3-stage routing system
    */
   async match(message: string): Promise<FlowMatch | null> {
-    const cleanMessage = message.trim().toLowerCase();
+    const originalMessage = message.trim();
+    const cleanMessage = originalMessage.toLowerCase();
 
     // Stage 1 & 2: Deterministic and Heuristic Matching
     // We iterate through all flows and let them determine if they match.
@@ -17,7 +18,7 @@ export class FlowRouter {
       if (flow.match(cleanMessage)) {
         return {
           flowId: flow.id,
-          parameters: this.extractParameters(flow.id, cleanMessage),
+          parameters: this.extractParameters(flow.id, originalMessage, cleanMessage),
           confidence: 1.0, // Stage 1/2 matches are considered high confidence
         };
       }
@@ -33,10 +34,15 @@ export class FlowRouter {
    * Helper to extract parameters from common patterns (Placeholder)
    * Real implementation will likely be more robust or flow-specific.
    */
-  private extractParameters(flowId: string, message: string): Record<string, any> {
-    // Pass the original message so flows can perform their own specific parsing
+  private extractParameters(
+    flowId: string,
+    originalMessage: string,
+    normalizedMessage: string,
+  ): Record<string, any> {
+    void flowId;
     return {
-      originalMessage: message
+      originalMessage,
+      normalizedMessage,
     };
   }
 }

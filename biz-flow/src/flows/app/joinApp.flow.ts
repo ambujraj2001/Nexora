@@ -48,7 +48,7 @@ export class JoinAppFlow implements IFlow {
       flowVersion: this.version,
       step: "await_code",
       context: {}
-    });
+    }, context.conversationId);
 
     context.sse.sendFinal(prompt);
 
@@ -77,7 +77,7 @@ export class JoinAppFlow implements IFlow {
       context.sse.sendFinal(reply);
 
       // Clear session if it exists
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
 
       return {
         type: "success",

@@ -30,7 +30,6 @@ export class ListRoutinesFlow implements IFlow {
           type: "ui_component",
           component: "routine_list",
           data: routines.map((r: any) => ({
-            id: r.id,
             name: r.name,
             instruction: r.instruction,
             cron_expression: r.cron_expression,

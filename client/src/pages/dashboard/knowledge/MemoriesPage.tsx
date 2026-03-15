@@ -228,7 +228,7 @@ const MemoriesPage: React.FC = () => {
               key={memory.id}
               className="flex flex-col h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-12 h-12 bg-primary/5 rounded-bl-full flex items-center justify-center translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform">
+              <div className="absolute top-0 right-0 w-12 h-12 bg-primary/5 rounded-bl-full flex items-center justify-center">
                 <span className="material-symbols-outlined text-primary text-sm">
                   {getIcon(memory.title)}
                 </span>

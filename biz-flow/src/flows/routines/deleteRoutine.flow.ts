@@ -46,7 +46,7 @@ export class DeleteRoutineFlow implements IFlow {
         flowVersion: this.version,
         step: "await_selection",
         context: { routines }
-      });
+      }, context.conversationId);
 
       context.sse.sendFinal(prompt);
 
@@ -85,7 +85,7 @@ export class DeleteRoutineFlow implements IFlow {
       const confirmation = `AI routine deleted: **${selectedRoutine.name}**.`;
       context.sse.sendFinal(confirmation);
 
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
 
       return {
         type: "success",
@@ -93,7 +93,7 @@ export class DeleteRoutineFlow implements IFlow {
       };
     } catch (error: any) {
       context.logger.error("Failed to execute routine deletion in flow", error);
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
       return { type: "fallback" };
     }
   }

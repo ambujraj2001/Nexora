@@ -51,16 +51,16 @@ async function runTests() {
       flowVersion: 1,
       step: "initial",
       context: { foo: "bar" },
-    });
+    }, "test-conversation");
     
-    const session = await sessionManager.getSession(testUserId);
+    const session = await sessionManager.getSession(testUserId, "test-conversation");
     if (session?.flowId === "test_flow") {
       console.log("✅ SessionManager: Set and Get session successful.");
     } else {
       console.warn("⚠️ SessionManager: Session not found (Check Redis connection).");
     }
     
-    await sessionManager.clearSession(testUserId);
+    await sessionManager.clearSession(testUserId, "test-conversation");
   } catch (err: any) {
     console.warn("⚠️ SessionManager: Skipped real Redis test (ensure UPSTASH_REDIS is configured).");
   }

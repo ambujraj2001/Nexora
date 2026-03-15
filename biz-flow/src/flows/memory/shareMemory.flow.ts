@@ -60,7 +60,7 @@ export class ShareMemoryFlow implements IFlow {
         flowVersion: this.version,
         step: "await_selection",
         context: { memories }
-      });
+      }, context.conversationId);
 
       context.sse.sendFinal(prompt);
 
@@ -115,7 +115,7 @@ export class ShareMemoryFlow implements IFlow {
       context.sse.sendFinal(reply);
 
       // Clear session if it exists
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
 
       return {
         type: "success",
@@ -123,7 +123,7 @@ export class ShareMemoryFlow implements IFlow {
       };
     } catch (error: any) {
       context.logger.error("Failed to generate share code in flow", error);
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
       return { type: "fallback" };
     }
   }

@@ -13,8 +13,7 @@ export class DeleteReminderFlow implements IFlow {
     const patterns = [
       /delete.*reminder/i,
       /remove.*reminder/i,
-      /cancel.*reminder/i,
-      /^delete$/i
+      /cancel.*reminder/i
     ];
     return patterns.some((regex) => regex.test(message));
   }
@@ -56,7 +55,7 @@ export class DeleteReminderFlow implements IFlow {
         flowVersion: this.version,
         step: "await_selection",
         context: { reminders }
-      });
+      }, context.conversationId);
 
       context.sse.sendFinal(prompt);
 
@@ -101,7 +100,7 @@ export class DeleteReminderFlow implements IFlow {
       context.sse.sendFinal(confirmation);
 
       // Clear session
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
 
       return {
         type: "success",
@@ -109,7 +108,7 @@ export class DeleteReminderFlow implements IFlow {
       };
     } catch (error: any) {
       context.logger.error("Failed to execute deletion in flow", error);
-      await sessionManager.clearSession(context.userId);
+      await sessionManager.clearSession(context.userId, context.conversationId);
       return { type: "fallback" };
     }
   }

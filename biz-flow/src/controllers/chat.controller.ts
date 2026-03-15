@@ -4,6 +4,7 @@ import { getUserTasks } from "../services/task.service";
 import {
   getUserChatHistory,
   deleteUserChatHistory,
+  saveChatMessage,
 } from "../services/chat.service";
 import { runAgent } from "../agents/chatAgent";
 import { engine } from "../flows";
@@ -138,6 +139,12 @@ export const chat = async (
 
           if (flowResult?.type === "success") {
             const reply = flowResult.reply || "";
+
+            if (!incognito) {
+              await saveChatMessage(user.id, "user", message.trim(), conversationId);
+              await saveChatMessage(user.id, "ai", reply, conversationId);
+            }
+
             if (isStream) {
               res.write(
                 `data: ${JSON.stringify({ type: "final_reply", reply })}\n\n`,

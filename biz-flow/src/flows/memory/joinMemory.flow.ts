@@ -45,7 +45,7 @@ export class JoinMemoryFlow implements IFlow {
         flowVersion: this.version,
         step: "await_code",
         context: {}
-      });
+      }, context.conversationId);
 
       context.sse.sendFinal(prompt);
       return { type: "success", reply: prompt };
@@ -63,7 +63,7 @@ export class JoinMemoryFlow implements IFlow {
       context.sse.sendFinal(reply);
 
       const { sessionManager } = await import("../session");
-      await sessionManager.clearSession(userId);
+      await sessionManager.clearSession(userId, context.conversationId);
 
       return {
         type: "success",
