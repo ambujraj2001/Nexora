@@ -72,7 +72,11 @@ export const toolMetadataList: ToolMetadata[] = [
 
   { name: "handle_inappropriate_request", version: v, category: "safety", tags: ["safety", "guardrails"], intents: ["general_chat", "tool_task"] },
   { name: "get_capabilities", version: v, category: "help", tags: ["help", "capabilities"], intents: ["general_chat", "tool_task"] },
+
+  { name: "sync_graph_memory", version: v, category: "graph", tags: ["graph", "sync", "embedding"], intents: ["tool_task", "memory_query"] },
+  { name: "create_graph_fact", version: v, category: "graph", tags: ["graph", "fact", "relationship"], intents: ["memory_write", "tool_task"] },
 ];
+
 
 export const toolMetadataByName = Object.fromEntries(
   toolMetadataList.map((m) => [m.name, m]),

@@ -62,7 +62,12 @@ async function syncToolsToRegistry() {
 
     console.log(`[Syncing] "${name}"...`);
 
+    // Add a small delay to avoid Mistral rate limits
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+
     try {
+
       const embedding = await generateEmbedding(textToEmbed);
 
       const { error } = await supabase.from("tools_registry").upsert(

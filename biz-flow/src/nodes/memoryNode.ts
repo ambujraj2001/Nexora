@@ -58,11 +58,12 @@ export const memoryNode = async (state: GraphState, config?: any) => {
 
   emit('memory_candidates_retrieved', `Retrieved ${candidates.length} candidates for filtering`, 'info', { count: candidates.length });
 
-  if (candidates.length === 0) {
+  if (candidates.length === 0 && !state.graphMemoryContext) {
     emit('memory_filtered', 'No memories found after recall', 'info');
     debugGraphState("memoryNode", state, { memoriesFound: 0 });
     return {};
   }
+
 
   // 5️⃣ LLM Filtering
   const llm = buildModel([]);
@@ -100,27 +101,30 @@ Return ONLY the JSON array.
   
   emit('memory_filtered', `Filtered down to ${finalMemories.length} relevant memories`, 'success', { count: finalMemories.length });
 
-  if (finalMemories.length === 0) {
+  if (finalMemories.length === 0 && !state.graphMemoryContext) {
     debugGraphState("memoryNode", state, { memoriesFound: 0 });
     return { retrievedMemories: [] };
   }
 
   // 6️⃣ Response Generation (Injection)
-  const memoryContext = finalMemories
+  const semanticContext = finalMemories
     .map((m: any) => `Memory: ${m.content}`)
     .join("\n");
+
+  const combinedContext = [semanticContext, state.graphMemoryContext].filter(Boolean).join("\n\n");
 
   const injectedMessage = new SystemMessage(`
 ### CONTEXT INJECTION
 The following relevant information was retrieved from the user's past data:
 
-${memoryContext}
+${combinedContext}
 
 Instructions for Context:
 * Use this information to answer the user's request directly.
 * Do NOT call search tools again if the answer is already here.
 * Maintain privacy: do not mention retrieval sources unless asked.
 `);
+
 
   log({
     event: "memory_node_completed",

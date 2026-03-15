@@ -14,7 +14,9 @@ export interface FlowServices {
   files: any;
   mail: any;
   apps: any;
+  routines: any;
 }
+
 
 /**
  * Logger interface for flows, wrapping the system's log utility

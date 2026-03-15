@@ -74,8 +74,13 @@ export const plannerNode = async (state: GraphState) => {
   const agentTools = tools.filter((t) => t.name !== "prettify_response");
   const retrievedTools = state.retrievedTools || [];
 
-  // Combine static tools with dynamically retrieved tools
-  const allTools = [...agentTools, ...retrievedTools];
+  // Combine static tools with dynamically retrieved tools and DEDUPLICATE by name
+  // Note: duplicate tool names cause 400 Bad Request in many LLM providers (Mistral/OpenAI)
+  const allToolsMap = new Map();
+  [...agentTools, ...retrievedTools].forEach(t => {
+    if (t && t.name) allToolsMap.set(t.name, t);
+  });
+  const allTools = Array.from(allToolsMap.values());
 
   const llm = buildModel(allTools);
 
@@ -122,7 +127,7 @@ Your tool arguments must strictly match the following TypeScript interfaces.
 The \`accessCode\` parameter is required for all tools operating on user data.
 
 \`\`\`typescript
-// Core Data Tools (Memory, Knowledge, etc.)
+// Core Data Tools (Memory, Knowledge, Graph, etc.)
 interface AddMemoryArgs { accessCode: string; content: string; title?: string; }
 interface UpdateMemoryArgs { accessCode: string; id: string; content: string; title?: string; }
 interface DeleteMemoryArgs { accessCode: string; id: string; }
@@ -140,6 +145,10 @@ interface UpdateJournalArgs { accessCode: string; id: string; content: string; t
 interface DeleteJournalArgs { accessCode: string; id: string; }
 interface GetJournalsArgs { accessCode: string; }
 interface SearchJournalArgs { accessCode: string; query: string; limit?: number; }
+
+// Knowledge Graph Tools
+interface SyncGraphMemoryArgs { accessCode: string; }
+interface CreateGraphFactArgs { accessCode: string; source: string; relation: string; target: string; }
 
 // Utility Data Tools (Tasks, Reminders)
 interface AddTaskArgs { accessCode: string; title: string; priority?: "low" | "medium" | "high"; dueDate?: string; }

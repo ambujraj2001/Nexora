@@ -58,6 +58,8 @@ import {
   updateRoutineTool,
 } from "./routines";
 import { makeCallTool } from "./makeCallTool";
+import { syncGraphMemoryTool, createGraphFactTool } from "./graphMemory";
+
 
 
 export const tools = [
@@ -124,10 +126,15 @@ export const tools = [
   makeCallTool,
   randomJokeTool,
 
+  // Graph Tools
+  syncGraphMemoryTool,
+  createGraphFactTool,
+
   // Safety Tools
   safetyTool,
   helpTool,
 ];
+
 
 export type AppTool = (typeof tools)[number];
 

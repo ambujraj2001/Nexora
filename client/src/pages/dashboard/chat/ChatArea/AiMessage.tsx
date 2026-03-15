@@ -6,6 +6,10 @@ import TaskListCard from "./components/TaskListCard";
 import MemoryListCard from "./components/MemoryListCard";
 import FileListCard from "./components/FileListCard";
 import ContactListCard from "./components/ContactListCard";
+import AppListCard from "./components/AppListCard";
+import RoutineListCard from "./components/RoutineListCard";
+
+
 
 interface AiMessageProps {
   content: string;
@@ -36,7 +40,11 @@ const COMPONENT_REGISTRY: Record<string, React.FC<{ data: any }>> = {
   memory_list: MemoryListCard as React.FC<{ data: any }>,
   file_list: FileListCard as React.FC<{ data: any }>,
   contact_list: ContactListCard as React.FC<{ data: any }>,
+  app_list: AppListCard as React.FC<{ data: any }>,
+  routine_list: RoutineListCard as React.FC<{ data: any }>,
 };
+
+
 
 /**
  * Try to extract a leading JSON object from a string that may have
@@ -151,8 +159,14 @@ const AiMessage: React.FC<AiMessageProps> = ({ content, onOptionSelect }) => {
                   return <UIComponent data={processed.data.data} />;
                 }
                 return (
-                  <div className="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg text-amber-600 dark:text-amber-400 text-xs italic">
-                    Unsupported UI component: {processed.data.component}
+                  <div className="text-sm">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {typeof processed.data.data === "string"
+                        ? processed.data.data
+                        : "```json\n" +
+                          JSON.stringify(processed.data.data, null, 2) +
+                          "\n```"}
+                    </ReactMarkdown>
                   </div>
                 );
               })()}

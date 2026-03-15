@@ -9,6 +9,9 @@ import { createTaskFlow } from "./tasks/createTask.flow";
 import { deleteTaskFlow } from "./tasks/deleteTask.flow";
 import { updateTaskFlow } from "./tasks/updateTask.flow";
 import { joinAppFlow } from "./app/joinApp.flow";
+import { listRoutinesFlow } from "./routines/listRoutines.flow";
+import { createRoutineFlow } from "./routines/createRoutine.flow";
+import { deleteRoutineFlow } from "./routines/deleteRoutine.flow";
 
 export class FlowRegistry {
   private flows: Map<string, IFlow> = new Map();
@@ -24,7 +27,11 @@ export class FlowRegistry {
     this.registerFlow(deleteTaskFlow);
     this.registerFlow(updateTaskFlow);
     this.registerFlow(joinAppFlow);
+    this.registerFlow(listRoutinesFlow);
+    this.registerFlow(createRoutineFlow);
+    this.registerFlow(deleteRoutineFlow);
   }
+
 
   /**
    * Registers a new deterministic flow

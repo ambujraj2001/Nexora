@@ -9,6 +9,8 @@ import { chatNode } from "../nodes/chatNode";
 import { AIMessage } from "@langchain/core/messages";
 
 import { toolDiscoveryNode } from "../nodes/toolDiscoveryNode";
+import { graphMemoryNode } from "../nodes/graphMemoryNode";
+
 
 const shouldContinue = (state: GraphState) => {
   if (state.iterations > 5) {
@@ -26,12 +28,14 @@ const shouldContinue = (state: GraphState) => {
 
 const graphBuilder = new StateGraph(GraphStateAnnotation)
   .addNode("router", routerNode)
+  .addNode("graphMemory", graphMemoryNode)
   .addNode("memory", memoryNode)
   .addNode("discovery", toolDiscoveryNode)
   .addNode("planner", plannerNode)
   .addNode("tools", toolNode)
   .addNode("respond", responseNode)
   .addNode("chat", chatNode)
+
 
   .addEdge(START, "router")
 
@@ -46,13 +50,14 @@ const graphBuilder = new StateGraph(GraphStateAnnotation)
 
       if (state.intent === "memory_delete") return "discovery";
 
-      if (state.intent === "memory_query") return "memory";
+      if (state.intent === "memory_query") return "graphMemory";
 
       return "discovery";
     },
     {
       respond: "respond",
       chat: "chat",
+      graphMemory: "graphMemory",
       memory: "memory",
       discovery: "discovery",
       tools: "tools",
@@ -61,7 +66,9 @@ const graphBuilder = new StateGraph(GraphStateAnnotation)
 
   .addEdge("chat", "respond")
 
+  .addEdge("graphMemory", "memory")
   .addEdge("memory", "discovery")
+
   .addEdge("discovery", "planner")
 
   .addConditionalEdges("planner", shouldContinue, {

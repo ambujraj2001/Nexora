@@ -1,0 +1,83 @@
+# Y Combinator Summer 2026 Application Answers - Nexora
+
+## Founders and Technical Work
+**Question: Who writes code, or does other technical work on your product? Was any of it done by a non-founder? Please explain.**
+Answer: We are a team of three technical founders, and we have built Nexora entirely from the ground up ourselves. Every single line of code, from the React frontend to the agentic reasoning engine in the backend, has been written by us. We haven't taken any help from non-founders or external contractors, as we believe that in these early stages, the founders must have an absolute grip on the core technology and architecture.
+
+**Question: Are you looking for a cofounder?**
+Answer: No.
+
+## Company
+**Company Name:** Nexora
+
+**Describe what your company does in 50 characters or less:**
+AI Executive Chief of Staff for Enterprise Ops.
+
+**Company URL:** 
+https://get-nexora.vercel.app/
+
+**Product Link:**
+https://get-nexora-ai.netlify.app/ (Landing Page)
+https://get-nexora.vercel.app/login (Production App)
+
+**What is your company going to make? Please describe your product and what it does or will do.**
+Nexora is building the world’s most advanced AI Executive Assistant—a digital Chief of Staff that lives at the intersection of your tasks, documents, and calendar. Unlike standard chatbots that just recall information, Nexora is an agentic platform. It "thinks" through complex administrative workflows, executes tasks autonomously via tool-calling, and maintains a persistent "Cognitive Memory" of the user’s preferences and professional nuances. It is designed for high-performance individuals and enterprise teams who need to automate the heavy lifting of daily operations without compromising on data security or privacy.
+
+**Where do you live now, and where would the company be based after YC?**
+New Delhi, India / San Francisco, USA
+
+**Explain your decision regarding location.**
+We are currently based in India to take advantage of the brilliant engineering talent and the ability to iterate rapidly with high cost-efficiency. However, the United States, and San Francisco in particular, is where our primary enterprise market and the core of the global AI ecosystem resides. We definitely want to move to SF after YC to be closer to our customers, network with fellow AI founders, and scale our operations globally from the heart of Silicon Valley.
+
+## Progress
+**How far along are you?**
+Our MVP is fully functional and live. We have successfully implemented core features including agentic reasoning (LangChain integration), automated task and reminder management, and high-fidelity document parsing. We also have a robust observability stack in place using Axiom and LangSmith to monitor AI reasoning paths in real-time. We are currently in a closed beta with about 15 early adopters.
+
+**How long have each of you been working on this? How much of that has been full-time? Please explain.**
+We have been working on the idea for the last 6 months. For the first two months, we were in the research and prototyping phase. We have all been working on Nexora full-time for the past 4 months, putting in sincere efforts to move from a concept to a production-ready application.
+
+**What tech stack are you using, or planning to use, to build this product? Include AI models and AI coding tools you use.**
+Our stack is built for high-performance and scale:
+- **Frontend:** React 18 (Vite), TypeScript, Tailwind CSS, and Ant Design for a premium executive UI.
+- **Backend:** Node.js and Express (TypeScript).
+- **Intelligence:** Mistral AI (Small/Latest) via LangChain for complex agentic reasoning and tool execution.
+- **Data & Storage:** Supabase (PostgreSQL) for reliable data persistence and Upstash Redis for low-latency caching and session management.
+- **Monitoring:** Axiom for structured logging and LangSmith for tracing AI reasoning paths.
+- **AI Coding Tools:** We are heavy users of AI-first development. We use Antigravity, Claude Code, and Cursor, which have allowed us to accelerate our development speed by nearly 3x.
+
+**Are people using your product?**
+Yes.
+
+**Do you have revenue?**
+No.
+
+## Idea
+**Why did you pick this idea to work on? Do you have domain expertise in this area? How do you know people need what you're making?**
+We picked this idea because we were personally feeling the pain of "Context Fragmentation." As developers and managers, we were constantly jumping between Slack, Notion, Google Calendar, and various AI tools. We realized that a truly useful assistant needs three things: Action (Agentic reasoning), Context (Memory), and Frictionless Input (Voice/Chat). We have deep expertise in building full-stack applications and integrating LLMs into business logic. We know people need this because every person we’ve shown the beta to has immediately asked for more integrations to automate their specific administrative "drudge work."
+
+**Who are your competitors? What do you understand about your business that they don't?**
+Our primary competitors include general-purpose assistants like ChatGPT/Claude, and niche productivity tools like Motion or Reclaim. What we understand that they often miss is the "Executive Context." Most AI tools treat every conversation as a fresh start or a simple search. Nexora focuses on building a "Cognitive Knowledge Base" for the user—an assistant that actually gets smarter and more attuned to your specific professional style the more you use it, all while maintaining a zero-knowledge security standard that enterprises actually trust.
+
+**How do or will you make money? How much could you make?**
+We plan to operate on a B2B SaaS model. We will have a "Pro" tier for individuals ($20/month) and an "Enterprise" tier for teams ($50/user/month) that includes advanced security, shared team memory, and custom agentic routines. Given the rapid adoption of AI in the workplace, we believe there is a clear path to $10M+ ARR by capturing even a small fraction of the executive productivity market.
+
+## Equity
+**Have you formed ANY legal entity yet?**
+No.
+
+**Have you taken any investment yet?**
+No.
+
+**Are you currently fundraising?**
+No.
+
+## Curious
+**What convinced you to apply to Y Combinator?**
+YC has always been the "North Star" for us. We’ve spent countless hours watching YC Startup School videos and reading Paul Graham’s essays. The level of mentorship, the rigorous focus on growth, and the community of world-class founders is exactly what we need to take Nexora from a great product to a global company.
+
+**How did you hear about Y Combinator?**
+Through Hacker News, social media, and by following the journeys of successful Indian YC startups like Razorpay and Zepto.
+
+## Batch Preference
+**What batch do you want to apply for?**
+Summer 2026.

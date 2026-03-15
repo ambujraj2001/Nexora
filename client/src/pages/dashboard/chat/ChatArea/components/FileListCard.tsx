@@ -3,7 +3,8 @@ import { Card, List } from 'antd';
 import { FileOutlined, FilePdfOutlined, FileImageOutlined, FileTextOutlined } from '@ant-design/icons';
 
 interface FileItem {
-  file_name: string;
+  file_name?: string;
+  name?: string;
   file_type?: string;
   file_url?: string;
 }
@@ -12,7 +13,9 @@ interface FileListCardProps {
   data: FileItem[];
 }
 
-const getFileIcon = (fileName: string) => {
+
+const getFileIcon = (fileName: string | undefined) => {
+  if (!fileName) return <FileOutlined className="text-slate-400" />;
   const ext = fileName.split('.').pop()?.toLowerCase();
   switch (ext) {
     case 'pdf': return <FilePdfOutlined className="text-red-500" />;
@@ -40,23 +43,26 @@ const FileListCard: React.FC<FileListCardProps> = ({ data }) => {
     >
       <List
         dataSource={data}
-        renderItem={(item) => (
-          <List.Item className="border-b border-slate-50 dark:border-slate-800/50 py-3 last:border-0">
-            <div className="flex items-center gap-3 w-full">
-              <div className="size-8 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
-                {getFileIcon(item.file_name)}
+        renderItem={(item: FileItem) => {
+          const fileName = item.file_name || item.name || 'Untitled File';
+          return (
+            <List.Item className="border-b border-slate-50 dark:border-slate-800/50 py-3 last:border-0">
+              <div className="flex items-center gap-3 w-full">
+                <div className="size-8 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                  {getFileIcon(fileName)}
+                </div>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
+                    {fileName}
+                  </span>
+                  <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest">
+                    {fileName.includes('.') ? fileName.split('.').pop() : 'File'}
+                  </span>
+                </div>
               </div>
-              <div className="flex flex-col min-w-0">
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">
-                  {item.file_name}
-                </span>
-                <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest">
-                  {item.file_name.split('.').pop() || 'File'}
-                </span>
-              </div>
-            </div>
-          </List.Item>
-        )}
+            </List.Item>
+          );
+        }}
         locale={{ emptyText: <span className="text-slate-400 italic text-xs py-4 block">No files found</span> }}
       />
     </Card>

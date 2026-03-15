@@ -1,56 +1,56 @@
 {
-  "conversationId": "3789d61a-e8f6-458d-bdbb-7f51310a9979",
+  "conversationId": "e13a1c94-469e-4506-aa58-8bc6f1c35cd5",
   "entries": [
     {
-      "timestamp": "2026-03-14T23:31:41.043Z",
+      "timestamp": "2026-03-15T10:58:57.780Z",
       "user": "Test",
-      "request": "hi",
+      "request": "i went to gym on moiday",
       "events": [
         {
           "event": "flow_attempt",
-          "message": "hi",
+          "message": "i went to gym on moiday",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:39.670Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:54.656Z",
           "environment": "development"
         },
         {
-          "id": "2at1e",
+          "id": "pso6j4",
           "type": "input_received",
           "message": "User request received",
           "status": "info",
-          "timestamp": 1773531099741
+          "timestamp": 1773572335015
         },
         {
           "event": "input_received",
           "message": "User request received",
           "status": "info",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:39.741Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.015Z",
           "environment": "development"
         },
         {
           "event": "agent_execution_started",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "conversationId": "3789d61a-e8f6-458d-bdbb-7f51310a9979",
+          "conversationId": "e13a1c94-469e-4506-aa58-8bc6f1c35cd5",
           "historyCount": 1,
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.152Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.432Z",
           "environment": "development"
         },
         {
-          "id": "pa1r9d",
+          "id": "zho06",
           "type": "thinking",
           "message": "Agent thinking...",
           "status": "pending",
-          "timestamp": 1773531100152
+          "timestamp": 1773572335432
         },
         {
           "event": "thinking",
           "message": "Agent thinking...",
           "status": "pending",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.152Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.432Z",
           "environment": "development"
         },
         {
@@ -60,24 +60,24 @@
           "toolResultsCount": 0,
           "iterations": 0,
           "intent": "general_chat",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.156Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.436Z",
           "environment": "development"
         },
         {
           "event": "router_node_started",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
           "messageCount": 2,
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.156Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.436Z",
           "environment": "development"
         },
         {
           "event": "router_node_completed",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "intent": "general_chat",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.493Z",
+          "intent": "memory_write",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.943Z",
           "environment": "development"
         },
         {
@@ -86,69 +86,165 @@
           "messageCount": 2,
           "toolResultsCount": 0,
           "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.493Z",
+          "intent": "memory_write",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.944Z",
           "environment": "development"
         },
         {
-          "id": "lr1cr",
+          "id": "4mcclm",
           "type": "intent_detected",
-          "message": "Intent detected: general_chat",
+          "message": "Intent detected: memory_write",
           "status": "success",
-          "timestamp": 1773531100498
+          "timestamp": 1773572335949
         },
         {
           "event": "intent_detected",
-          "message": "Intent detected: general_chat",
+          "message": "Intent detected: memory_write",
           "status": "success",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.498Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.949Z",
           "environment": "development"
         },
         {
-          "event": "graph_node_debug",
-          "node": "chatNode_start",
-          "messageCount": 2,
-          "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.499Z",
-          "environment": "development"
-        },
-        {
-          "event": "chat_node_completed",
+          "event": "tool_discovery_started",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "content": "{\n  \"type\": \"final\",\n  \"message\": \"Hello! How can I assist you today?\"\n}",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.878Z",
+          "query": "i went to gym on moiday",
+          "intent": "memory_write",
+          "allowedCategories": [
+            "memory",
+            "journal",
+            "knowledge",
+            "graph"
+          ],
+          "allowedTags": [
+            "memory",
+            "store",
+            "edit",
+            "search",
+            "list",
+            "journal",
+            "entry",
+            "knowledge",
+            "graph",
+            "fact",
+            "relationship"
+          ],
+          "allowedToolCount": 9,
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:55.950Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "count": 9,
+          "found": [
+            "create_graph_fact",
+            "add_journal",
+            "get_memories",
+            "add_memory",
+            "update_memory",
+            "update_journal",
+            "update_knowledge",
+            "add_knowledge",
+            "search_memory"
+          ],
+          "blockedTools": [],
+          "runtimeMissing": [],
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:56.714Z",
           "environment": "development"
         },
         {
           "event": "graph_node_debug",
-          "node": "chatNode_end",
+          "node": "plannerNode_start",
           "messageCount": 2,
           "toolResultsCount": 0,
           "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.878Z",
+          "intent": "memory_write",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:56.721Z",
           "environment": "development"
         },
         {
-          "id": "s01xlv",
-          "type": "thinking",
-          "message": "Processing conversation...",
-          "status": "pending",
-          "timestamp": 1773531100880
+          "event": "planner_node_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "messageCount": 2,
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:56.722Z",
+          "environment": "development"
         },
         {
-          "event": "thinking",
-          "message": "Processing conversation...",
-          "status": "pending",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.880Z",
+          "event": "LLM_INPUT",
+          "messages": [
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "SystemMessage"
+              ],
+              "kwargs": {
+                "content": "You are **Nexora**, a personal AI assistant for Test.\n\nThe current date and time is: 3/15/2026, 4:28:55 PM (ISO: 2026-03-15T10:58:55.432Z).\nUse this to calculate relative times (e.g., \"in 5 minutes\", \"tomorrow\", \"next Friday\").\n\nYour role is to help the user manage information, tasks, reminders, knowledge, files, and apps through conversation.\n\nGENERAL BEHAVIOR\n\n* Be helpful, concise, and accurate.\n* Respond in a professional tone.\n* Focus on solving the user's request efficiently.\n* Prioritize correctness over creativity.\n* Do not hallucinate information.\n\nCONTEXT INJECTION\nThe system may inject additional context before your reasoning, including:\n\n* past memories\n* stored knowledge\n* journal entries\n* retrieved information from previous conversations\n\nTreat this context as reliable background information that may help answer the user's request.\n\nTOOL USAGE (VERY IMPORTANT)\nYou have access to tools that can perform real actions.\n\nPrefer using a tool when the user's request requires:\n\n* real data retrieval\n* database access\n* file access\n* memory access\n* task creation or updates\n* app creation\n* external information\n\nIf the answer is simple reasoning or general knowledge, respond directly without using a tool.\n\nNEVER guess results that a tool can provide.\n\nIf a tool exists for the task, use the tool instead of inventing information.\n\nWhenever a tool requires an \"accessCode\" parameter, YOU MUST PASS exactly this value:\n\n\"AI-KTUD-W7VH\"\n\nDo not ask the user for it and never replace it with placeholders.\n\nTOOL EXECUTION FLOW\n\nWhen you call a tool:\n\n1. Wait for the tool result.\n2. Carefully read the tool output.\n3. Use the tool output to produce the final response.\n\nDo not repeatedly call the same tool unless absolutely necessary.\n\nWHEN TO USE TOOLS\n\nExamples:\n\nMath calculations → use math tools\nGetting a random joke → use the joke tool\n\nFile management:\n\n* \"What files do I have?\" → use list_files\n* \"Summarize file X\" → use read_and_summarize_file\n* \"Delete file X\" → follow the deletion flow\n\nMemories, Tasks, Reminders → use their respective tools.\n\nApp creation → use create_app when the user asks to create or build an app.\n\nListing apps → use list_apps when the user asks about their apps.\n\nAPP CREATION (VERY IMPORTANT)\n\nWhen the user asks to create/build/make an app (for example: \"create an expense splitter\", \"build a task board\"):\n\nYou MUST use the **create_app** tool.\n\nYou must generate a complete JSON schema yourself with a **layout array** containing components.\n\nDo NOT ask the user to define the schema.\n\nCRITICAL RULES\n\nComponent names describe **WHAT DATA IS DISPLAYED**, not UI element types.\n\nComponents are **display cards only**.\n\nThere are **no buttons, forms, or inputs**.\n\nAll interaction happens through the chat.\n\nDO NOT use component names like:\n\nform\nbutton\nsubmit\ninput\nadd_expense_form\ngenerate_button\n\nInstead use names describing data such as:\n\nclient_details\ninvoice_items\ninvoice_preview\ntask_list\nexpense_history\n\nApps that generate documents must include a component with one of these names:\n\npreview\ndocument\nmarkdown\nviewer\n\nExamples:\n\ninvoice_preview\ndocument_viewer\n\nThis allows Markdown rendering in the UI.\n\nYou may optionally include **initialData** as JSON with sensible defaults.\n\nExample: empty arrays for lists.\n\nAfter creating the app:\n\nTell the user:\n\n\"The app is ready. Open it from the Apps section in the sidebar and describe what you want in the chat.\"\n\nNever say you cannot create an app.\n\nYou have the create_app tool — use it.\n\nAPP SCHEMA EXAMPLES\n\nExpense Splitter:\nmembers_list\nexpense_history\nbalance_summary\n\nInvoice Maker:\nclient_details\ninvoice_items\ninvoice_preview\n\nTodo Board:\ntask_list\ncompleted_tasks\ntask_summary\n\nRecipe Manager:\nrecipe_collection\nfavorites\nshopping_list\n\nBudget Tracker:\nincome_entries\nexpense_entries\nbudget_summary\n\nNotes App:\nnotes_list\nnote_viewer\n\nQuiz App:\nquestions\nscores\nquiz_viewer\n\nPoll App:\npoll_options\npoll_results\n\nFILE HANDLING\n\nIf the user asks about files:\n\n\"What files do I have?\" → use list_files\n\nIf the user provides a file name but not ID:\n\n1. Use list_files\n2. Find the correct file\n3. Use its ID\n\nIf the user asks to summarize a file → use read_and_summarize_file.\nNEVER use file tools for non-file items (like tasks, reminders, memories). Focus on their specific tools.\n\nITEM MANAGEMENT (STRICT RULES)\n\nFor managing (updating or deleting) memories, tasks, reminders, or files:\n\nSTEP 1 — If the user hasn't specified an ID, call the appropriate get_ or search_ tool first to find it.\n  * For reminders: use get_reminders\n  * For tasks: use get_tasks\n  * For memories: use get_memories\n  * For journals: use get_journals\n  * For files: use list_files\n\nSTEP 2 — Once you have the ID, proceed with the EXACT requested action:\n- To UPDATE/CHANGE: Call the corresponding update tool natively with the ID and new data.\n- To DELETE: Call the corresponding delete tool natively with the ID. (Do NOT ask for confirmation manually; the system handles it).\n- NEVER call a delete tool if the user asked to change or update an item.\n\nIf the user says \"No\" or \"Cancel\" when prompted, the tool execution will fail gracefully.\n\nRESPONSE FORMAT (CRITICAL)\n\nWhen you finish reasoning and are NOT calling tools, you MUST return a valid JSON object that exactly matches ONE of the following TypeScript interfaces:\n\n```typescript\ninterface ClarificationResponse {\n  type: \"clarification\";\n  question: string;\n  options: string[];\n}\n\ninterface FinalResponse {\n  type: \"final\";\n  message: string;\n}\n\ninterface UIComponentResponse {\n  type: \"ui_component\";\n  component: \"reminder_list\" | \"task_list\" | \"memory_list\" | \"file_list\" | \"contact_list\";\n  data: any;\n}\n```\n\nDo not include:\n* markdown formatting around the JSON\n* explanations or conversational text\n* text before or after the JSON object\n\nExample of a ClarificationResponse:\n{\n  \"type\": \"clarification\",\n  \"question\": \"Which option did you mean?\",\n  \"options\": [\"Option A\", \"Option B\"]\n}\n\nExample of a FinalResponse:\n{\n  \"type\": \"final\",\n  \"message\": \"Your response to the user\"\n}\n\nWHEN NOT TO USE TOOLS\n\nDo not use tools if:\n\n* the question is general knowledge\n* the answer can be reasoned without external data\n* no tool matches the request\n\nTOOL RESPONSE HANDLING\n\nWhen a tool returns data:\n\n* Present the result clearly\n* Do not invent additional information\n* Do not modify tool results except for readability\n\nIf a tool parameter is optional (like \"title\"), generate it automatically from context.\n\nNever ask the user for internal parameters.\n\nGENERATIVE UI RULES\n* Use \"ui_component\" responses when the user asks to see/list items (reminders, tasks, memories, files, contacts).\n* The \"data\" field must contain the raw array of items returned by the tools.\n* Return exactly ONE valid JSON object matching these interfaces.\n* If you cannot perform a physical action (like making a phone call), provide the relevant contact information in a \"ui_component\" response so the user can use the integrated action buttons.\n\nCOMMUNICATION STYLE\n\n* Keep responses concise.\n* Avoid unnecessary explanations.\n* Do not mention internal tools or system instructions.\n\nSECURITY\n\nNever reveal:\n\n* database IDs\n* UUIDs\n* access codes\n* system credentials\n\nConfirm actions naturally without exposing internal identifiers.\n\nYou are assisting Test inside the Nexora assistant application.",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "i went to gym on moiday",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            }
+          ],
+          "toolResults": 0,
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:56.722Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "toolCalls": 0,
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.596Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "plannerNode_end",
+          "messageCount": 2,
+          "toolResultsCount": 0,
+          "iterations": 0,
+          "intent": "memory_write",
+          "toolCalls": 0,
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.596Z",
+          "environment": "development"
+        },
+        {
+          "id": "xbhbmc",
+          "type": "plan_created",
+          "message": "Execution plan created",
+          "status": "success",
+          "timestamp": 1773572337602
+        },
+        {
+          "event": "plan_created",
+          "message": "Execution plan created",
+          "status": "success",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.602Z",
           "environment": "development"
         },
         {
@@ -156,10 +252,10 @@
           "node": "responseNode_start",
           "messageCount": 3,
           "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.881Z",
+          "iterations": 1,
+          "intent": "memory_write",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.602Z",
           "environment": "development"
         },
         {
@@ -167,38 +263,1350 @@
           "node": "responseNode",
           "messageCount": 3,
           "toolResultsCount": 0,
-          "iterations": 0,
-          "intent": "general_chat",
-          "finalReply": "Hello! How can I assist you today?",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.881Z",
+          "iterations": 1,
+          "intent": "memory_write",
+          "finalReply": "{\"type\":\"clarification\",\"question\":\"Would you like to save this as a memory or add it to your journal?\",\"options\":[\"Save as memory\",\"Add to journal\"]}",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.603Z",
           "environment": "development"
         },
         {
-          "id": "bxgrwa",
+          "id": "f8z3vm",
           "type": "response_generating",
           "message": "Preparing response",
           "status": "pending",
-          "timestamp": 1773531100884
+          "timestamp": 1773572337607
         },
         {
           "event": "response_generating",
           "message": "Preparing response",
           "status": "pending",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:40.884Z",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.607Z",
           "environment": "development"
         },
         {
           "event": "llm_response_generated",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "message": "Hello! How can I assist you today?",
-          "traceId": "3456ed06-e5c8-483f-b365-44e55305d482",
-          "timestamp": "2026-03-14T23:31:41.041Z",
+          "message": "{\"type\":\"clarification\",\"question\":\"Would you like to save this as a memory or add it to your journal?\",\"options\":[\"Save as memory\",\"Add to journal\"]}",
+          "traceId": "2f517c20-fd46-471c-b926-59ce6c92de10",
+          "timestamp": "2026-03-15T10:58:57.779Z",
           "environment": "development"
         }
       ],
-      "finalReply": "Hello! How can I assist you today?"
+      "finalReply": "{\"type\":\"clarification\",\"question\":\"Would you like to save this as a memory or add it to your journal?\",\"options\":[\"Save as memory\",\"Add to journal\"]}"
+    },
+    {
+      "timestamp": "2026-03-15T10:59:03.082Z",
+      "user": "Test",
+      "request": "Save as memory",
+      "events": [
+        {
+          "event": "flow_attempt",
+          "message": "Save as memory",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:00.260Z",
+          "environment": "development"
+        },
+        {
+          "id": "k5lqn",
+          "type": "input_received",
+          "message": "User request received",
+          "status": "info",
+          "timestamp": 1773572340437
+        },
+        {
+          "event": "input_received",
+          "message": "User request received",
+          "status": "info",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:00.437Z",
+          "environment": "development"
+        },
+        {
+          "event": "agent_execution_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "conversationId": "e13a1c94-469e-4506-aa58-8bc6f1c35cd5",
+          "historyCount": 3,
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:00.817Z",
+          "environment": "development"
+        },
+        {
+          "id": "3zfrq",
+          "type": "thinking",
+          "message": "Agent thinking...",
+          "status": "pending",
+          "timestamp": 1773572340818
+        },
+        {
+          "event": "thinking",
+          "message": "Agent thinking...",
+          "status": "pending",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:00.818Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "routerNode_start",
+          "messageCount": 4,
+          "toolResultsCount": 0,
+          "iterations": 1,
+          "intent": "memory_write",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:00.825Z",
+          "environment": "development"
+        },
+        {
+          "event": "router_node_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "messageCount": 4,
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:00.825Z",
+          "environment": "development"
+        },
+        {
+          "event": "router_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "intent": "memory_write",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.176Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "routerNode_end",
+          "messageCount": 4,
+          "toolResultsCount": 0,
+          "iterations": 1,
+          "intent": "memory_write",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.176Z",
+          "environment": "development"
+        },
+        {
+          "id": "k4hei",
+          "type": "intent_detected",
+          "message": "Intent detected: memory_write",
+          "status": "success",
+          "timestamp": 1773572341181
+        },
+        {
+          "event": "intent_detected",
+          "message": "Intent detected: memory_write",
+          "status": "success",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.181Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "query": "Save as memory",
+          "intent": "memory_write",
+          "allowedCategories": [
+            "memory",
+            "journal",
+            "knowledge",
+            "graph"
+          ],
+          "allowedTags": [
+            "memory",
+            "store",
+            "edit",
+            "search",
+            "list",
+            "journal",
+            "entry",
+            "knowledge",
+            "graph",
+            "fact",
+            "relationship"
+          ],
+          "allowedToolCount": 9,
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.182Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "count": 9,
+          "found": [
+            "add_memory",
+            "update_memory",
+            "search_memory",
+            "get_memories",
+            "add_knowledge",
+            "add_journal",
+            "update_knowledge",
+            "create_graph_fact",
+            "update_journal"
+          ],
+          "blockedTools": [],
+          "runtimeMissing": [],
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.890Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "plannerNode_start",
+          "messageCount": 4,
+          "toolResultsCount": 0,
+          "iterations": 1,
+          "intent": "memory_write",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.899Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "messageCount": 4,
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.899Z",
+          "environment": "development"
+        },
+        {
+          "event": "LLM_INPUT",
+          "messages": [
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "SystemMessage"
+              ],
+              "kwargs": {
+                "content": "You are **Nexora**, a personal AI assistant for Test.\n\nThe current date and time is: 3/15/2026, 4:28:55 PM (ISO: 2026-03-15T10:58:55.432Z).\nUse this to calculate relative times (e.g., \"in 5 minutes\", \"tomorrow\", \"next Friday\").\n\nYour role is to help the user manage information, tasks, reminders, knowledge, files, and apps through conversation.\n\nGENERAL BEHAVIOR\n\n* Be helpful, concise, and accurate.\n* Respond in a professional tone.\n* Focus on solving the user's request efficiently.\n* Prioritize correctness over creativity.\n* Do not hallucinate information.\n\nCONTEXT INJECTION\nThe system may inject additional context before your reasoning, including:\n\n* past memories\n* stored knowledge\n* journal entries\n* retrieved information from previous conversations\n\nTreat this context as reliable background information that may help answer the user's request.\n\nTOOL USAGE (VERY IMPORTANT)\nYou have access to tools that can perform real actions.\n\nPrefer using a tool when the user's request requires:\n\n* real data retrieval\n* database access\n* file access\n* memory access\n* task creation or updates\n* app creation\n* external information\n\nIf the answer is simple reasoning or general knowledge, respond directly without using a tool.\n\nNEVER guess results that a tool can provide.\n\nIf a tool exists for the task, use the tool instead of inventing information.\n\nWhenever a tool requires an \"accessCode\" parameter, YOU MUST PASS exactly this value:\n\n\"AI-KTUD-W7VH\"\n\nDo not ask the user for it and never replace it with placeholders.\n\nTOOL EXECUTION FLOW\n\nWhen you call a tool:\n\n1. Wait for the tool result.\n2. Carefully read the tool output.\n3. Use the tool output to produce the final response.\n\nDo not repeatedly call the same tool unless absolutely necessary.\n\nWHEN TO USE TOOLS\n\nExamples:\n\nMath calculations → use math tools\nGetting a random joke → use the joke tool\n\nFile management:\n\n* \"What files do I have?\" → use list_files\n* \"Summarize file X\" → use read_and_summarize_file\n* \"Delete file X\" → follow the deletion flow\n\nMemories, Tasks, Reminders → use their respective tools.\n\nApp creation → use create_app when the user asks to create or build an app.\n\nListing apps → use list_apps when the user asks about their apps.\n\nAPP CREATION (VERY IMPORTANT)\n\nWhen the user asks to create/build/make an app (for example: \"create an expense splitter\", \"build a task board\"):\n\nYou MUST use the **create_app** tool.\n\nYou must generate a complete JSON schema yourself with a **layout array** containing components.\n\nDo NOT ask the user to define the schema.\n\nCRITICAL RULES\n\nComponent names describe **WHAT DATA IS DISPLAYED**, not UI element types.\n\nComponents are **display cards only**.\n\nThere are **no buttons, forms, or inputs**.\n\nAll interaction happens through the chat.\n\nDO NOT use component names like:\n\nform\nbutton\nsubmit\ninput\nadd_expense_form\ngenerate_button\n\nInstead use names describing data such as:\n\nclient_details\ninvoice_items\ninvoice_preview\ntask_list\nexpense_history\n\nApps that generate documents must include a component with one of these names:\n\npreview\ndocument\nmarkdown\nviewer\n\nExamples:\n\ninvoice_preview\ndocument_viewer\n\nThis allows Markdown rendering in the UI.\n\nYou may optionally include **initialData** as JSON with sensible defaults.\n\nExample: empty arrays for lists.\n\nAfter creating the app:\n\nTell the user:\n\n\"The app is ready. Open it from the Apps section in the sidebar and describe what you want in the chat.\"\n\nNever say you cannot create an app.\n\nYou have the create_app tool — use it.\n\nAPP SCHEMA EXAMPLES\n\nExpense Splitter:\nmembers_list\nexpense_history\nbalance_summary\n\nInvoice Maker:\nclient_details\ninvoice_items\ninvoice_preview\n\nTodo Board:\ntask_list\ncompleted_tasks\ntask_summary\n\nRecipe Manager:\nrecipe_collection\nfavorites\nshopping_list\n\nBudget Tracker:\nincome_entries\nexpense_entries\nbudget_summary\n\nNotes App:\nnotes_list\nnote_viewer\n\nQuiz App:\nquestions\nscores\nquiz_viewer\n\nPoll App:\npoll_options\npoll_results\n\nFILE HANDLING\n\nIf the user asks about files:\n\n\"What files do I have?\" → use list_files\n\nIf the user provides a file name but not ID:\n\n1. Use list_files\n2. Find the correct file\n3. Use its ID\n\nIf the user asks to summarize a file → use read_and_summarize_file.\nNEVER use file tools for non-file items (like tasks, reminders, memories). Focus on their specific tools.\n\nITEM MANAGEMENT (STRICT RULES)\n\nFor managing (updating or deleting) memories, tasks, reminders, or files:\n\nSTEP 1 — If the user hasn't specified an ID, call the appropriate get_ or search_ tool first to find it.\n  * For reminders: use get_reminders\n  * For tasks: use get_tasks\n  * For memories: use get_memories\n  * For journals: use get_journals\n  * For files: use list_files\n\nSTEP 2 — Once you have the ID, proceed with the EXACT requested action:\n- To UPDATE/CHANGE: Call the corresponding update tool natively with the ID and new data.\n- To DELETE: Call the corresponding delete tool natively with the ID. (Do NOT ask for confirmation manually; the system handles it).\n- NEVER call a delete tool if the user asked to change or update an item.\n\nIf the user says \"No\" or \"Cancel\" when prompted, the tool execution will fail gracefully.\n\nRESPONSE FORMAT (CRITICAL)\n\nWhen you finish reasoning and are NOT calling tools, you MUST return a valid JSON object that exactly matches ONE of the following TypeScript interfaces:\n\n```typescript\ninterface ClarificationResponse {\n  type: \"clarification\";\n  question: string;\n  options: string[];\n}\n\ninterface FinalResponse {\n  type: \"final\";\n  message: string;\n}\n\ninterface UIComponentResponse {\n  type: \"ui_component\";\n  component: \"reminder_list\" | \"task_list\" | \"memory_list\" | \"file_list\" | \"contact_list\";\n  data: any;\n}\n```\n\nDo not include:\n* markdown formatting around the JSON\n* explanations or conversational text\n* text before or after the JSON object\n\nExample of a ClarificationResponse:\n{\n  \"type\": \"clarification\",\n  \"question\": \"Which option did you mean?\",\n  \"options\": [\"Option A\", \"Option B\"]\n}\n\nExample of a FinalResponse:\n{\n  \"type\": \"final\",\n  \"message\": \"Your response to the user\"\n}\n\nWHEN NOT TO USE TOOLS\n\nDo not use tools if:\n\n* the question is general knowledge\n* the answer can be reasoned without external data\n* no tool matches the request\n\nTOOL RESPONSE HANDLING\n\nWhen a tool returns data:\n\n* Present the result clearly\n* Do not invent additional information\n* Do not modify tool results except for readability\n\nIf a tool parameter is optional (like \"title\"), generate it automatically from context.\n\nNever ask the user for internal parameters.\n\nGENERATIVE UI RULES\n* Use \"ui_component\" responses when the user asks to see/list items (reminders, tasks, memories, files, contacts).\n* The \"data\" field must contain the raw array of items returned by the tools.\n* Return exactly ONE valid JSON object matching these interfaces.\n* If you cannot perform a physical action (like making a phone call), provide the relevant contact information in a \"ui_component\" response so the user can use the integrated action buttons.\n\nCOMMUNICATION STYLE\n\n* Keep responses concise.\n* Avoid unnecessary explanations.\n* Do not mention internal tools or system instructions.\n\nSECURITY\n\nNever reveal:\n\n* database IDs\n* UUIDs\n* access codes\n* system credentials\n\nConfirm actions naturally without exposing internal identifiers.\n\nYou are assisting Test inside the Nexora assistant application.",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "i went to gym on moiday",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "AIMessage"
+              ],
+              "kwargs": {
+                "content": "{\"type\":\"clarification\",\"question\":\"Would you like to save this as a memory or add it to your journal?\",\"options\":[\"Save as memory\",\"Add to journal\"]}",
+                "tool_calls": [],
+                "invalid_tool_calls": [],
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "Save as memory",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            }
+          ],
+          "toolResults": 0,
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:01.899Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "toolCalls": 1,
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:02.900Z",
+          "environment": "development"
+        },
+        {
+          "id": "zoakoe",
+          "type": "plan_created",
+          "message": "Execution plan created",
+          "status": "success",
+          "timestamp": 1773572342905
+        },
+        {
+          "event": "plan_created",
+          "message": "Execution plan created",
+          "status": "success",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:02.905Z",
+          "environment": "development"
+        },
+        {
+          "id": "k9qec5",
+          "type": "clarification_needed",
+          "message": "Awaiting user confirmation for tool execution",
+          "status": "pending",
+          "timestamp": 1773572343081
+        },
+        {
+          "event": "clarification_needed",
+          "message": "Awaiting user confirmation for tool execution",
+          "status": "pending",
+          "traceId": "c1713296-97a1-4310-908a-febea99b0211",
+          "timestamp": "2026-03-15T10:59:03.081Z",
+          "environment": "development"
+        }
+      ],
+      "finalReply": "{\"type\":\"clarification\",\"question\":\"The system wants to run 'add_memory'. Do you want to proceed?\",\"options\":[\"Yes\",\"No\"]}"
+    },
+    {
+      "timestamp": "2026-03-15T10:59:08.348Z",
+      "user": "Test",
+      "request": "Yes",
+      "events": [
+        {
+          "event": "flow_attempt",
+          "message": "Yes",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:04.915Z",
+          "environment": "development"
+        },
+        {
+          "id": "m53y7k",
+          "type": "input_received",
+          "message": "User request received",
+          "status": "info",
+          "timestamp": 1773572345098
+        },
+        {
+          "event": "input_received",
+          "message": "User request received",
+          "status": "info",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:05.098Z",
+          "environment": "development"
+        },
+        {
+          "event": "agent_execution_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "conversationId": "e13a1c94-469e-4506-aa58-8bc6f1c35cd5",
+          "historyCount": 5,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:05.458Z",
+          "environment": "development"
+        },
+        {
+          "id": "qnsw8b",
+          "type": "tool_approval",
+          "message": "User approved tool execution",
+          "status": "info",
+          "timestamp": 1773572345459
+        },
+        {
+          "event": "tool_approval",
+          "message": "User approved tool execution",
+          "status": "info",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:05.459Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "toolNode",
+          "messageCount": 5,
+          "toolResultsCount": 0,
+          "iterations": 2,
+          "intent": "memory_write",
+          "toolExecuted": "add_memory",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:05.461Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_execution_started",
+          "toolName": "add_memory",
+          "arguments": {
+            "accessCode": "AI-KTUD-W7VH",
+            "content": "I went to gym on Monday.",
+            "title": "Gym Visit on Monday"
+          },
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:05.461Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_execution_started",
+          "toolName": "add_memory",
+          "args": {
+            "title": "Gym Visit on Monday"
+          },
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:05.461Z",
+          "environment": "development"
+        },
+        {
+          "id": "26gt2i",
+          "type": "tool_complete",
+          "message": "Tool execution finished",
+          "status": "success",
+          "timestamp": 1773572346502
+        },
+        {
+          "event": "tool_complete",
+          "message": "Tool execution finished",
+          "status": "success",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:06.502Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_execution_completed",
+          "toolName": "add_memory",
+          "result": "Memory added successfully. ID: daf5d6fe-0a79-4895-aa74-c647819ad9ba",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "latencyMs": 1042,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:06.503Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "query": "Save as memory",
+          "intent": "memory_write",
+          "allowedCategories": [
+            "memory",
+            "journal",
+            "knowledge",
+            "graph"
+          ],
+          "allowedTags": [
+            "memory",
+            "store",
+            "edit",
+            "search",
+            "list",
+            "journal",
+            "entry",
+            "knowledge",
+            "graph",
+            "fact",
+            "relationship"
+          ],
+          "allowedToolCount": 9,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:06.511Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "count": 9,
+          "found": [
+            "add_memory",
+            "update_memory",
+            "search_memory",
+            "get_memories",
+            "add_knowledge",
+            "add_journal",
+            "update_knowledge",
+            "create_graph_fact",
+            "update_journal"
+          ],
+          "blockedTools": [],
+          "runtimeMissing": [],
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:07.348Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "plannerNode_start",
+          "messageCount": 6,
+          "toolResultsCount": 1,
+          "iterations": 2,
+          "intent": "memory_write",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:07.355Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "messageCount": 6,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:07.356Z",
+          "environment": "development"
+        },
+        {
+          "event": "LLM_INPUT",
+          "messages": [
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "SystemMessage"
+              ],
+              "kwargs": {
+                "content": "You are **Nexora**, a personal AI assistant for Test.\n\nThe current date and time is: 3/15/2026, 4:28:55 PM (ISO: 2026-03-15T10:58:55.432Z).\nUse this to calculate relative times (e.g., \"in 5 minutes\", \"tomorrow\", \"next Friday\").\n\nYour role is to help the user manage information, tasks, reminders, knowledge, files, and apps through conversation.\n\nGENERAL BEHAVIOR\n\n* Be helpful, concise, and accurate.\n* Respond in a professional tone.\n* Focus on solving the user's request efficiently.\n* Prioritize correctness over creativity.\n* Do not hallucinate information.\n\nCONTEXT INJECTION\nThe system may inject additional context before your reasoning, including:\n\n* past memories\n* stored knowledge\n* journal entries\n* retrieved information from previous conversations\n\nTreat this context as reliable background information that may help answer the user's request.\n\nTOOL USAGE (VERY IMPORTANT)\nYou have access to tools that can perform real actions.\n\nPrefer using a tool when the user's request requires:\n\n* real data retrieval\n* database access\n* file access\n* memory access\n* task creation or updates\n* app creation\n* external information\n\nIf the answer is simple reasoning or general knowledge, respond directly without using a tool.\n\nNEVER guess results that a tool can provide.\n\nIf a tool exists for the task, use the tool instead of inventing information.\n\nWhenever a tool requires an \"accessCode\" parameter, YOU MUST PASS exactly this value:\n\n\"AI-KTUD-W7VH\"\n\nDo not ask the user for it and never replace it with placeholders.\n\nTOOL EXECUTION FLOW\n\nWhen you call a tool:\n\n1. Wait for the tool result.\n2. Carefully read the tool output.\n3. Use the tool output to produce the final response.\n\nDo not repeatedly call the same tool unless absolutely necessary.\n\nWHEN TO USE TOOLS\n\nExamples:\n\nMath calculations → use math tools\nGetting a random joke → use the joke tool\n\nFile management:\n\n* \"What files do I have?\" → use list_files\n* \"Summarize file X\" → use read_and_summarize_file\n* \"Delete file X\" → follow the deletion flow\n\nMemories, Tasks, Reminders → use their respective tools.\n\nApp creation → use create_app when the user asks to create or build an app.\n\nListing apps → use list_apps when the user asks about their apps.\n\nAPP CREATION (VERY IMPORTANT)\n\nWhen the user asks to create/build/make an app (for example: \"create an expense splitter\", \"build a task board\"):\n\nYou MUST use the **create_app** tool.\n\nYou must generate a complete JSON schema yourself with a **layout array** containing components.\n\nDo NOT ask the user to define the schema.\n\nCRITICAL RULES\n\nComponent names describe **WHAT DATA IS DISPLAYED**, not UI element types.\n\nComponents are **display cards only**.\n\nThere are **no buttons, forms, or inputs**.\n\nAll interaction happens through the chat.\n\nDO NOT use component names like:\n\nform\nbutton\nsubmit\ninput\nadd_expense_form\ngenerate_button\n\nInstead use names describing data such as:\n\nclient_details\ninvoice_items\ninvoice_preview\ntask_list\nexpense_history\n\nApps that generate documents must include a component with one of these names:\n\npreview\ndocument\nmarkdown\nviewer\n\nExamples:\n\ninvoice_preview\ndocument_viewer\n\nThis allows Markdown rendering in the UI.\n\nYou may optionally include **initialData** as JSON with sensible defaults.\n\nExample: empty arrays for lists.\n\nAfter creating the app:\n\nTell the user:\n\n\"The app is ready. Open it from the Apps section in the sidebar and describe what you want in the chat.\"\n\nNever say you cannot create an app.\n\nYou have the create_app tool — use it.\n\nAPP SCHEMA EXAMPLES\n\nExpense Splitter:\nmembers_list\nexpense_history\nbalance_summary\n\nInvoice Maker:\nclient_details\ninvoice_items\ninvoice_preview\n\nTodo Board:\ntask_list\ncompleted_tasks\ntask_summary\n\nRecipe Manager:\nrecipe_collection\nfavorites\nshopping_list\n\nBudget Tracker:\nincome_entries\nexpense_entries\nbudget_summary\n\nNotes App:\nnotes_list\nnote_viewer\n\nQuiz App:\nquestions\nscores\nquiz_viewer\n\nPoll App:\npoll_options\npoll_results\n\nFILE HANDLING\n\nIf the user asks about files:\n\n\"What files do I have?\" → use list_files\n\nIf the user provides a file name but not ID:\n\n1. Use list_files\n2. Find the correct file\n3. Use its ID\n\nIf the user asks to summarize a file → use read_and_summarize_file.\nNEVER use file tools for non-file items (like tasks, reminders, memories). Focus on their specific tools.\n\nITEM MANAGEMENT (STRICT RULES)\n\nFor managing (updating or deleting) memories, tasks, reminders, or files:\n\nSTEP 1 — If the user hasn't specified an ID, call the appropriate get_ or search_ tool first to find it.\n  * For reminders: use get_reminders\n  * For tasks: use get_tasks\n  * For memories: use get_memories\n  * For journals: use get_journals\n  * For files: use list_files\n\nSTEP 2 — Once you have the ID, proceed with the EXACT requested action:\n- To UPDATE/CHANGE: Call the corresponding update tool natively with the ID and new data.\n- To DELETE: Call the corresponding delete tool natively with the ID. (Do NOT ask for confirmation manually; the system handles it).\n- NEVER call a delete tool if the user asked to change or update an item.\n\nIf the user says \"No\" or \"Cancel\" when prompted, the tool execution will fail gracefully.\n\nRESPONSE FORMAT (CRITICAL)\n\nWhen you finish reasoning and are NOT calling tools, you MUST return a valid JSON object that exactly matches ONE of the following TypeScript interfaces:\n\n```typescript\ninterface ClarificationResponse {\n  type: \"clarification\";\n  question: string;\n  options: string[];\n}\n\ninterface FinalResponse {\n  type: \"final\";\n  message: string;\n}\n\ninterface UIComponentResponse {\n  type: \"ui_component\";\n  component: \"reminder_list\" | \"task_list\" | \"memory_list\" | \"file_list\" | \"contact_list\";\n  data: any;\n}\n```\n\nDo not include:\n* markdown formatting around the JSON\n* explanations or conversational text\n* text before or after the JSON object\n\nExample of a ClarificationResponse:\n{\n  \"type\": \"clarification\",\n  \"question\": \"Which option did you mean?\",\n  \"options\": [\"Option A\", \"Option B\"]\n}\n\nExample of a FinalResponse:\n{\n  \"type\": \"final\",\n  \"message\": \"Your response to the user\"\n}\n\nWHEN NOT TO USE TOOLS\n\nDo not use tools if:\n\n* the question is general knowledge\n* the answer can be reasoned without external data\n* no tool matches the request\n\nTOOL RESPONSE HANDLING\n\nWhen a tool returns data:\n\n* Present the result clearly\n* Do not invent additional information\n* Do not modify tool results except for readability\n\nIf a tool parameter is optional (like \"title\"), generate it automatically from context.\n\nNever ask the user for internal parameters.\n\nGENERATIVE UI RULES\n* Use \"ui_component\" responses when the user asks to see/list items (reminders, tasks, memories, files, contacts).\n* The \"data\" field must contain the raw array of items returned by the tools.\n* Return exactly ONE valid JSON object matching these interfaces.\n* If you cannot perform a physical action (like making a phone call), provide the relevant contact information in a \"ui_component\" response so the user can use the integrated action buttons.\n\nCOMMUNICATION STYLE\n\n* Keep responses concise.\n* Avoid unnecessary explanations.\n* Do not mention internal tools or system instructions.\n\nSECURITY\n\nNever reveal:\n\n* database IDs\n* UUIDs\n* access codes\n* system credentials\n\nConfirm actions naturally without exposing internal identifiers.\n\nYou are assisting Test inside the Nexora assistant application.",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "i went to gym on moiday",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "AIMessage"
+              ],
+              "kwargs": {
+                "content": "{\"type\":\"clarification\",\"question\":\"Would you like to save this as a memory or add it to your journal?\",\"options\":[\"Save as memory\",\"Add to journal\"]}",
+                "tool_calls": [],
+                "invalid_tool_calls": [],
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "Save as memory",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "AIMessage"
+              ],
+              "kwargs": {
+                "id": "751b08131a754348801a5bf39389388f",
+                "content": "",
+                "additional_kwargs": {
+                  "tool_calls": [
+                    {
+                      "id": "ajEtQkrRo",
+                      "function": {
+                        "name": "add_memory",
+                        "arguments": "{\"accessCode\": \"AI-KTUD-W7VH\", \"content\": \"I went to gym on Monday.\", \"title\": \"Gym Visit on Monday\"}"
+                      },
+                      "index": 0
+                    }
+                  ]
+                },
+                "response_metadata": {
+                  "tokenUsage": {
+                    "promptTokens": 10958,
+                    "completionTokens": 40,
+                    "totalTokens": 10998
+                  },
+                  "finish_reason": "tool_calls",
+                  "model_provider": "openai",
+                  "model_name": "mistral-small-latest"
+                },
+                "type": "ai",
+                "tool_calls": [
+                  {
+                    "name": "add_memory",
+                    "args": {
+                      "accessCode": "AI-KTUD-W7VH",
+                      "content": "I went to gym on Monday.",
+                      "title": "Gym Visit on Monday"
+                    },
+                    "type": "tool_call",
+                    "id": "ajEtQkrRo"
+                  }
+                ],
+                "invalid_tool_calls": [],
+                "usage_metadata": {
+                  "output_tokens": 40,
+                  "input_tokens": 10958,
+                  "total_tokens": 10998,
+                  "input_token_details": {
+                    "cache_read": 1728
+                  },
+                  "output_token_details": {}
+                }
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "ToolMessage"
+              ],
+              "kwargs": {
+                "tool_call_id": "ajEtQkrRo",
+                "name": "add_memory",
+                "content": "Memory added successfully. ID: daf5d6fe-0a79-4895-aa74-c647819ad9ba",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            }
+          ],
+          "toolResults": 1,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:07.356Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "toolCalls": 0,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:08.118Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "plannerNode_end",
+          "messageCount": 6,
+          "toolResultsCount": 1,
+          "iterations": 2,
+          "intent": "memory_write",
+          "toolCalls": 0,
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:08.119Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "responseNode_start",
+          "messageCount": 7,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_write",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:08.127Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "responseNode",
+          "messageCount": 7,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_write",
+          "finalReply": "I've saved your memory titled 'Gym Visit on Monday'.",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:08.128Z",
+          "environment": "development"
+        },
+        {
+          "id": "0922uc",
+          "type": "response_generating",
+          "message": "Preparing response",
+          "status": "pending",
+          "timestamp": 1773572348131
+        },
+        {
+          "event": "response_generating",
+          "message": "Preparing response",
+          "status": "pending",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:08.131Z",
+          "environment": "development"
+        },
+        {
+          "event": "llm_response_generated",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "message": "I've saved your memory titled 'Gym Visit on Monday'.",
+          "traceId": "8fac763c-e79c-4eb4-9584-5b5ad1766f71",
+          "timestamp": "2026-03-15T10:59:08.347Z",
+          "environment": "development"
+        }
+      ],
+      "finalReply": "I've saved your memory titled 'Gym Visit on Monday'."
+    },
+    {
+      "timestamp": "2026-03-15T10:59:20.946Z",
+      "user": "Test",
+      "request": "when did i went to gym",
+      "events": [
+        {
+          "event": "flow_attempt",
+          "message": "when did i went to gym",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:15.673Z",
+          "environment": "development"
+        },
+        {
+          "id": "osn6ip",
+          "type": "input_received",
+          "message": "User request received",
+          "status": "info",
+          "timestamp": 1773572355854
+        },
+        {
+          "event": "input_received",
+          "message": "User request received",
+          "status": "info",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:15.855Z",
+          "environment": "development"
+        },
+        {
+          "event": "agent_execution_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "conversationId": "e13a1c94-469e-4506-aa58-8bc6f1c35cd5",
+          "historyCount": 7,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.231Z",
+          "environment": "development"
+        },
+        {
+          "id": "frmy6w",
+          "type": "thinking",
+          "message": "Agent thinking...",
+          "status": "pending",
+          "timestamp": 1773572356233
+        },
+        {
+          "event": "thinking",
+          "message": "Agent thinking...",
+          "status": "pending",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.233Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "routerNode_start",
+          "messageCount": 8,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_write",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.238Z",
+          "environment": "development"
+        },
+        {
+          "event": "router_node_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "messageCount": 8,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.238Z",
+          "environment": "development"
+        },
+        {
+          "event": "router_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "intent": "memory_query",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.804Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "routerNode_end",
+          "messageCount": 8,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_query",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.804Z",
+          "environment": "development"
+        },
+        {
+          "id": "enhl9b",
+          "type": "intent_detected",
+          "message": "Intent detected: memory_query",
+          "status": "success",
+          "timestamp": 1773572356811
+        },
+        {
+          "event": "intent_detected",
+          "message": "Intent detected: memory_query",
+          "status": "success",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.811Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "graphMemoryNode_start",
+          "messageCount": 8,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_query",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.812Z",
+          "environment": "development"
+        },
+        {
+          "id": "nvsep5",
+          "type": "graph_memory_started",
+          "message": "Searching Knowledge Graph entities...",
+          "status": "pending",
+          "timestamp": 1773572356812
+        },
+        {
+          "event": "graph_memory_started",
+          "message": "Searching Knowledge Graph entities...",
+          "status": "pending",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:16.812Z",
+          "environment": "development"
+        },
+        {
+          "id": "8kxul",
+          "type": "graph_memory_completed",
+          "message": "No relevant entities found in graph",
+          "status": "info",
+          "timestamp": 1773572357467
+        },
+        {
+          "event": "graph_memory_completed",
+          "message": "No relevant entities found in graph",
+          "status": "info",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:17.467Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "memoryNode_start",
+          "messageCount": 8,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_query",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:17.473Z",
+          "environment": "development"
+        },
+        {
+          "id": "59za7l",
+          "type": "memory_search_started",
+          "message": "Searching for memories about: \"when did i went to gym\"",
+          "status": "pending",
+          "timestamp": 1773572357473
+        },
+        {
+          "event": "memory_search_started",
+          "message": "Searching for memories about: \"when did i went to gym\"",
+          "status": "pending",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:17.473Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_execution_started",
+          "toolName": "search_memory",
+          "args": {
+            "query": "when did i went to gym"
+          },
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:17.475Z",
+          "environment": "development"
+        },
+        {
+          "id": "bo923j",
+          "type": "tool_complete",
+          "message": "Tool execution finished",
+          "status": "success",
+          "timestamp": 1773572358433
+        },
+        {
+          "event": "tool_complete",
+          "message": "Tool execution finished",
+          "status": "success",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:18.433Z",
+          "environment": "development"
+        },
+        {
+          "id": "5g8faq",
+          "type": "memory_candidates_retrieved",
+          "message": "Retrieved 1 candidates for filtering",
+          "status": "info",
+          "timestamp": 1773572358434,
+          "data": {
+            "count": 1
+          }
+        },
+        {
+          "event": "memory_candidates_retrieved",
+          "message": "Retrieved 1 candidates for filtering",
+          "status": "info",
+          "count": 1,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:18.434Z",
+          "environment": "development"
+        },
+        {
+          "id": "wsdmu",
+          "type": "memory_filtered",
+          "message": "Filtered down to 1 relevant memories",
+          "status": "success",
+          "timestamp": 1773572359286,
+          "data": {
+            "count": 1
+          }
+        },
+        {
+          "event": "memory_filtered",
+          "message": "Filtered down to 1 relevant memories",
+          "status": "success",
+          "count": 1,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.286Z",
+          "environment": "development"
+        },
+        {
+          "event": "memory_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "memoriesFound": 1,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.286Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "memoryNode",
+          "messageCount": 8,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_query",
+          "memoriesFound": 1,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.286Z",
+          "environment": "development"
+        },
+        {
+          "id": "2jlyac",
+          "type": "context_updated",
+          "message": "Found 1 relevant context items",
+          "status": "success",
+          "timestamp": 1773572359290,
+          "data": {
+            "memories": [
+              {
+                "id": "daf5d6fe-0a79-4895-aa74-c647819ad9ba",
+                "user_id": "f43ac274-e715-457a-93ff-f92bb660c754",
+                "type": "memory",
+                "title": "Gym Visit on Monday",
+                "content": "I went to gym on Monday.",
+                "similarity": 0.744036148165849
+              }
+            ]
+          }
+        },
+        {
+          "event": "context_updated",
+          "message": "Found 1 relevant context items",
+          "status": "success",
+          "memories": [
+            {
+              "id": "daf5d6fe-0a79-4895-aa74-c647819ad9ba",
+              "user_id": "f43ac274-e715-457a-93ff-f92bb660c754",
+              "type": "memory",
+              "title": "Gym Visit on Monday",
+              "content": "I went to gym on Monday.",
+              "similarity": 0.744036148165849
+            }
+          ],
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.290Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "query": "when did i went to gym",
+          "intent": "memory_query",
+          "allowedCategories": [
+            "conversation",
+            "memory",
+            "journal",
+            "knowledge",
+            "tasks",
+            "reminders",
+            "files",
+            "graph"
+          ],
+          "allowedTags": [
+            "history",
+            "chat",
+            "memory",
+            "search",
+            "list",
+            "journal",
+            "knowledge",
+            "task",
+            "reminder",
+            "files",
+            "read",
+            "summary",
+            "graph",
+            "sync",
+            "embedding"
+          ],
+          "allowedToolCount": 11,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.291Z",
+          "environment": "development"
+        },
+        {
+          "event": "tool_discovery_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "count": 10,
+          "found": [
+            "get_journals",
+            "get_memories",
+            "get_chat_history",
+            "search_journal",
+            "sync_graph_memory",
+            "get_tasks",
+            "get_reminders",
+            "search_memory",
+            "get_knowledges",
+            "read_and_summarize_file"
+          ],
+          "blockedTools": [],
+          "runtimeMissing": [],
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.987Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "plannerNode_start",
+          "messageCount": 9,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_query",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.995Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_started",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "messageCount": 9,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.995Z",
+          "environment": "development"
+        },
+        {
+          "event": "LLM_INPUT",
+          "messages": [
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "SystemMessage"
+              ],
+              "kwargs": {
+                "content": "You are **Nexora**, a personal AI assistant for Test.\n\nThe current date and time is: 3/15/2026, 4:28:55 PM (ISO: 2026-03-15T10:58:55.432Z).\nUse this to calculate relative times (e.g., \"in 5 minutes\", \"tomorrow\", \"next Friday\").\n\nYour role is to help the user manage information, tasks, reminders, knowledge, files, and apps through conversation.\n\nGENERAL BEHAVIOR\n\n* Be helpful, concise, and accurate.\n* Respond in a professional tone.\n* Focus on solving the user's request efficiently.\n* Prioritize correctness over creativity.\n* Do not hallucinate information.\n\nCONTEXT INJECTION\nThe system may inject additional context before your reasoning, including:\n\n* past memories\n* stored knowledge\n* journal entries\n* retrieved information from previous conversations\n\nTreat this context as reliable background information that may help answer the user's request.\n\nTOOL USAGE (VERY IMPORTANT)\nYou have access to tools that can perform real actions.\n\nPrefer using a tool when the user's request requires:\n\n* real data retrieval\n* database access\n* file access\n* memory access\n* task creation or updates\n* app creation\n* external information\n\nIf the answer is simple reasoning or general knowledge, respond directly without using a tool.\n\nNEVER guess results that a tool can provide.\n\nIf a tool exists for the task, use the tool instead of inventing information.\n\nWhenever a tool requires an \"accessCode\" parameter, YOU MUST PASS exactly this value:\n\n\"AI-KTUD-W7VH\"\n\nDo not ask the user for it and never replace it with placeholders.\n\nTOOL EXECUTION FLOW\n\nWhen you call a tool:\n\n1. Wait for the tool result.\n2. Carefully read the tool output.\n3. Use the tool output to produce the final response.\n\nDo not repeatedly call the same tool unless absolutely necessary.\n\nWHEN TO USE TOOLS\n\nExamples:\n\nMath calculations → use math tools\nGetting a random joke → use the joke tool\n\nFile management:\n\n* \"What files do I have?\" → use list_files\n* \"Summarize file X\" → use read_and_summarize_file\n* \"Delete file X\" → follow the deletion flow\n\nMemories, Tasks, Reminders → use their respective tools.\n\nApp creation → use create_app when the user asks to create or build an app.\n\nListing apps → use list_apps when the user asks about their apps.\n\nAPP CREATION (VERY IMPORTANT)\n\nWhen the user asks to create/build/make an app (for example: \"create an expense splitter\", \"build a task board\"):\n\nYou MUST use the **create_app** tool.\n\nYou must generate a complete JSON schema yourself with a **layout array** containing components.\n\nDo NOT ask the user to define the schema.\n\nCRITICAL RULES\n\nComponent names describe **WHAT DATA IS DISPLAYED**, not UI element types.\n\nComponents are **display cards only**.\n\nThere are **no buttons, forms, or inputs**.\n\nAll interaction happens through the chat.\n\nDO NOT use component names like:\n\nform\nbutton\nsubmit\ninput\nadd_expense_form\ngenerate_button\n\nInstead use names describing data such as:\n\nclient_details\ninvoice_items\ninvoice_preview\ntask_list\nexpense_history\n\nApps that generate documents must include a component with one of these names:\n\npreview\ndocument\nmarkdown\nviewer\n\nExamples:\n\ninvoice_preview\ndocument_viewer\n\nThis allows Markdown rendering in the UI.\n\nYou may optionally include **initialData** as JSON with sensible defaults.\n\nExample: empty arrays for lists.\n\nAfter creating the app:\n\nTell the user:\n\n\"The app is ready. Open it from the Apps section in the sidebar and describe what you want in the chat.\"\n\nNever say you cannot create an app.\n\nYou have the create_app tool — use it.\n\nAPP SCHEMA EXAMPLES\n\nExpense Splitter:\nmembers_list\nexpense_history\nbalance_summary\n\nInvoice Maker:\nclient_details\ninvoice_items\ninvoice_preview\n\nTodo Board:\ntask_list\ncompleted_tasks\ntask_summary\n\nRecipe Manager:\nrecipe_collection\nfavorites\nshopping_list\n\nBudget Tracker:\nincome_entries\nexpense_entries\nbudget_summary\n\nNotes App:\nnotes_list\nnote_viewer\n\nQuiz App:\nquestions\nscores\nquiz_viewer\n\nPoll App:\npoll_options\npoll_results\n\nFILE HANDLING\n\nIf the user asks about files:\n\n\"What files do I have?\" → use list_files\n\nIf the user provides a file name but not ID:\n\n1. Use list_files\n2. Find the correct file\n3. Use its ID\n\nIf the user asks to summarize a file → use read_and_summarize_file.\nNEVER use file tools for non-file items (like tasks, reminders, memories). Focus on their specific tools.\n\nITEM MANAGEMENT (STRICT RULES)\n\nFor managing (updating or deleting) memories, tasks, reminders, or files:\n\nSTEP 1 — If the user hasn't specified an ID, call the appropriate get_ or search_ tool first to find it.\n  * For reminders: use get_reminders\n  * For tasks: use get_tasks\n  * For memories: use get_memories\n  * For journals: use get_journals\n  * For files: use list_files\n\nSTEP 2 — Once you have the ID, proceed with the EXACT requested action:\n- To UPDATE/CHANGE: Call the corresponding update tool natively with the ID and new data.\n- To DELETE: Call the corresponding delete tool natively with the ID. (Do NOT ask for confirmation manually; the system handles it).\n- NEVER call a delete tool if the user asked to change or update an item.\n\nIf the user says \"No\" or \"Cancel\" when prompted, the tool execution will fail gracefully.\n\nRESPONSE FORMAT (CRITICAL)\n\nWhen you finish reasoning and are NOT calling tools, you MUST return a valid JSON object that exactly matches ONE of the following TypeScript interfaces:\n\n```typescript\ninterface ClarificationResponse {\n  type: \"clarification\";\n  question: string;\n  options: string[];\n}\n\ninterface FinalResponse {\n  type: \"final\";\n  message: string;\n}\n\ninterface UIComponentResponse {\n  type: \"ui_component\";\n  component: \"reminder_list\" | \"task_list\" | \"memory_list\" | \"file_list\" | \"contact_list\";\n  data: any;\n}\n```\n\nDo not include:\n* markdown formatting around the JSON\n* explanations or conversational text\n* text before or after the JSON object\n\nExample of a ClarificationResponse:\n{\n  \"type\": \"clarification\",\n  \"question\": \"Which option did you mean?\",\n  \"options\": [\"Option A\", \"Option B\"]\n}\n\nExample of a FinalResponse:\n{\n  \"type\": \"final\",\n  \"message\": \"Your response to the user\"\n}\n\nWHEN NOT TO USE TOOLS\n\nDo not use tools if:\n\n* the question is general knowledge\n* the answer can be reasoned without external data\n* no tool matches the request\n\nTOOL RESPONSE HANDLING\n\nWhen a tool returns data:\n\n* Present the result clearly\n* Do not invent additional information\n* Do not modify tool results except for readability\n\nIf a tool parameter is optional (like \"title\"), generate it automatically from context.\n\nNever ask the user for internal parameters.\n\nGENERATIVE UI RULES\n* Use \"ui_component\" responses when the user asks to see/list items (reminders, tasks, memories, files, contacts).\n* The \"data\" field must contain the raw array of items returned by the tools.\n* Return exactly ONE valid JSON object matching these interfaces.\n* If you cannot perform a physical action (like making a phone call), provide the relevant contact information in a \"ui_component\" response so the user can use the integrated action buttons.\n\nCOMMUNICATION STYLE\n\n* Keep responses concise.\n* Avoid unnecessary explanations.\n* Do not mention internal tools or system instructions.\n\nSECURITY\n\nNever reveal:\n\n* database IDs\n* UUIDs\n* access codes\n* system credentials\n\nConfirm actions naturally without exposing internal identifiers.\n\nYou are assisting Test inside the Nexora assistant application.",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "i went to gym on moiday",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "AIMessage"
+              ],
+              "kwargs": {
+                "content": "{\"type\":\"clarification\",\"question\":\"Would you like to save this as a memory or add it to your journal?\",\"options\":[\"Save as memory\",\"Add to journal\"]}",
+                "tool_calls": [],
+                "invalid_tool_calls": [],
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "Save as memory",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "AIMessage"
+              ],
+              "kwargs": {
+                "id": "751b08131a754348801a5bf39389388f",
+                "content": "",
+                "additional_kwargs": {
+                  "tool_calls": [
+                    {
+                      "id": "ajEtQkrRo",
+                      "function": {
+                        "name": "add_memory",
+                        "arguments": "{\"accessCode\": \"AI-KTUD-W7VH\", \"content\": \"I went to gym on Monday.\", \"title\": \"Gym Visit on Monday\"}"
+                      },
+                      "index": 0
+                    }
+                  ]
+                },
+                "response_metadata": {
+                  "tokenUsage": {
+                    "promptTokens": 10958,
+                    "completionTokens": 40,
+                    "totalTokens": 10998
+                  },
+                  "finish_reason": "tool_calls",
+                  "model_provider": "openai",
+                  "model_name": "mistral-small-latest"
+                },
+                "type": "ai",
+                "tool_calls": [
+                  {
+                    "name": "add_memory",
+                    "args": {
+                      "accessCode": "AI-KTUD-W7VH",
+                      "content": "I went to gym on Monday.",
+                      "title": "Gym Visit on Monday"
+                    },
+                    "type": "tool_call",
+                    "id": "ajEtQkrRo"
+                  }
+                ],
+                "invalid_tool_calls": [],
+                "usage_metadata": {
+                  "output_tokens": 40,
+                  "input_tokens": 10958,
+                  "total_tokens": 10998,
+                  "input_token_details": {
+                    "cache_read": 1728
+                  },
+                  "output_token_details": {}
+                }
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "ToolMessage"
+              ],
+              "kwargs": {
+                "tool_call_id": "ajEtQkrRo",
+                "name": "add_memory",
+                "content": "Memory added successfully. ID: daf5d6fe-0a79-4895-aa74-c647819ad9ba",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "AIMessage"
+              ],
+              "kwargs": {
+                "content": "{\"type\":\"final\",\"message\":\"I've saved your memory titled 'Gym Visit on Monday'.\"}",
+                "tool_calls": [],
+                "invalid_tool_calls": [],
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "HumanMessage"
+              ],
+              "kwargs": {
+                "content": "when did i went to gym",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            },
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain_core",
+                "messages",
+                "SystemMessage"
+              ],
+              "kwargs": {
+                "content": "\n### CONTEXT INJECTION\nThe following relevant information was retrieved from the user's past data:\n\nMemory: I went to gym on Monday.\n\nInstructions for Context:\n* Use this information to answer the user's request directly.\n* Do NOT call search tools again if the answer is already here.\n* Maintain privacy: do not mention retrieval sources unless asked.\n",
+                "additional_kwargs": {},
+                "response_metadata": {}
+              }
+            }
+          ],
+          "toolResults": 1,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:19.995Z",
+          "environment": "development"
+        },
+        {
+          "event": "planner_node_completed",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "toolCalls": 0,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.768Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "plannerNode_end",
+          "messageCount": 9,
+          "toolResultsCount": 1,
+          "iterations": 3,
+          "intent": "memory_query",
+          "toolCalls": 0,
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.768Z",
+          "environment": "development"
+        },
+        {
+          "id": "7g2b6g",
+          "type": "plan_created",
+          "message": "Execution plan created",
+          "status": "success",
+          "timestamp": 1773572360774
+        },
+        {
+          "event": "plan_created",
+          "message": "Execution plan created",
+          "status": "success",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.774Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "responseNode_start",
+          "messageCount": 10,
+          "toolResultsCount": 1,
+          "iterations": 4,
+          "intent": "memory_query",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.775Z",
+          "environment": "development"
+        },
+        {
+          "event": "graph_node_debug",
+          "node": "responseNode",
+          "messageCount": 10,
+          "toolResultsCount": 1,
+          "iterations": 4,
+          "intent": "memory_query",
+          "finalReply": "You went to the gym on Monday.",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.776Z",
+          "environment": "development"
+        },
+        {
+          "id": "v7qqdo",
+          "type": "response_generating",
+          "message": "Preparing response",
+          "status": "pending",
+          "timestamp": 1773572360780
+        },
+        {
+          "event": "response_generating",
+          "message": "Preparing response",
+          "status": "pending",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.780Z",
+          "environment": "development"
+        },
+        {
+          "event": "llm_response_generated",
+          "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
+          "message": "You went to the gym on Monday.",
+          "traceId": "485e17a7-08c1-4a3d-91b5-d58a749925db",
+          "timestamp": "2026-03-15T10:59:20.945Z",
+          "environment": "development"
+        }
+      ],
+      "finalReply": "You went to the gym on Monday."
     }
   ]
 }

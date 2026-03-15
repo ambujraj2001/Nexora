@@ -15,6 +15,8 @@ import * as userService from "../services/user.service";
 import * as fileService from "../services/file.service";
 import * as mailService from "../services/mail.service";
 import * as appService from "../services/app.service";
+import * as routineService from "../services/routine.service";
+
 
 export class FlowEngine {
   /**
@@ -131,7 +133,9 @@ export class FlowEngine {
         files: fileService,
         mail: mailService,
         apps: appService,
+        routines: routineService,
       },
+
       logger: {
         info: (msg, data) => log({ event: "flow_info", userId: user.id, message: msg, ...data }),
         error: (msg, err, data) => log({ event: "flow_error", userId: user.id, message: msg, error: err.message, ...data }),
