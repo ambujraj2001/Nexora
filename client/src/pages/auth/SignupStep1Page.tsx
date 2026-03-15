@@ -4,7 +4,13 @@ import AppHeader from "../../components/AppHeader";
 import ProgressBar from "../../components/ProgressBar";
 import { useSignup } from "../../context/useSignup";
 
-const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
+const SignupStep1Page = ({
+  onNext,
+  onBack,
+}: {
+  onNext: () => void;
+  onBack: () => void;
+}) => {
   const navigate = useNavigate();
   const { step1, setStep1 } = useSignup();
   const [form, setForm] = useState(step1);
@@ -105,13 +111,20 @@ const SignupStep1Page = ({ onNext }: { onNext: () => void }) => {
                 </label>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <button
+                  type="button"
+                  onClick={onBack}
+                  className="flex-1 cursor-pointer items-center justify-center rounded-xl h-14 border border-slate-200 dark:border-border-dark text-slate-600 dark:text-slate-400 text-base font-bold leading-normal transition-all hover:bg-slate-50 dark:hover:bg-card-dark"
+                >
+                  Back
+                </button>
                 <button
                   type="submit"
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl h-14 bg-primary text-white text-base font-bold leading-normal tracking-tight hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                  className="flex flex-[2] cursor-pointer items-center justify-center gap-2 rounded-xl h-14 bg-primary text-white text-base font-bold leading-normal tracking-tight hover:bg-primary/90 transition-all font-display"
                 >
                   <span>Next: AI Preferences</span>
-                  <span className="material-symbols-outlined text-[20px]">
+                  <span className="material-symbols-outlined text-[18px] translate-y-[1px]">
                     arrow_forward
                   </span>
                 </button>

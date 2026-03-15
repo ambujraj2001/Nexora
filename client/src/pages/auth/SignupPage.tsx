@@ -6,9 +6,15 @@ import { apiGoogleLogin, apiGithubLogin } from "../../services/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 
+// Multi-step signup components
+import SignupStep1Page from "./SignupStep1Page";
+import SignupStep2Page from "./SignupStep2Page";
+import SignupStep3Page from "./SignupStep3Page";
+
 const SignupPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [step, setStep] = useState(0); // 0: Selection, 1: Details, 2: Preferences, 3: Security
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -66,6 +72,11 @@ const SignupPage = () => {
     }
   }, [navigate, dispatch]);
 
+  // Handle step rendering
+  if (step === 1) return <SignupStep1Page onNext={() => setStep(2)} onBack={() => setStep(0)} />;
+  if (step === 2) return <SignupStep2Page onNext={() => setStep(3)} onBack={() => setStep(1)} />;
+  if (step === 3) return <SignupStep3Page onBack={() => setStep(2)} />;
+
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
       <div className="layout-container flex h-full grow flex-col">
@@ -84,7 +95,7 @@ const SignupPage = () => {
             <div className="bg-white dark:bg-card-dark/50 p-8 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
               <div className="space-y-6">
                 <button
-                  onClick={() => navigate("/signup-step-1")}
+                  onClick={() => setStep(1)}
                   disabled={loading}
                   className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
@@ -108,9 +119,9 @@ const SignupPage = () => {
                   <div className="flex-grow border-t border-slate-200 dark:border-border-dark"></div>
                 </div>
 
-                <div className="flex flex-col gap-3 w-full">
-                  <div className="group relative w-full">
-                    <div className="pointer-events-none flex items-center justify-center gap-3 w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-full transition-all duration-300 group-hover:bg-slate-50 dark:group-hover:bg-slate-800 font-medium text-sm text-slate-900 dark:text-slate-100">
+                <div className="grid grid-cols-2 gap-4 w-full items-stretch">
+                  <div className="group relative w-full overflow-hidden rounded-xl">
+                    <div className="pointer-events-none flex items-center justify-center gap-3 w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl transition-all duration-300 group-hover:bg-slate-50 dark:group-hover:bg-slate-800 font-semibold text-sm text-slate-900 dark:text-slate-100">
                       <svg className="h-5 w-5" viewBox="0 0 24 24">
                         <path
                           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -129,7 +140,7 @@ const SignupPage = () => {
                           fill="#EA4335"
                         />
                       </svg>
-                      <span>Continue with Google</span>
+                      <span>Google</span>
                     </div>
                     <div className="absolute inset-0 z-10 opacity-0">
                       <GoogleLogin
@@ -145,12 +156,12 @@ const SignupPage = () => {
                   <button
                     type="button"
                     onClick={handleGithubLogin}
-                    className="flex items-center justify-center gap-3 w-full px-4 py-3 bg-slate-900 hover:bg-black text-white rounded-full transition-all duration-300 font-medium text-sm"
+                    className="flex items-center justify-center gap-3 w-full px-4 py-3 bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 transition-all duration-300 font-semibold text-sm"
                   >
                     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                       <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
                     </svg>
-                    <span>Continue with GitHub</span>
+                    <span>GitHub</span>
                   </button>
                 </div>
 
