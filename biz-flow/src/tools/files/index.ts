@@ -28,7 +28,10 @@ export const listFilesTool = tool(
         files.map((f) => ({
           id: f.id,
           name: f.file_name,
-          uploaded_at: f.created_at,
+          uploaded_at:
+            f.created_at_timestamp !== undefined
+              ? f.created_at_timestamp
+              : f.created_at,
         })),
         null,
         2,

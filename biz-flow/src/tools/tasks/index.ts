@@ -21,6 +21,7 @@ export const addTaskTool = tool(
         await updateTask(existing.id, user.id, {
           priority: priority || "high",
           due_date: dueDate,
+          due_date_timestamp: dueDate ? Date.parse(dueDate) : null,
         });
         return `Task "${title}" updated successfully (Existing ID: ${existing.id})`;
       }
@@ -31,6 +32,7 @@ export const addTaskTool = tool(
         status: "pending",
         priority: priority || "high",
         due_date: dueDate,
+        due_date_timestamp: dueDate ? Date.parse(dueDate) : null,
       });
 
       return `Successfully added task: ${task.title} (ID: ${task.id})`;
@@ -72,7 +74,10 @@ export const updateTaskTool = tool(
       if (status) updates.status = status;
       if (priority) updates.priority = priority;
       if (title) updates.title = title;
-      if (dueDate !== undefined) updates.due_date = dueDate;
+      if (dueDate !== undefined) {
+        updates.due_date = dueDate;
+        updates.due_date_timestamp = dueDate ? Date.parse(dueDate) : null;
+      }
 
       const task = await updateTask(id, user.id, updates);
       return `Successfully updated task: ${task.title}`;

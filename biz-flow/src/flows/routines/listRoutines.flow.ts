@@ -34,7 +34,7 @@ export class ListRoutinesFlow implements IFlow {
             instruction: r.instruction,
             cron_expression: r.cron_expression,
             is_active: r.is_active,
-            last_run: r.last_run
+            last_run: r.last_run || (r.last_run_timestamp ? new Date(r.last_run_timestamp).toISOString() : null)
           }))
         };
         reply = JSON.stringify(uiComponent);

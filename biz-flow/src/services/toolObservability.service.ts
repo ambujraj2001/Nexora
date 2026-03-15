@@ -34,7 +34,7 @@ export const recordToolDiscoveryEvent = async (
       blocked_tools: input.blockedTools,
       matched_count: input.matchedTools.length,
       selected_count: input.selectedTools.length,
-      created_at: new Date().toISOString(),
+      created_at_timestamp: Date.now(),
     };
 
     const { error } = await supabase.from("tool_discovery_events").insert(payload);
@@ -65,7 +65,7 @@ export const recordToolExecutionEvent = async (
       success: input.success,
       latency_ms: input.latencyMs,
       error_message: input.errorMessage || null,
-      created_at: new Date().toISOString(),
+      created_at_timestamp: Date.now(),
     };
 
     const { error } = await supabase.from("tool_execution_events").insert(payload);

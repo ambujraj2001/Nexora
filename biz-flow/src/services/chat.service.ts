@@ -6,7 +6,8 @@ export interface ChatMessage {
   conversation_id?: string;
   role: "user" | "ai";
   content: string;
-  created_at: string;
+  created_at?: string;
+  created_at_timestamp?: number;
 }
 
 /**
@@ -19,7 +20,7 @@ export const getUserChatHistory = async (
     .from("chat_messages")
     .select("*")
     .eq("user_id", userId)
-    .order("created_at", { ascending: true });
+    .order("created_at_timestamp", { ascending: true });
 
   if (error) {
     throw new Error(error.message);
@@ -58,6 +59,7 @@ export const saveChatMessage = async (
       role,
       content,
       conversation_id: conversationId,
+      created_at_timestamp: Date.now(),
     })
     .select("*")
     .single();
@@ -81,7 +83,7 @@ export const getRecentConversationHistory = async (
     .select("*")
     .eq("user_id", userId)
     .eq("conversation_id", conversationId)
-    .order("created_at", { ascending: false })
+    .order("created_at_timestamp", { ascending: false })
     .limit(limit);
 
   if (error) {

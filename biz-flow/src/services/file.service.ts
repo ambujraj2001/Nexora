@@ -83,7 +83,7 @@ export const getUserFiles = async (userId: string): Promise<FileRow[]> => {
     .from("files")
     .select("*")
     .eq("user_id", userId)
-    .order("created_at", { ascending: false });
+    .order("created_at_timestamp", { ascending: false });
 
   if (error) {
     throw new Error(error.message);

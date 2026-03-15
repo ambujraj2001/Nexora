@@ -31,7 +31,9 @@ export const initCronJobs = () => {
             await sendReminderEmail(
               userEmail,
               reminder.title,
-              reminder.remind_at,
+              reminder.remind_at_timestamp
+                ? new Date(reminder.remind_at_timestamp).toISOString()
+                : reminder.remind_at,
             );
             await updateReminder(reminder.id, reminder.user_id, {
               status: "notified",
@@ -58,8 +60,11 @@ export const initCronJobs = () => {
         }
 
         try {
-          const lastRun = routine.last_run
-            ? new Date(routine.last_run)
+          const lastRunTs =
+            routine.last_run_timestamp ??
+            (routine.last_run ? Date.parse(routine.last_run) : undefined);
+          const lastRun = lastRunTs
+            ? new Date(lastRunTs)
             : new Date(now.getTime() - 61000);
 
           const interval = CronExpressionParser.parse(routine.cron_expression, {
@@ -83,7 +88,9 @@ export const initCronJobs = () => {
             result: result,
           });
 
-          await updateRoutine(routine.id, { last_run: now.toISOString() });
+          await updateRoutine(routine.id, {
+            last_run_timestamp: now.getTime(),
+          });
 
           // Send Email Result
           const userEmail = (routine as any).users?.email;

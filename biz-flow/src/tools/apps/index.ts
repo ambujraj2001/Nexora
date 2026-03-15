@@ -55,6 +55,7 @@ export const createAppTool = tool(
         app_id: app.id,
         user_id: user.id,
         role: "owner",
+        joined_at_timestamp: Date.now(),
       });
 
       // Seed initial data
@@ -102,6 +103,8 @@ export const createAppTool = tool(
         app_id: app.id,
         key,
         value,
+        created_at_timestamp: Date.now(),
+        updated_at_timestamp: Date.now(),
       }));
       if (inserts.length > 0) {
         await supabase.from("app_data").insert(inserts);
@@ -160,9 +163,9 @@ export const listAppsTool = tool(
 
       const { data: ownedApps, error: ownedErr } = await supabase
         .from("apps")
-        .select("id, name, description, created_at")
+        .select("id, name, description, created_at_timestamp")
         .eq("owner_id", user.id)
-        .order("created_at", { ascending: false });
+        .order("created_at_timestamp", { ascending: false });
 
       if (ownedErr) throw new Error(ownedErr.message);
 
@@ -179,7 +182,7 @@ export const listAppsTool = tool(
       if (memberAppIds.length > 0) {
         const { data } = await supabase
           .from("apps")
-          .select("id, name, description, created_at")
+          .select("id, name, description, created_at_timestamp")
           .in("id", memberAppIds);
         memberApps = data ?? [];
       }
@@ -192,7 +195,7 @@ export const listAppsTool = tool(
       return allApps
         .map(
           (a) =>
-            `[ID: ${a.id}] ${a.name}${a.description ? ` — ${a.description}` : ""} (created ${a.created_at})`,
+            `[ID: ${a.id}] ${a.name}${a.description ? ` — ${a.description}` : ""} (created ${a.created_at_timestamp || "N/A"})`,
         )
         .join("\n");
     } catch (error: any) {

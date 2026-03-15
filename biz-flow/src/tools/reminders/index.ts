@@ -20,6 +20,7 @@ export const addReminderTool = tool(
       if (existing) {
         await updateReminder(existing.id, user.id, {
           remind_at: remindAt,
+          remind_at_timestamp: remindAt ? Date.parse(remindAt) : undefined,
         });
         return `Reminder "${title}" updated successfully (Existing ID: ${existing.id})`;
       }
@@ -29,9 +30,14 @@ export const addReminderTool = tool(
         title,
         status: "active",
         remind_at: remindAt,
+        remind_at_timestamp: remindAt ? Date.parse(remindAt) : undefined,
       });
 
-      return `Successfully added reminder: ${reminder.title} at ${reminder.remind_at} (ID: ${reminder.id})`;
+      const when =
+        reminder.remind_at_timestamp !== undefined
+          ? new Date(reminder.remind_at_timestamp).toISOString()
+          : reminder.remind_at;
+      return `Successfully added reminder: ${reminder.title} at ${when} (ID: ${reminder.id})`;
     } catch (err: unknown) {
       if (err instanceof Error) return `Failed to add reminder: ${err.message}`;
       return "Failed to add reminder.";
@@ -68,7 +74,10 @@ export const updateReminderTool = tool(
       const updates: any = {};
       if (status) updates.status = status;
       if (title) updates.title = title;
-      if (remindAt) updates.remind_at = remindAt;
+      if (remindAt) {
+        updates.remind_at = remindAt;
+        updates.remind_at_timestamp = Date.parse(remindAt);
+      }
 
       const reminder = await updateReminder(id, user.id, updates);
       return `Successfully updated reminder: ${reminder.title}`;

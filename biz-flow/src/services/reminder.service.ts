@@ -16,9 +16,10 @@ export interface ReminderRow {
   id?: string;
   user_id: string;
   title: string;
-  remind_at: string;
+  remind_at?: string;
+  remind_at_timestamp?: number;
   status?: string;
-  created_at?: string;
+  created_at_timestamp?: number;
 }
 
 export const getUserReminders = async (userId: string) => {
@@ -26,7 +27,7 @@ export const getUserReminders = async (userId: string) => {
     .from("reminders")
     .select("*")
     .eq("user_id", userId)
-    .order("remind_at", { ascending: true });
+    .order("remind_at_timestamp", { ascending: true });
 
   if (error) {
     throw new Error(error.message);
@@ -36,9 +37,20 @@ export const getUserReminders = async (userId: string) => {
 };
 
 export const addReminder = async (reminder: ReminderRow) => {
+  const remindAtTs =
+    reminder.remind_at_timestamp ??
+    (reminder.remind_at ? Date.parse(reminder.remind_at) : undefined);
+  const now = Date.now();
+
   const { data, error } = await supabase
     .from("reminders")
-    .insert([reminder])
+    .insert([
+      {
+        ...reminder,
+        remind_at_timestamp: remindAtTs,
+        created_at_timestamp: reminder.created_at_timestamp ?? now,
+      },
+    ])
     .select("*")
     .single();
 
@@ -54,9 +66,14 @@ export const updateReminder = async (
   userId: string,
   updates: Partial<ReminderRow>,
 ) => {
+  const payload: Partial<ReminderRow> = { ...updates };
+  if (updates.remind_at && !updates.remind_at_timestamp) {
+    payload.remind_at_timestamp = Date.parse(updates.remind_at);
+  }
+
   const { data, error } = await supabase
     .from("reminders")
-    .update(updates)
+    .update(payload)
     .eq("id", reminderId)
     .eq("user_id", userId)
     .select("*")
@@ -91,13 +108,13 @@ export const deleteReminder = async (reminderId: string, userId: string) => {
 };
 
 export const getDueReminders = async () => {
-  const now = new Date().toISOString();
+  const now = Date.now();
   // Fetch active reminders where remind_at is in the past
   const { data, error } = await supabase
     .from("reminders")
     .select("*, users(email, full_name)")
     .eq("status", "active")
-    .lte("remind_at", now);
+    .lte("remind_at_timestamp", now);
 
   if (error) {
     throw new Error(error.message);

@@ -12,6 +12,10 @@ import { joinAppFlow } from "./app/joinApp.flow";
 import { listRoutinesFlow } from "./routines/listRoutines.flow";
 import { createRoutineFlow } from "./routines/createRoutine.flow";
 import { deleteRoutineFlow } from "./routines/deleteRoutine.flow";
+import { listMemoriesFlow } from "./memory/listMemories.flow";
+import { listJournalFlow } from "./journal/listJournal.flow";
+import { listKnowledgeFlow } from "./knowledge/listKnowledge.flow";
+import { listFilesFlow } from "./files/listFiles.flow";
 
 export class FlowRegistry {
   private flows: Map<string, IFlow> = new Map();
@@ -30,6 +34,10 @@ export class FlowRegistry {
     this.registerFlow(listRoutinesFlow);
     this.registerFlow(createRoutineFlow);
     this.registerFlow(deleteRoutineFlow);
+    this.registerFlow(listMemoriesFlow);
+    this.registerFlow(listJournalFlow);
+    this.registerFlow(listKnowledgeFlow);
+    this.registerFlow(listFilesFlow);
   }
 
 

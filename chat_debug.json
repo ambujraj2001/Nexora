@@ -1,65 +1,58 @@
 {
-  "conversationId": "58af6993-6cf6-4737-96f1-2fe1a48c150d",
+  "conversationId": "3f723c0d-3748-49d0-8848-1982bbd119eb",
   "entries": [
     {
-      "timestamp": "2026-03-15T18:47:18.056Z",
+      "timestamp": "2026-03-15T19:30:06.280Z",
       "user": "Test",
-      "request": "list reminders",
+      "request": "list memories",
       "events": [
         {
           "event": "flow_attempt",
-          "message": "list reminders",
+          "message": "list memories",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "traceId": "ca907a58-c9cd-45d9-ae9f-e6474bc2251f",
-          "timestamp": "2026-03-15T18:47:17.152Z",
+          "traceId": "e2a18345-f64f-4c94-bc3c-e143ad5e2557",
+          "timestamp": "2026-03-15T19:30:04.941Z",
           "environment": "development"
         },
         {
           "event": "flow_lifecycle",
           "action": "flow_selected",
-          "flowId": "list_reminders",
+          "flowId": "list_memories",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
           "parameters": {
-            "originalMessage": "list reminders",
-            "normalizedMessage": "list reminders"
+            "originalMessage": "list memories",
+            "normalizedMessage": "list memories"
           },
-          "traceId": "ca907a58-c9cd-45d9-ae9f-e6474bc2251f",
-          "timestamp": "2026-03-15T18:47:17.321Z",
+          "traceId": "e2a18345-f64f-4c94-bc3c-e143ad5e2557",
+          "timestamp": "2026-03-15T19:30:05.032Z",
           "environment": "development"
         },
         {
-          "id": "g9f4lb",
+          "id": "lzw9i",
           "type": "thinking",
-          "message": "Checking your reminders...",
+          "message": "Fetching memories...",
           "status": "pending",
-          "timestamp": 1773600437432
+          "timestamp": 1773603005111
         },
         {
-          "id": "gknzaj",
-          "type": "tool_start",
-          "message": "Fetching reminders from database",
-          "status": "pending",
-          "timestamp": 1773600437433
-        },
-        {
-          "id": "8cxghk",
+          "id": "hq9xlv",
           "type": "final_reply",
-          "message": "{\"type\":\"ui_component\",\"component\":\"reminder_list\",\"data\":[{\"title\":\"Call potential cofounder\",\"reminder_at\":\"2026-03-14T02:12:18.229916\",\"status\":\"notified\"},{\"title\":\"Work on YC application answers\",\"reminder_at\":\"2026-03-14T21:12:18.229916\",\"status\":\"notified\"},{\"title\":\"pay rent tomorrow\",\"reminder_at\":\"2026-03-15T04:30:00\",\"status\":\"notified\"},{\"title\":\"Wish Riya on her birthday\",\"reminder_at\":\"2026-03-15T19:45:00\",\"status\":\"active\"},{\"title\":\"Review AI system architecture\",\"reminder_at\":\"2026-03-15T21:12:18.229916\",\"status\":\"active\"}]}",
+          "message": "{\"type\":\"ui_component\",\"component\":\"memory_list\",\"data\":[{\"title\":\"Love for Candies\",\"excerpt\":\"I used to love candies.\",\"created_at\":1773575360075},{\"title\":\"Gym Visit on Monday\",\"excerpt\":\"I went to gym on Monday.\",\"created_at\":1773572346384},{\"title\":\"Shivansh's Good Qualities\",\"excerpt\":\"Shivansh is a good boy.\",\"created_at\":1773442147666},{\"title\":\"Shivansh's Behavior\",\"excerpt\":\"Shivansh is a bad friend.\",\"created_at\":1773442098471},{\"title\":\"LangGraph Architecture Insight\",\"excerpt\":\"Agent systems should use planner → executor → critic architecture for reliable workflows.\",\"created_at\":1773436478336},{\"title\":\"London Solo Achievement\",\"excerpt\":\"Visiting London alone at 24 made me confident I can build global products.\",\"created_at\":1773436478336},{\"title\":\"London Trip Inspiration\",\"excerpt\":\"While visiting London I reflected on building Chief of AI as a personal AI operating system.\",\"created_at\":1773436478336},{\"title\":\"YC Startup Goal\",\"excerpt\":\"My goal is to build Chief of AI into a YC-backed startup solving personal productivity with AI.\",\"created_at\":1773436478336},{\"title\":\"AI Product Vision\",\"excerpt\":\"I want Chief of AI to act like a personal Chief of Staff that manages tasks, knowledge, and decisions.\",\"created_at\":1773436478336},{\"title\":\"London Trip Inspiration\",\"excerpt\":\"While visiting London I reflected on building Chief of AI as a personal AI operating system.\",\"created_at\":1773436338229}]}",
           "status": "success",
-          "timestamp": 1773600437623
+          "timestamp": 1773603005908
         },
         {
           "event": "flow_lifecycle",
           "action": "flow_success",
-          "flowId": "list_reminders",
+          "flowId": "list_memories",
           "userId": "f43ac274-e715-457a-93ff-f92bb660c754",
-          "latency": 302,
-          "traceId": "ca907a58-c9cd-45d9-ae9f-e6474bc2251f",
-          "timestamp": "2026-03-15T18:47:17.623Z",
+          "latency": 877,
+          "traceId": "e2a18345-f64f-4c94-bc3c-e143ad5e2557",
+          "timestamp": "2026-03-15T19:30:05.909Z",
           "environment": "development"
         }
       ],
-      "finalReply": "{\"type\":\"ui_component\",\"component\":\"reminder_list\",\"data\":[{\"title\":\"Call potential cofounder\",\"reminder_at\":\"2026-03-14T02:12:18.229916\",\"status\":\"notified\"},{\"title\":\"Work on YC application answers\",\"reminder_at\":\"2026-03-14T21:12:18.229916\",\"status\":\"notified\"},{\"title\":\"pay rent tomorrow\",\"reminder_at\":\"2026-03-15T04:30:00\",\"status\":\"notified\"},{\"title\":\"Wish Riya on her birthday\",\"reminder_at\":\"2026-03-15T19:45:00\",\"status\":\"active\"},{\"title\":\"Review AI system architecture\",\"reminder_at\":\"2026-03-15T21:12:18.229916\",\"status\":\"active\"}]}"
+      "finalReply": "{\"type\":\"ui_component\",\"component\":\"memory_list\",\"data\":[{\"title\":\"Love for Candies\",\"excerpt\":\"I used to love candies.\",\"created_at\":1773575360075},{\"title\":\"Gym Visit on Monday\",\"excerpt\":\"I went to gym on Monday.\",\"created_at\":1773572346384},{\"title\":\"Shivansh's Good Qualities\",\"excerpt\":\"Shivansh is a good boy.\",\"created_at\":1773442147666},{\"title\":\"Shivansh's Behavior\",\"excerpt\":\"Shivansh is a bad friend.\",\"created_at\":1773442098471},{\"title\":\"LangGraph Architecture Insight\",\"excerpt\":\"Agent systems should use planner → executor → critic architecture for reliable workflows.\",\"created_at\":1773436478336},{\"title\":\"London Solo Achievement\",\"excerpt\":\"Visiting London alone at 24 made me confident I can build global products.\",\"created_at\":1773436478336},{\"title\":\"London Trip Inspiration\",\"excerpt\":\"While visiting London I reflected on building Chief of AI as a personal AI operating system.\",\"created_at\":1773436478336},{\"title\":\"YC Startup Goal\",\"excerpt\":\"My goal is to build Chief of AI into a YC-backed startup solving personal productivity with AI.\",\"created_at\":1773436478336},{\"title\":\"AI Product Vision\",\"excerpt\":\"I want Chief of AI to act like a personal Chief of Staff that manages tasks, knowledge, and decisions.\",\"created_at\":1773436478336},{\"title\":\"London Trip Inspiration\",\"excerpt\":\"While visiting London I reflected on building Chief of AI as a personal AI operating system.\",\"created_at\":1773436338229}]}"
     }
   ]
 }

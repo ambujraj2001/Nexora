@@ -44,7 +44,15 @@ export class DeleteReminderFlow implements IFlow {
 
       // Format list for user
       const listString = reminders
-        .map((r: any, i: number) => `${i + 1}. ${r.title}${r.remind_at ? ` (${new Date(r.remind_at).toLocaleDateString()})` : ""}`)
+        .map((r: any, i: number) => {
+          const when =
+            r.remind_at_timestamp !== undefined
+              ? new Date(r.remind_at_timestamp).toLocaleDateString()
+              : r.remind_at
+                ? new Date(r.remind_at).toLocaleDateString()
+                : "";
+          return `${i + 1}. ${r.title}${when ? ` (${when})` : ""}`;
+        })
         .join("\n");
 
       const prompt = `Which reminder would you like to delete?\n\n${listString}\n\nReply with the **number** or the **title**.`;

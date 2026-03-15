@@ -49,6 +49,7 @@ export class CreateReminderFlow implements IFlow {
         user_id: context.userId,
         title: extracted.title,
         remind_at: scheduledAt.toISOString(),
+        remind_at_timestamp: scheduledAt.getTime(),
         status: "active"
       });
 

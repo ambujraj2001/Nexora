@@ -18,7 +18,8 @@ export interface ChatMessage {
   id: string;
   role: "user" | "ai";
   content: string;
-  created_at: string;
+  created_at?: string;
+  created_at_timestamp?: number;
   conversation_id?: string;
 }
 

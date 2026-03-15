@@ -19,7 +19,8 @@ export interface TaskRow {
   status?: string;
   priority?: string;
   due_date?: string | null;
-  created_at?: string;
+  due_date_timestamp?: number | null;
+  created_at_timestamp?: number;
 }
 
 export const getUserTasks = async (userId: string) => {
@@ -27,7 +28,7 @@ export const getUserTasks = async (userId: string) => {
     .from("tasks")
     .select("*")
     .eq("user_id", userId)
-    .order("due_date", { ascending: true, nullsFirst: false });
+    .order("due_date_timestamp", { ascending: true, nullsFirst: false });
 
   if (error) {
     throw new Error(error.message);
@@ -37,9 +38,19 @@ export const getUserTasks = async (userId: string) => {
 };
 
 export const addTask = async (task: TaskRow) => {
+  const now = Date.now();
+  const dueTs =
+    task.due_date_timestamp ??
+    (task.due_date ? Date.parse(task.due_date) : null);
   const { data, error } = await supabase
     .from("tasks")
-    .insert([task])
+    .insert([
+      {
+        ...task,
+        due_date_timestamp: dueTs,
+        created_at_timestamp: task.created_at_timestamp ?? now,
+      },
+    ])
     .select("*")
     .single();
 
@@ -55,9 +66,13 @@ export const updateTask = async (
   userId: string,
   updates: Partial<TaskRow>,
 ) => {
+  const payload: Partial<TaskRow> = { ...updates };
+  if (updates.due_date && !updates.due_date_timestamp) {
+    payload.due_date_timestamp = Date.parse(updates.due_date);
+  }
   const { data, error } = await supabase
     .from("tasks")
-    .update(updates)
+    .update(payload)
     .eq("id", taskId)
     .eq("user_id", userId)
     .select("*")

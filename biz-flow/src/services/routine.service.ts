@@ -9,14 +9,17 @@ export interface AIRoutine {
   timezone: string;
   is_active: boolean;
   last_run: string | null;
-  created_at: string;
+  created_at?: string;
+  last_run_timestamp?: number | null;
+  created_at_timestamp?: number;
 }
 
 export interface AIRoutineRun {
   id: string;
   routine_id: string;
   result: string;
-  executed_at: string;
+  executed_at?: string;
+  executed_at_timestamp?: number;
 }
 
 export interface AINotification {
@@ -43,7 +46,7 @@ export const getUserRoutines = async (userId: string): Promise<AIRoutine[]> => {
     .from("ai_routines")
     .select("*")
     .eq("user_id", userId)
-    .order("created_at", { ascending: false });
+    .order("created_at_timestamp", { ascending: false });
 
   if (error) throw error;
   return data;
@@ -54,7 +57,10 @@ export const createRoutine = async (
 ): Promise<AIRoutine> => {
   const { data, error } = await supabase
     .from("ai_routines")
-    .insert(routine)
+    .insert({
+      ...routine,
+      created_at_timestamp: routine.created_at_timestamp ?? Date.now(),
+    })
     .select("*")
     .single();
 
@@ -97,7 +103,7 @@ export const getRoutineRuns = async (
     .from("ai_routine_runs")
     .select("*")
     .eq("routine_id", routineId)
-    .order("executed_at", { ascending: false });
+    .order("executed_at_timestamp", { ascending: false });
 
   if (error) throw error;
   return data;
@@ -108,7 +114,10 @@ export const saveRoutineRun = async (
 ): Promise<AIRoutineRun> => {
   const { data, error } = await supabase
     .from("ai_routine_runs")
-    .insert(run)
+    .insert({
+      ...run,
+      executed_at_timestamp: run.executed_at_timestamp ?? Date.now(),
+    })
     .select("*")
     .single();
 

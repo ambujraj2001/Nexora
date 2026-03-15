@@ -3,5 +3,6 @@ export interface FileRow {
   user_id: string;
   file_name: string;
   file_url: string;
-  created_at: string;
+  created_at?: string;
+  created_at_timestamp?: number;
 }

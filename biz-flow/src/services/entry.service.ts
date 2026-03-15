@@ -46,7 +46,7 @@ export const getUserMemories = async (userId: string) => {
     query = query.eq("user_id", userId);
   }
 
-  const { data, error } = await query.order("created_at", { ascending: false });
+  const { data, error } = await query.order("created_at_timestamp", { ascending: false });
 
   if (error) {
     throw new Error(error.message);
@@ -124,7 +124,7 @@ export const getUserJournal = async (userId: string) => {
     .select("*")
     .eq("user_id", userId)
     .eq("type", "journal")
-    .order("created_at", { ascending: false });
+    .order("created_at_timestamp", { ascending: false });
 
   if (error) {
     throw new Error(error.message);
@@ -139,7 +139,7 @@ export const getUserKnowledge = async (userId: string) => {
     .select("*")
     .eq("user_id", userId)
     .eq("type", "knowledge")
-    .order("created_at", { ascending: false });
+    .order("created_at_timestamp", { ascending: false });
 
   if (error) {
     throw new Error(error.message);
@@ -158,7 +158,16 @@ export const addEntry = async (
 
   const { data, error } = await supabase
     .from("entries")
-    .insert([{ user_id: userId, type, title, content, embedding }])
+    .insert([
+      {
+        user_id: userId,
+        type,
+        title,
+        content,
+        embedding,
+        created_at_timestamp: Date.now(),
+      },
+    ])
     .select()
     .single();
 
@@ -176,7 +185,12 @@ export const updateEntry = async (
 
   const { data, error } = await supabase
     .from("entries")
-    .update({ title, content, embedding, created_at: new Date().toISOString() })
+    .update({
+      title,
+      content,
+      embedding,
+      created_at_timestamp: Date.now(),
+    })
     .eq("id", id)
     .eq("user_id", userId)
     .select()

@@ -102,8 +102,12 @@ const ChatArea = () => {
           content: m.content,
         }));
 
-        setMessages(
-          formattedMessages.length > 0 ? formattedMessages : INITIAL_MESSAGES,
+        setMessages((prev) =>
+          formattedMessages.length > 0
+            ? formattedMessages
+            : prev.length > 0
+              ? prev
+              : INITIAL_MESSAGES,
         );
       } catch (error) {
         console.error("Failed to load chat history:", error);

@@ -353,24 +353,33 @@ export const analyzeApp = async (
       Return ONLY the HTML code. No explanation, no wrap in markdown, just <html>...</html>.
     `;
 
-    const userContent = {
-      app: {
-        name: app.name,
-        description: app.description,
-        createdAt: app.created_at,
-      },
-      members: members.map((m) => ({
-        name: m.full_name,
-        email: m.email,
-        role: m.role,
-        joinedAt: m.joined_at,
-      })),
-      data: appData.map((d) => ({
-        key: d.key,
-        value: d.value,
-        updatedAt: d.updated_at,
-      })),
-    };
+      const userContent = {
+        app: {
+          name: app.name,
+          description: app.description,
+          createdAt:
+            app.created_at_timestamp !== undefined
+              ? new Date(app.created_at_timestamp).toISOString()
+              : app.created_at,
+        },
+        members: members.map((m) => ({
+          name: m.full_name,
+          email: m.email,
+          role: m.role,
+          joinedAt:
+            (m as any).joined_at_timestamp !== undefined
+              ? new Date((m as any).joined_at_timestamp).toISOString()
+              : m.joined_at,
+        })),
+        data: appData.map((d) => ({
+          key: d.key,
+          value: d.value,
+          updatedAt:
+            d.updated_at_timestamp !== undefined
+              ? new Date(d.updated_at_timestamp).toISOString()
+              : d.updated_at,
+        })),
+      };
 
     const response = await model.invoke([
       new SystemMessage(systemPrompt),

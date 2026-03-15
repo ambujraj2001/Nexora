@@ -44,7 +44,10 @@ export class ListRemindersFlow implements IFlow {
           component: "reminder_list",
           data: reminders.map((r: any) => ({
             title: r.title,
-            reminder_at: r.remind_at,
+            reminder_at:
+              r.remind_at_timestamp !== undefined
+                ? new Date(r.remind_at_timestamp).toISOString()
+                : r.remind_at,
             status: r.status || 'pending'
           }))
         };

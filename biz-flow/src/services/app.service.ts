@@ -51,7 +51,8 @@ export interface AppRow {
   schema: Record<string, unknown>;
   owner_id: string;
   join_code: string | null;
-  created_at: string;
+  created_at?: string;
+  created_at_timestamp?: number;
 }
 
 export interface AppDataRow {
@@ -59,8 +60,10 @@ export interface AppDataRow {
   app_id: string;
   key: string;
   value: unknown;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
+  created_at_timestamp?: number;
+  updated_at_timestamp?: number;
 }
 
 export interface AppChatRow {
@@ -69,7 +72,8 @@ export interface AppChatRow {
   user_id: string;
   role: "user" | "ai";
   message: string;
-  created_at: string;
+  created_at?: string;
+  created_at_timestamp?: number;
 }
 
 export interface AppMemberRow {
@@ -77,7 +81,8 @@ export interface AppMemberRow {
   app_id: string;
   user_id: string;
   role: string;
-  joined_at: string;
+  joined_at?: string;
+  joined_at_timestamp?: number;
 }
 
 export interface AppMemberInfo {
@@ -93,9 +98,9 @@ export const getAppMembers = async (
 ): Promise<AppMemberInfo[]> => {
   const { data, error } = await supabase
     .from("app_members")
-    .select("user_id, role, joined_at, users(full_name, email)")
+    .select("user_id, role, joined_at, joined_at_timestamp, users(full_name, email)")
     .eq("app_id", appId)
-    .order("joined_at", { ascending: true });
+    .order("joined_at_timestamp", { ascending: true });
 
   if (error) throw new Error(`Failed to fetch app members: ${error.message}`);
 
@@ -116,7 +121,7 @@ export const getUserApps = async (userId: string): Promise<AppRow[]> => {
     .from("apps")
     .select("*")
     .eq("owner_id", userId)
-    .order("created_at", { ascending: false });
+    .order("created_at_timestamp", { ascending: false });
 
   if (ownedErr)
     throw new Error(`Failed to fetch owned apps: ${ownedErr.message}`);
@@ -140,7 +145,7 @@ export const getUserApps = async (userId: string): Promise<AppRow[]> => {
       .from("apps")
       .select("*")
       .in("id", memberAppIds)
-      .order("created_at", { ascending: false });
+      .order("created_at_timestamp", { ascending: false });
 
     if (error) throw new Error(`Failed to fetch member apps: ${error.message}`);
     memberApps = (data ?? []) as AppRow[];
@@ -184,7 +189,7 @@ export const getAppChatHistory = async (
     .select("*")
     .eq("app_id", appId)
     .eq("user_id", userId)
-    .order("created_at", { ascending: false })
+    .order("created_at_timestamp", { ascending: false })
     .limit(limit);
 
   if (error)
@@ -201,7 +206,13 @@ export const saveAppChatMessage = async (
 ): Promise<AppChatRow> => {
   const { data, error } = await supabase
     .from("app_chats")
-    .insert({ app_id: appId, user_id: userId, role, message: msg })
+    .insert({
+      app_id: appId,
+      user_id: userId,
+      role,
+      message: msg,
+      created_at_timestamp: Date.now(),
+    })
     .select("*")
     .single();
 
@@ -226,7 +237,7 @@ export const upsertAppData = async (
   if (existing) {
     const { data, error } = await supabase
       .from("app_data")
-      .update({ value, updated_at: new Date().toISOString() })
+      .update({ value, updated_at_timestamp: Date.now() })
       .eq("id", existing.id)
       .select("*")
       .single();
@@ -237,7 +248,13 @@ export const upsertAppData = async (
 
   const { data, error } = await supabase
     .from("app_data")
-    .insert({ app_id: appId, key, value })
+    .insert({
+      app_id: appId,
+      key,
+      value,
+      created_at_timestamp: Date.now(),
+      updated_at_timestamp: Date.now(),
+    })
     .select("*")
     .single();
 
@@ -286,6 +303,7 @@ export const createAppWithJoinCode = async (
       schema,
       owner_id: ownerId,
       join_code: joinCode,
+      created_at_timestamp: Date.now(),
     })
     .select("*")
     .single();
@@ -318,7 +336,12 @@ export const addAppMember = async (
 ): Promise<AppMemberRow> => {
   const { data, error } = await supabase
     .from("app_members")
-    .insert({ app_id: appId, user_id: userId, role })
+    .insert({
+      app_id: appId,
+      user_id: userId,
+      role,
+      joined_at_timestamp: Date.now(),
+    })
     .select("*")
     .single();
 
