@@ -210,7 +210,7 @@ const AIRoutinesPage = () => {
           <Spin size="large" />
         </div>
       ) : routines.length === 0 ? (
-        <div className="mb-16 text-center py-20 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl">
+        <div className="mb-16 text-center py-20 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-3xl">
           <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-6xl mb-4">
             auto_schedule
           </span>
@@ -234,10 +234,10 @@ const AIRoutinesPage = () => {
           {routines.map((routine) => (
             <div
               key={routine.id}
-              className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 flex flex-col md:flex-row items-center gap-6 group hover:border-primary/50 transition-all shadow-sm"
+              className="bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-border-dark p-5 flex flex-col md:flex-row items-center gap-6 group hover:border-primary/50 transition-all shadow-sm"
             >
               {/* Routine Image/Icon Placeholder */}
-              <div className="size-24 md:size-28 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="size-24 md:size-28 rounded-xl bg-slate-100 dark:bg-background-dark flex items-center justify-center overflow-hidden flex-shrink-0">
                 <div className="bg-primary/10 size-full flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary opacity-50"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                 </div>
@@ -252,7 +252,7 @@ const AIRoutinesPage = () => {
                   >
                     {routine.is_active ? "Active" : "Paused"}
                   </Tag>
-                  <span className="text-xs text-slate-400 flex items-center gap-1 font-medium bg-slate-50 dark:bg-slate-800/50 px-2 py-0.5 rounded-md">
+                  <span className="text-xs text-slate-400 flex items-center gap-1 font-medium bg-slate-50 dark:bg-background-dark/50 px-2 py-0.5 rounded-md">
                     <ClockCircleOutlined className="text-[10px]" />
                     {routine.cron_expression}
                   </span>
@@ -274,7 +274,7 @@ const AIRoutinesPage = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3 flex-shrink-0 bg-slate-50 dark:bg-slate-800/40 p-2 rounded-xl">
+              <div className="flex items-center gap-3 flex-shrink-0 bg-slate-50 dark:bg-background-dark/40 p-2 rounded-xl">
                 <Button
                   icon={
                     routine.is_active ? (
@@ -284,17 +284,17 @@ const AIRoutinesPage = () => {
                     )
                   }
                   onClick={() => handleToggleStatus(routine)}
-                  className="bg-white dark:bg-slate-900 border-none shadow-sm hover:scale-105 transition-transform"
+                  className="bg-white dark:bg-card-dark border-none shadow-sm hover:scale-105 transition-transform"
                 />
                 <Button
                   icon={<EditOutlined />}
                   onClick={() => handleEdit(routine)}
-                  className="bg-white dark:bg-slate-900 border-none shadow-sm hover:scale-105 transition-transform"
+                  className="bg-white dark:bg-card-dark border-none shadow-sm hover:scale-105 transition-transform"
                 />
                 <Button
                   icon={<HistoryOutlined />}
                   onClick={() => viewHistory(routine)}
-                  className="bg-white dark:bg-slate-900 border-none shadow-sm hover:scale-105 transition-transform"
+                  className="bg-white dark:bg-card-dark border-none shadow-sm hover:scale-105 transition-transform"
                 />
                 <Button
                   icon={<DeleteOutlined />}
@@ -309,8 +309,8 @@ const AIRoutinesPage = () => {
       )}
 
       {/* Metrics Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 mb-12 border-t border-slate-100 dark:border-slate-800 pt-12">
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group hover:border-blue-500/30 transition-all">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 mb-12 border-t border-slate-100 dark:border-border-dark pt-12">
+        <div className="bg-white dark:bg-card-dark p-8 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm relative overflow-hidden group hover:border-blue-500/30 transition-all">
           <div className="flex justify-between items-start mb-6">
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
               Efficiency
@@ -329,7 +329,7 @@ const AIRoutinesPage = () => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm group hover:border-green-500/30 transition-all">
+        <div className="bg-white dark:bg-card-dark p-8 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm group hover:border-green-500/30 transition-all">
           <div className="flex justify-between items-start mb-6">
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
               Automations
@@ -348,7 +348,7 @@ const AIRoutinesPage = () => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm group hover:border-primary/30 transition-all">
+        <div className="bg-white dark:bg-card-dark p-8 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm group hover:border-primary/30 transition-all">
           <div className="flex justify-between items-start mb-6">
             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
               Connected
@@ -469,7 +469,7 @@ const AIRoutinesPage = () => {
           <Timeline
             items={runs.map((run) => ({
               children: (
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800 mb-4">
+                <div className="bg-slate-50 dark:bg-background-dark/50 p-4 rounded-xl border border-slate-100 dark:border-border-dark mb-4">
                   <div className="flex justify-between items-center mb-2">
                     <Text
                       strong

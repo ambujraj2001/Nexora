@@ -124,7 +124,7 @@ const KnowledgePage: React.FC = () => {
         <>
           {/* Metrics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
                   Total Documents
@@ -143,7 +143,7 @@ const KnowledgePage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
                   Last Sync
@@ -166,7 +166,7 @@ const KnowledgePage: React.FC = () => {
           </div>
 
           {knowledgeList.length === 0 ? (
-            <div className="mt-12 text-center py-16 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+            <div className="mt-12 text-center py-16 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
               <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-5xl mb-4">
                 auto_stories
               </span>
@@ -187,7 +187,7 @@ const KnowledgePage: React.FC = () => {
                   return (
                     <div
                       key={item.id}
-                      className="flex flex-col h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden group hover:border-primary/50 transition-all shadow-sm"
+                      className="flex flex-col h-full bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark overflow-hidden group hover:border-primary/50 transition-all shadow-sm"
                     >
                       <div className="p-6 flex flex-col h-full">
                         <div className="flex items-start justify-between mb-4">
@@ -199,7 +199,7 @@ const KnowledgePage: React.FC = () => {
                             </div>
                             <div>
                               <div className="flex items-center gap-2 mb-1">
-                                <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-[10px] font-bold uppercase rounded text-slate-600 dark:text-slate-400">
+                                <span className="px-2 py-0.5 bg-slate-100 dark:bg-background-dark text-[10px] font-bold uppercase rounded text-slate-600 dark:text-slate-400">
                                   {ctx.category}
                                 </span>
                                 <span className="text-[10px] text-slate-400">
@@ -232,11 +232,11 @@ const KnowledgePage: React.FC = () => {
                           </div>
                         </div>
 
-                        <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-slate-50 dark:border-slate-800">
-                          <span className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400">
+                        <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-slate-50 dark:border-border-dark">
+                          <span className="text-xs px-2 py-1 bg-slate-100 dark:bg-background-dark rounded-lg text-slate-600 dark:text-slate-400">
                             #knowledge
                           </span>
-                          <span className="text-xs px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400">
+                          <span className="text-xs px-2 py-1 bg-slate-100 dark:bg-background-dark rounded-lg text-slate-600 dark:text-slate-400">
                             #{ctx.category.toLowerCase()}
                           </span>
                         </div>

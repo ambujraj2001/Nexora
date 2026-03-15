@@ -22,13 +22,13 @@ const MemoryListCard: React.FC<MemoryListCardProps> = ({ data }) => {
           <span>Relevant Memories</span>
         </div>
       }
-      className="w-full shadow-sm border-slate-100 dark:border-slate-800 dark:bg-slate-900/50"
+      className="w-full shadow-sm border-slate-100 dark:border-border-dark dark:bg-card-dark/50"
       styles={{ body: { padding: '0 12px 12px 12px' } }}
     >
       <List
         dataSource={data}
         renderItem={(item) => (
-          <List.Item className="border-b border-slate-50 dark:border-slate-800/50 py-3 last:border-0 flex-col items-start gap-1">
+          <List.Item className="border-b border-slate-50 dark:border-border-dark/50 py-3 last:border-0 flex-col items-start gap-1">
             <span className="font-bold text-xs text-indigo-500 uppercase tracking-tighter">
               {item.title || 'Untitled Memory'}
             </span>

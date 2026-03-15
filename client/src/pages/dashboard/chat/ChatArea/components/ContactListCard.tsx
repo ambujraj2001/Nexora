@@ -22,16 +22,16 @@ const ContactListCard: React.FC<ContactListCardProps> = ({ data }) => {
           <span>Contacts</span>
         </div>
       }
-      className="w-full shadow-sm border-slate-100 dark:border-slate-800 dark:bg-slate-900/50"
+      className="w-full shadow-sm border-slate-100 dark:border-border-dark dark:bg-card-dark/50"
       styles={{ body: { padding: '0 12px 12px 12px' } }}
     >
       <List
         dataSource={data}
         renderItem={(item) => (
-          <List.Item className="border-b border-slate-50 dark:border-slate-800/50 py-3 last:border-0">
+          <List.Item className="border-b border-slate-50 dark:border-border-dark/50 py-3 last:border-0">
             <div className="flex items-center justify-between w-full gap-3">
               <div className="flex items-center gap-3">
-                <Avatar icon={<UserOutlined />} className="bg-slate-100 dark:bg-slate-800 text-slate-400" />
+                <Avatar icon={<UserOutlined />} className="bg-slate-100 dark:bg-background-dark text-slate-400" />
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-200">
                     {item.name}

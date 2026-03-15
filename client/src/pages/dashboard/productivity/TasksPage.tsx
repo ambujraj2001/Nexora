@@ -70,7 +70,7 @@ const TasksPage: React.FC = () => {
     switch (priority) {
       case "low":
         return (
-          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 uppercase tracking-wider">
+          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-background-dark dark:text-slate-400 uppercase tracking-wider">
             Low
           </span>
         );
@@ -120,7 +120,7 @@ const TasksPage: React.FC = () => {
 
       <div className="w-full">
         {/* AI Hint Banner */}
-        <div className="mb-8 p-4 rounded-xl border border-primary/20 bg-white dark:bg-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+        <div className="mb-8 p-4 rounded-xl border border-primary/20 bg-white dark:bg-card-dark flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
               <span className="material-symbols-outlined">auto_awesome</span>
@@ -160,7 +160,7 @@ const TasksPage: React.FC = () => {
             <Spin size="large" />
           </div>
         ) : tasks.length === 0 ? (
-          <div className="mt-12 text-center py-10 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+          <div className="mt-12 text-center py-10 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
             <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-5xl mb-4">
               check_box
             </span>
@@ -176,7 +176,7 @@ const TasksPage: React.FC = () => {
             {/* Pending Tasks Section */}
             {pendingTasks.length > 0 && (
               <section className="mb-10">
-                <div className="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
+                <div className="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-border-dark pb-2">
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                     Active Tasks
                   </h2>
@@ -185,10 +185,10 @@ const TasksPage: React.FC = () => {
                   {pendingTasks.map((task) => (
                     <div
                       key={task.id}
-                      className="group flex items-center gap-4 py-3 px-2 rounded-lg hover:bg-white dark:hover:bg-slate-900 transition-colors"
+                      className="group flex items-center gap-4 py-3 px-2 rounded-lg hover:bg-white dark:hover:bg-card-dark transition-colors"
                     >
                       <input
-                        className="size-5 rounded-full border-slate-300 dark:border-slate-700 text-primary focus:ring-0 cursor-not-allowed shrink-0"
+                        className="size-5 rounded-full border-slate-300 dark:border-border-dark text-primary focus:ring-0 cursor-not-allowed shrink-0"
                         disabled
                         type="checkbox"
                       />
@@ -228,7 +228,7 @@ const TasksPage: React.FC = () => {
             {/* Completed Section */}
             {completedTasks.length > 0 && (
               <section className="opacity-60">
-                <div className="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
+                <div className="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-border-dark pb-2">
                   <h2 className="text-lg font-bold text-slate-900 dark:text-white">
                     Completed
                   </h2>
@@ -249,7 +249,7 @@ const TasksPage: React.FC = () => {
                           {task.title}
                         </p>
                         <div className="flex items-center gap-3 mt-1">
-                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-500 uppercase tracking-wider">
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 dark:bg-background-dark dark:text-slate-500 uppercase tracking-wider">
                             Completed
                           </span>
                         </div>

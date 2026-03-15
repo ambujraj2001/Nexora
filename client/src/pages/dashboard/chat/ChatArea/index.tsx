@@ -138,7 +138,7 @@ const ChatArea = () => {
   );
   const avatarUrl = useMemo(
     () =>
-      `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "User")}&background=3c83f6&color=fff&size=64')`,
+      `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "User")}&background=3caff6&color=fff&size=64')`,
     [userName],
   );
 
@@ -262,7 +262,7 @@ const ChatArea = () => {
 
         {/* Listening Overlay */}
         {isListening && (
-          <div className="absolute inset-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex flex-col items-center justify-center animate-fade-in">
+          <div className="absolute inset-0 z-50 bg-white/80 dark:bg-card-dark/80 backdrop-blur-md flex flex-col items-center justify-center animate-fade-in">
             <div className="relative size-32 sm:size-40 flex items-center justify-center">
               {/* Ripple Rings */}
               <div

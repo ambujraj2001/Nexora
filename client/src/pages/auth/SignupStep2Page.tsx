@@ -89,7 +89,7 @@ const SignupStep2Page = ({
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
       <div className="layout-container flex h-full grow flex-col">
         {/* Header */}
-        <header className="flex items-center justify-between whitespace-nowrap border-b border-primary/10 px-6 py-4 md:px-10 bg-white dark:bg-slate-900">
+        <header className="flex items-center justify-between whitespace-nowrap border-b border-primary/10 px-6 py-4 md:px-10 bg-white dark:bg-card-dark">
           <div className="flex items-center gap-4">
             <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
@@ -210,7 +210,7 @@ const SignupStep2Page = ({
                     <select
                       value={voice}
                       onChange={handleVoiceChange}
-                      className="w-full rounded-lg border border-primary/20 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary h-12 px-4 appearance-none outline-none transition-all text-sm"
+                      className="w-full rounded-lg border border-primary/20 bg-white dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-primary focus:border-primary h-12 px-4 appearance-none outline-none transition-all text-sm"
                     >
                       {VOICE_OPTIONS.map(({ label, value: v }) => (
                         <option key={v} value={v}>
@@ -256,12 +256,12 @@ const SignupStep2Page = ({
                         checked={responseAlerts}
                         onChange={handleResponseAlertsChange}
                       />
-                      <div className="w-11 h-6 bg-slate-200 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary" />
+                      <div className="w-11 h-6 bg-slate-200 rounded-full peer dark:bg-border-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary" />
                     </label>
                   </div>
 
                   {/* Daily Briefing */}
-                  <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary/10">
+                  <div className="flex items-center justify-between p-4 bg-white dark:bg-background-dark rounded-xl border border-primary/10">
                     <div className="pr-2">
                       <p className="text-slate-900 dark:text-slate-100 font-semibold text-sm">
                         Daily AI Briefing
@@ -277,7 +277,7 @@ const SignupStep2Page = ({
                         checked={dailyBriefing}
                         onChange={handleDailyBriefingChange}
                       />
-                      <div className="w-11 h-6 bg-slate-200 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary" />
+                      <div className="w-11 h-6 bg-slate-200 rounded-full peer dark:bg-border-dark peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary" />
                     </label>
                   </div>
                 </div>
@@ -288,7 +288,7 @@ const SignupStep2Page = ({
                 <button
                   type="button"
                   onClick={onBack}
-                  className="w-full sm:w-auto px-8 py-3 rounded-lg border border-primary/20 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="w-full sm:w-auto px-8 py-3 rounded-lg border border-primary/20 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-100 dark:hover:bg-background-dark transition-colors"
                 >
                   Back
                 </button>
@@ -303,7 +303,7 @@ const SignupStep2Page = ({
           </div>
         </main>
 
-        <footer className="p-6 text-center border-t border-primary/10 bg-white dark:bg-slate-900">
+        <footer className="p-6 text-center border-t border-primary/10 bg-white dark:bg-card-dark">
           <p className="text-slate-500 text-[10px] sm:text-xs">
             © 2026 Nexora Inc. All rights reserved.{" "}
             <a href="#" className="text-primary hover:underline">

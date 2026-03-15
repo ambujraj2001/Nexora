@@ -93,7 +93,7 @@ const JournalPage: React.FC = () => {
             <Spin size="large" />
           </div>
         ) : journalEntries.length === 0 ? (
-          <div className="text-center py-16 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+          <div className="text-center py-16 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
             <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-5xl mb-4">
               book_2
             </span>
@@ -109,7 +109,7 @@ const JournalPage: React.FC = () => {
             {journalEntries.map((entry) => (
               <div
                 key={entry.id}
-                className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all group flex flex-col h-full"
+                className="bg-white dark:bg-card-dark border border-slate-100 dark:border-border-dark rounded-2xl p-6 shadow-sm hover:shadow-md transition-all group flex flex-col h-full"
               >
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex flex-col">
@@ -127,7 +127,7 @@ const JournalPage: React.FC = () => {
                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-grow whitespace-pre-wrap line-clamp-4">
                   {entry.content}
                 </p>
-                <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
+                <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-border-dark">
                   <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
                     <span className="material-symbols-outlined text-xs">
                       auto_fix

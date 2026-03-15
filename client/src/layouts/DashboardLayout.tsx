@@ -185,11 +185,8 @@ const DashboardLayout = () => {
         className="dark-modal"
       >
         <div className="text-center py-6">
-          <div className="size-16 rounded-full bg-rose-50 dark:bg-rose-900/10 text-rose-500 flex items-center justify-center mx-auto mb-4">
-            <h1 className="text-sm font-black tracking-tighter">NEXORA</h1>
-            <p className="text-[10px] text-primary font-bold uppercase tracking-[0.2em]">
-              AI OPERATING SYSTEM
-            </p>
+          <div className="mx-auto mb-4 inline-flex items-center justify-center rounded-full bg-rose-50 dark:bg-rose-900/10 px-5 py-3 text-rose-500">
+            <h1 className="text-lg font-black tracking-tight">NEXORA</h1>
           </div>
           <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2">
             Confirm Logout
@@ -201,7 +198,7 @@ const DashboardLayout = () => {
           <div className="flex gap-3 px-4">
             <button
               onClick={() => setLogoutModalVisible(false)}
-              className="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all font-display"
+              className="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-background-dark text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-border-dark transition-all font-display"
             >
               Cancel
             </button>
@@ -241,7 +238,7 @@ const DashboardLayout = () => {
       {/* Main Content Area */}
       <main className="flex-1 relative overflow-hidden flex flex-col w-full">
         {/* Unified App Header */}
-        <header className="h-14 sm:h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 shrink-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-10 w-full">
+        <header className="h-14 sm:h-16 border-b border-slate-200 dark:border-border-dark flex items-center justify-between px-4 sm:px-6 shrink-0 bg-white/80 dark:bg-card-dark/80 backdrop-blur-md z-10 w-full">
           <div className="flex items-center gap-2 sm:gap-4 overflow-hidden w-full">
             {/* Mobile menu toggle */}
             <button
@@ -271,7 +268,7 @@ const DashboardLayout = () => {
             {/* Share */}
             <button
               onClick={handleShare}
-              className="size-8 sm:size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="size-8 sm:size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-background-dark transition-colors"
               title="Share Page"
             >
               <span className="material-symbols-outlined text-[18px] sm:text-[20px] text-slate-600 dark:text-slate-400">
@@ -285,7 +282,7 @@ const DashboardLayout = () => {
                 title="Privacy Mode is active. Chats are not being saved."
                 placement="bottom"
               >
-                <div className="size-8 sm:size-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-default transition-all">
+                <div className="size-8 sm:size-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-background-dark text-slate-500 cursor-default transition-all">
                   <span className="material-symbols-outlined text-[18px] sm:text-[20px]">
                     visibility_off
                   </span>
@@ -297,7 +294,7 @@ const DashboardLayout = () => {
             <button
               id="theme-toggle-btn"
               onClick={toggleDark}
-              className="size-8 sm:size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="size-8 sm:size-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-background-dark transition-colors"
               title="Toggle dark mode"
             >
               <span className="material-symbols-outlined text-[18px] sm:text-[20px] text-slate-600 dark:text-slate-400">
@@ -313,9 +310,9 @@ const DashboardLayout = () => {
             >
               <button className="flex items-center gap-2 pl-2 cursor-pointer group outline-none">
                 <div
-                  className="size-8 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 transition-all group-hover:border-primary/50"
+                  className="size-8 rounded-full bg-slate-100 dark:bg-background-dark border-2 border-slate-200 dark:border-border-dark transition-all group-hover:border-primary/50"
                   style={{
-                    backgroundImage: `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "User")}&background=3c83f6&color=fff&size=64')`,
+                    backgroundImage: `url('https://ui-avatars.com/api/?name=${encodeURIComponent(userName || "User")}&background=3caff6&color=fff&size=64')`,
                     backgroundSize: "cover",
                   }}
                 />
@@ -333,7 +330,7 @@ const DashboardLayout = () => {
           {isChatPage && (
             <Suspense
               fallback={
-                <div className="w-[280px] xl:w-[320px] h-full border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-center">
+                <div className="w-[280px] xl:w-[320px] h-full border-l border-slate-200 dark:border-border-dark bg-white dark:bg-card-dark flex items-center justify-center">
                   <Spin />
                 </div>
               }

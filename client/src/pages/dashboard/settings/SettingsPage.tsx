@@ -344,7 +344,7 @@ const SettingsPage = () => {
 
       <div className="space-y-8 pb-12">
         {/* Profile Section */}
-        <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+        <section className="bg-white dark:bg-card-dark rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-border-dark shadow-sm">
           <div className="flex items-center gap-2 mb-8">
             <span className="material-symbols-outlined text-primary text-[22px]">
               person
@@ -370,7 +370,7 @@ const SettingsPage = () => {
                   navigator.clipboard.writeText(code);
                   message.success("Access code copied!");
                 }}
-                className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer group"
+                className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-100 dark:bg-background-dark hover:bg-slate-200 dark:hover:bg-border-dark transition-colors cursor-pointer group"
                 title="Copy access code"
               >
                 <span className="text-[10px] font-mono font-medium text-slate-500 dark:text-slate-400 select-all">
@@ -387,7 +387,7 @@ const SettingsPage = () => {
                   Full Name
                 </label>
                 <input
-                  className="w-full bg-[#FAFAFA] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-medium text-slate-700 dark:text-slate-200"
+                  className="w-full bg-[#FAFAFA] dark:bg-slate-950 border border-slate-200 dark:border-border-dark rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-medium text-slate-700 dark:text-slate-200"
                   type="text"
                   value={formData.fullName}
                   onChange={handleNameChange}
@@ -398,7 +398,7 @@ const SettingsPage = () => {
                   Email Address
                 </label>
                 <input
-                  className="w-full bg-[#FAFAFA] dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-medium text-slate-700 dark:text-slate-200"
+                  className="w-full bg-[#FAFAFA] dark:bg-slate-950 border border-slate-200 dark:border-border-dark rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-medium text-slate-700 dark:text-slate-200"
                   type="email"
                   value={formData.email}
                   onChange={handleEmailChange}
@@ -422,7 +422,7 @@ const SettingsPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* AI Preferences */}
-          <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <section className="bg-white dark:bg-card-dark rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-border-dark shadow-sm">
             <div className="flex items-center gap-2 mb-8">
               <span className="material-symbols-outlined text-primary text-[22px]">
                 psychology
@@ -453,7 +453,7 @@ const SettingsPage = () => {
                         className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all ${
                           formData.interactionTone === tone
                             ? "bg-primary text-white"
-                            : "bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700"
+                            : "bg-slate-100 dark:bg-background-dark text-slate-500 hover:bg-slate-200 dark:hover:bg-border-dark"
                         }`}
                       >
                         {tone.charAt(0).toUpperCase() + tone.slice(1)}
@@ -500,7 +500,7 @@ const SettingsPage = () => {
           </section>
 
           {/* Voice Input */}
-          <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <section className="bg-white dark:bg-card-dark rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-border-dark shadow-sm">
             <div className="flex items-center gap-2 mb-8">
               <span className="material-symbols-outlined text-primary text-[22px]">
                 mic_none
@@ -524,8 +524,8 @@ const SettingsPage = () => {
                       }
                       className={`w-full px-5 py-4 rounded-xl border flex items-center justify-between group transition-all ${
                         formData.voiceModel === model.id
-                          ? "bg-[#EEF2FF] border-primary text-primary"
-                          : "bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-600 hover:border-slate-300"
+                          ? "bg-[#EEF2FF] dark:bg-primary/15 border-primary text-primary"
+                          : "bg-white dark:bg-background-dark border-slate-200 dark:border-border-dark text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-primary/30"
                       }`}
                     >
                       <span className="text-sm font-bold">{model.label}</span>
@@ -542,7 +542,7 @@ const SettingsPage = () => {
           </section>
 
           {/* Notifications */}
-          <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <section className="bg-white dark:bg-card-dark rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-border-dark shadow-sm">
             <div className="flex items-center gap-2 mb-8">
               <span className="material-symbols-outlined text-primary text-[22px]">
                 notifications_none
@@ -570,7 +570,7 @@ const SettingsPage = () => {
               ].map((item, idx) => (
                 <div
                   key={item.id}
-                  className={`flex items-center justify-between pb-6 ${idx === 0 ? "border-b border-slate-100 dark:border-slate-800" : ""}`}
+                  className={`flex items-center justify-between pb-6 ${idx === 0 ? "border-b border-slate-100 dark:border-border-dark" : ""}`}
                 >
                   <div className="space-y-1">
                     <p className="text-sm font-bold text-slate-900 dark:text-white">
@@ -587,14 +587,14 @@ const SettingsPage = () => {
           </section>
 
           {/* Security */}
-          <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <section className="bg-white dark:bg-card-dark rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-border-dark shadow-sm">
             <div className="flex items-center gap-2 mb-8">
               <span className="material-symbols-outlined text-primary text-[22px]">
                 verified_user
               </span>
               <h3 className="text-xl font-bold tracking-tight">Security</h3>
             </div>
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-950 border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-4">
+            <div className="p-6 rounded-2xl bg-[#F8FAFC] dark:bg-slate-950 border border-slate-100 dark:border-border-dark flex items-center justify-between gap-4">
               <div className="space-y-1">
                 <p className="text-sm font-bold text-slate-900 dark:text-white">
                   Two-Factor Authentication
@@ -636,7 +636,7 @@ const SettingsPage = () => {
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-between space-y-4">
+            <div className="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-border-dark text-center flex flex-col justify-between space-y-4">
               <div className="flex flex-col items-center gap-2">
                 <span className="material-symbols-outlined text-slate-900 dark:text-white text-[24px]">
                   download
@@ -651,12 +651,12 @@ const SettingsPage = () => {
               <button
                 onClick={handleExportData}
                 disabled={exporting}
-                className="w-full py-3.5 border border-slate-100 dark:border-slate-800 text-slate-900 dark:text-white rounded-xl text-xs font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all disabled:opacity-50"
+                className="w-full py-3.5 border border-slate-100 dark:border-border-dark text-slate-900 dark:text-white rounded-xl text-xs font-bold hover:bg-slate-50 dark:hover:bg-background-dark transition-all disabled:opacity-50"
               >
                 {exporting ? "Exporting..." : "Export JSON"}
               </button>
             </div>
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-between space-y-4">
+            <div className="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-border-dark text-center flex flex-col justify-between space-y-4">
               <div className="flex flex-col items-center gap-2">
                 <span className="material-symbols-outlined text-amber-500 text-[24px]">
                   delete_sweep
@@ -673,7 +673,7 @@ const SettingsPage = () => {
                 Clear Context
               </button>
             </div>
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-between space-y-4">
+            <div className="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-border-dark text-center flex flex-col justify-between space-y-4">
               <div className="flex flex-col items-center gap-2">
                 <span
                   className={`material-symbols-outlined text-[24px] ${incognitoUntil ? "text-slate-400" : "text-primary"}`}
@@ -695,7 +695,7 @@ const SettingsPage = () => {
                 onClick={handleToggleIncognito}
                 className={`w-full py-3.5 rounded-xl text-xs font-bold transition-all font-display ${
                   incognitoUntil
-                    ? "bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-slate-200"
+                    ? "bg-slate-100 dark:bg-background-dark text-slate-500 hover:bg-slate-200"
                     : "bg-[#EEF2FF] dark:bg-primary/10 text-primary hover:bg-[#E0E7FF]"
                 }`}
               >
@@ -709,7 +709,7 @@ const SettingsPage = () => {
         <div className="flex items-center justify-end gap-4 pt-4 pb-12">
           <button
             onClick={() => window.location.reload()}
-            className="px-8 py-3.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all flex items-center gap-2"
+            className="px-8 py-3.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-background-dark transition-all flex items-center gap-2"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
             Discard
@@ -761,7 +761,7 @@ const SettingsPage = () => {
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">
                 Manual Secret Key
               </p>
-              <code className="bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-primary text-xs font-mono">
+              <code className="bg-slate-100 dark:bg-background-dark px-2 py-1 rounded text-primary text-xs font-mono">
                 {twoFactorSecret}
               </code>
             </div>
@@ -776,7 +776,7 @@ const SettingsPage = () => {
                 setVerificationCode(e.target.value.replace(/[^0-9]/g, ""))
               }
               maxLength={6}
-              className="text-center text-lg tracking-[0.5em] py-3 rounded-xl border-slate-200 dark:border-slate-800"
+              className="text-center text-lg tracking-[0.5em] py-3 rounded-xl border-slate-200 dark:border-border-dark"
             />
           </div>
 

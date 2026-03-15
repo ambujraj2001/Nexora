@@ -22,13 +22,13 @@ const TaskListCard: React.FC<TaskListCardProps> = ({ data }) => {
           <span>Tasks</span>
         </div>
       }
-      className="w-full shadow-sm border-slate-100 dark:border-slate-800 dark:bg-slate-900/50"
+      className="w-full shadow-sm border-slate-100 dark:border-border-dark dark:bg-card-dark/50"
       styles={{ body: { padding: '0 12px 12px 12px' } }}
     >
       <List
         dataSource={data}
         renderItem={(item) => (
-          <List.Item className="border-b border-slate-50 dark:border-slate-800/50 py-3 last:border-0">
+          <List.Item className="border-b border-slate-50 dark:border-border-dark/50 py-3 last:border-0">
             <div className="flex flex-col w-full gap-1">
               <div className="flex items-center gap-3">
                 <Checkbox checked={item.is_completed || item.status === 'completed'} disabled />

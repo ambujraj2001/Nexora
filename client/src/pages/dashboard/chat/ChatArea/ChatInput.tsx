@@ -157,14 +157,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <footer className="p-4 sm:p-6 shrink-0 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 lg:border-none">
+    <footer className="p-4 sm:p-6 shrink-0 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-border-dark lg:border-none">
       <div className="max-w-4xl mx-auto flex flex-col gap-3">
         {attachments.length > 0 && (
           <div className="flex gap-2 px-1">
             {attachments.map((file) => (
               <div
                 key={file.id}
-                className="group relative flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 animate-fade-in"
+                className="group relative flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-card-dark rounded-lg border border-slate-200 dark:border-border-dark animate-fade-in"
               >
                 <span className="material-symbols-outlined text-sm text-primary">
                   description
@@ -174,7 +174,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 </span>
                 <button
                   onClick={() => removeAttachment(file.id)}
-                  className="bg-slate-200 dark:bg-slate-700 rounded-full size-4 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors"
+                  className="bg-slate-200 dark:bg-border-dark rounded-full size-4 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors"
                 >
                   <span className="material-symbols-outlined text-[12px]">
                     close
@@ -183,7 +183,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
               </div>
             ))}
             {isUploading && (
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-dashed border-slate-300 dark:border-slate-700">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-card-dark/70 rounded-lg border border-dashed border-slate-300 dark:border-border-dark">
                 <div className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 <span className="text-[11px] text-slate-500">Uploading...</span>
               </div>
@@ -191,7 +191,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
           </div>
         )}
 
-        <div className="relative flex items-start bg-slate-100 dark:bg-slate-800 rounded-xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+        <div className="relative flex items-start bg-slate-100 dark:bg-card-dark rounded-xl border border-transparent dark:border-border-dark/80 focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
           <input
             type="file"
             ref={fileInputRef}
@@ -222,7 +222,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
             onKeyDown={handleKeyDown}
             placeholder="Ask anything…"
             rows={1}
-            className="w-full bg-transparent border-none rounded-xl py-4 pl-10 sm:pl-14 pr-24 sm:pr-32 text-sm placeholder-slate-500 resize-none outline-none transition-all"
+            className="w-full bg-transparent border-none rounded-xl py-4 pl-10 sm:pl-14 pr-24 sm:pr-32 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder:text-slate-500 resize-none outline-none transition-all"
             style={{ maxHeight: "160px" }}
           />
 
@@ -240,7 +240,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
                 {hookIsListening ? "graphic_eq" : "mic"}
               </span>
             </button>
-            <div className="h-6 w-[1px] bg-slate-300 dark:bg-slate-700 mx-0.5 sm:mx-1" />
+            <div className="h-6 w-[1px] bg-slate-300 dark:bg-border-dark mx-0.5 sm:mx-1" />
             <button
               id="send-button"
               onClick={handleSend}
@@ -260,14 +260,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
         </div>
 
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-          <p className="text-[10px] sm:text-[11px] text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
+          <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
             <span className="material-symbols-outlined text-[14px]">
               auto_awesome
             </span>
             Powered by Nexora AI
           </p>
 
-          <p className="text-[10px] sm:text-[11px] text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
+          <p className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1.5 whitespace-nowrap">
             <span className="material-symbols-outlined text-[14px]">
               verified_user
             </span>

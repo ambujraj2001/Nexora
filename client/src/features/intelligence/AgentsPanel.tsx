@@ -22,7 +22,7 @@ const AgentsPanel: React.FC = () => {
               className={`p-3 rounded-xl border flex flex-col gap-2 transition-all duration-300 ${
                 agent.status !== 'idle'
                   ? 'bg-primary/[0.03] border-primary/20 shadow-sm ring-1 ring-primary/10' 
-                  : 'bg-slate-50 dark:bg-slate-800/20 border-slate-100 dark:border-slate-800 opacity-60'
+                  : 'bg-slate-50 dark:bg-background-dark/20 border-slate-100 dark:border-border-dark opacity-60'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -37,7 +37,7 @@ const AgentsPanel: React.FC = () => {
                 <span className={`text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded ${
                   agent.status === 'executing' ? 'bg-emerald-500/10 text-emerald-500' :
                   agent.status === 'thinking' ? 'bg-primary/10 text-primary' :
-                  'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                  'bg-slate-100 dark:bg-background-dark text-slate-400'
                 }`}>
                   {agent.status}
                 </span>

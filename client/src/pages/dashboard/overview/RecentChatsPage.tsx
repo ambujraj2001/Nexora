@@ -137,16 +137,16 @@ const RecentChatsPage = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex bg-white dark:bg-slate-800 p-1 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+            <div className="flex bg-white dark:bg-background-dark p-1 rounded-xl shadow-sm border border-slate-200 dark:border-border-dark">
               <button
                 onClick={() => setRange("7d")}
-                className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all ${range === "7d" ? "bg-primary text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+                className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all ${range === "7d" ? "bg-primary text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-border-dark/50"}`}
               >
                 Last 7 Days
               </button>
               <button
                 onClick={() => setRange("30d")}
-                className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all ${range === "30d" ? "bg-primary text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+                className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all ${range === "30d" ? "bg-primary text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-border-dark/50"}`}
               >
                 Last 30 Days
               </button>
@@ -154,7 +154,7 @@ const RecentChatsPage = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsRangePickerOpen(!isRangePickerOpen)}
-                  className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${range === "custom" ? "bg-primary text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+                  className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${range === "custom" ? "bg-primary text-white shadow-sm" : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-border-dark/50"}`}
                 >
                   Custom Range{" "}
                   <span className="material-symbols-outlined text-xs">
@@ -164,7 +164,13 @@ const RecentChatsPage = () => {
                 {isRangePickerOpen && (
                   <div className="absolute top-full right-0 mt-2 z-50">
                     <ConfigProvider
-                      theme={{ algorithm: theme.defaultAlgorithm }}
+                      theme={{
+                        algorithm:
+                          typeof document !== "undefined" &&
+                          document.documentElement.classList.contains("dark")
+                            ? theme.darkAlgorithm
+                            : theme.defaultAlgorithm,
+                      }}
                     >
                       <RangePicker
                         open={true}
@@ -203,7 +209,7 @@ const RecentChatsPage = () => {
             </p>
           </div>
         ) : conversations.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-64 bg-white/50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col items-center justify-center h-64 bg-white/50 dark:bg-card-dark/50 rounded-2xl border border-dashed border-slate-200 dark:border-border-dark">
             <Empty
               description={
                 <span className="text-slate-500">
@@ -219,7 +225,7 @@ const RecentChatsPage = () => {
               <div
                 key={conv.id}
                 onClick={() => navigate(`/dashboard/chat/${conv.id}`)}
-                className="group flex items-center gap-4 bg-white dark:bg-slate-900/50 p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all cursor-pointer"
+                className="group flex items-center gap-4 bg-white dark:bg-card-dark/50 p-4 rounded-xl border border-slate-200 dark:border-border-dark hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-md transition-all cursor-pointer"
               >
                 <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0 overflow-hidden">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
@@ -243,7 +249,7 @@ const RecentChatsPage = () => {
                     <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">
                       Nexora
                     </span>
-                    <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                    <span className="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-background-dark text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
                       {conv.messageCount} messages
                     </span>
                   </div>
@@ -260,7 +266,7 @@ const RecentChatsPage = () => {
       </div>
 
       {/* Pagination Footer */}
-      <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm flex justify-center">
+      <div className="p-6 border-t border-slate-200 dark:border-border-dark bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm flex justify-center">
         <ConfigProvider
           theme={{ token: { colorPrimary: "#3c83f6", borderRadius: 8 } }}
         >
@@ -277,7 +283,7 @@ const RecentChatsPage = () => {
             ) => {
               if (type === "prev")
                 return (
-                  <button className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50">
+                  <button className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 dark:border-border-dark text-slate-400 hover:bg-slate-50 dark:hover:bg-background-dark disabled:opacity-50">
                     <span className="material-symbols-outlined text-sm">
                       chevron_left
                     </span>
@@ -285,7 +291,7 @@ const RecentChatsPage = () => {
                 );
               if (type === "next")
                 return (
-                  <button className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800">
+                  <button className="w-8 h-8 rounded-lg flex items-center justify-center border border-slate-200 dark:border-border-dark text-slate-400 hover:bg-slate-50 dark:hover:bg-background-dark">
                     <span className="material-symbols-outlined text-sm">
                       chevron_right
                     </span>

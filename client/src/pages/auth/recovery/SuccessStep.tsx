@@ -31,7 +31,7 @@ const SuccessStep = ({ accessCode }: SuccessStepProps) => {
           <AppHeader />
 
           <main className="flex flex-1 justify-center py-12 px-4">
-            <div className="layout-content-container flex flex-col max-w-[420px] w-full bg-white dark:bg-slate-900/50 p-6 sm:p-8 rounded-xl shadow-sm border border-primary/10 h-fit self-center animate-slide-up">
+            <div className="layout-content-container flex flex-col max-w-[420px] w-full bg-white dark:bg-card-dark/50 p-6 sm:p-8 rounded-xl shadow-sm border border-primary/10 h-fit self-center animate-slide-up">
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="size-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center mb-2">
                   <span className="material-symbols-outlined text-4xl">

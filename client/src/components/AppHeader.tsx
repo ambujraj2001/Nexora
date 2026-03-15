@@ -8,7 +8,7 @@ const AppHeader = ({ rightSlot }: AppHeaderProps) => {
   const navigate = useNavigate();
 
   return (
-    <header className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4 md:px-10 bg-white dark:bg-slate-900">
+    <header className="flex items-center justify-between border-b border-slate-200 dark:border-border-dark px-6 py-4 md:px-10 bg-white dark:bg-card-dark">
       <button
         onClick={() => navigate("/login")}
         className="flex items-center gap-3 cursor-pointer"

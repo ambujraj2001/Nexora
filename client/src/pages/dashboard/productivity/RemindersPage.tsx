@@ -60,7 +60,7 @@ const RemindersPage: React.FC = () => {
     return (
       <div
         key={reminder.id}
-        className={`bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center gap-6 group hover:border-primary/50 transition-all ${isUpcoming ? "border-l-4 border-l-primary" : ""} ${isCompleted ? "opacity-70" : ""}`}
+        className={`bg-white dark:bg-card-dark p-6 rounded-xl border border-slate-200 dark:border-border-dark flex items-center gap-6 group hover:border-primary/50 transition-all ${isUpcoming ? "border-l-4 border-l-primary" : ""} ${isCompleted ? "opacity-70" : ""}`}
       >
         <div
           className={`text-3xl font-black transition-transform group-hover:scale-105 ${isCompleted ? "text-slate-400" : "text-primary"}`}
@@ -73,7 +73,7 @@ const RemindersPage: React.FC = () => {
           </h4>
           <div className="flex items-center gap-2 mt-1">
             <span
-              className={`text-xs font-semibold px-2 py-0.5 rounded ${isUpcoming ? "bg-primary/10 text-primary" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
+              className={`text-xs font-semibold px-2 py-0.5 rounded ${isUpcoming ? "bg-primary/10 text-primary" : "bg-slate-100 dark:bg-background-dark text-slate-500"}`}
             >
               {isCompleted ? "Completed" : isUpcoming ? "Upcoming" : "Schedule"}
             </span>
@@ -154,7 +154,7 @@ const RemindersPage: React.FC = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : reminders.length === 0 ? (
-          <div className="text-center p-12 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+          <div className="text-center p-12 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
             <span className="material-symbols-outlined text-4xl text-slate-300 mb-2">
               notifications_off
             </span>
@@ -194,7 +194,7 @@ const RemindersPage: React.FC = () => {
         )}
 
         {/* Empty state hint */}
-        <div className="mt-12 text-center p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+        <div className="mt-12 text-center p-8 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
           <span className="material-symbols-outlined text-4xl text-slate-300 mb-2">
             add_circle
           </span>

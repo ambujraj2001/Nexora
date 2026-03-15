@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ConfigProvider, theme as antTheme } from "antd";
 import { AuthBootstrap } from "./components/AuthBootstrap";
@@ -38,19 +38,74 @@ import { store } from "./store";
 import DashboardLayout from "./layouts/DashboardLayout";
 import { SignupProvider } from "./context/SignupContext.tsx";
 
-const PRIMARY = "#3c83f6";
+const PRIMARY = "#3caff6";
+const DARK_BACKGROUND = "#0B0F17";
+const DARK_CARD = "#111827";
+const DARK_BORDER = "#1f2937";
 
 const App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(
+    () =>
+      typeof document !== "undefined" &&
+      document.documentElement.classList.contains("dark"),
+  );
+
+  useEffect(() => {
+    if (typeof document === "undefined") return undefined;
+
+    const root = document.documentElement;
+    const syncDarkMode = () => setIsDarkMode(root.classList.contains("dark"));
+
+    syncDarkMode();
+
+    const observer = new MutationObserver(syncDarkMode);
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const themeConfig = useMemo(
-    () => ({
-      algorithm: antTheme.defaultAlgorithm,
-      token: {
-        colorPrimary: PRIMARY,
-        fontFamily: "Inter, sans-serif",
-        borderRadius: 8,
-      },
-    }),
-    [],
+    () => {
+      const baseConfig = {
+        algorithm: isDarkMode
+          ? antTheme.darkAlgorithm
+          : antTheme.defaultAlgorithm,
+        token: {
+          colorPrimary: PRIMARY,
+          fontFamily: "Inter, sans-serif",
+          borderRadius: 8,
+        },
+      };
+
+      if (!isDarkMode) {
+        return baseConfig;
+      }
+
+      return {
+        ...baseConfig,
+        token: {
+          ...baseConfig.token,
+          colorBgBase: DARK_BACKGROUND,
+          colorBgContainer: DARK_CARD,
+          colorBgElevated: DARK_CARD,
+          colorBorder: DARK_BORDER,
+          colorSplit: DARK_BORDER,
+        },
+        components: {
+          Layout: {
+            bodyBg: DARK_BACKGROUND,
+            headerBg: DARK_CARD,
+            siderBg: DARK_CARD,
+            triggerBg: DARK_CARD,
+            triggerColor: "#e2e8f0",
+          },
+        },
+      };
+    },
+    [isDarkMode],
   );
 
   return (

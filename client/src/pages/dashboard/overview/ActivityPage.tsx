@@ -133,14 +133,14 @@ const ActivityPage: React.FC = () => {
       <div className="flex flex-col gap-6 w-full">
         {/* Top KPIs */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between group hover:border-primary/30 transition-colors">
+          <div className="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm flex items-center justify-between group hover:border-primary/30 transition-colors">
             <div>
               <p className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">
                 Total Actions Handled
               </p>
               <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                 {loading ? (
-                  <span className="animate-pulse bg-slate-200 dark:bg-slate-800 h-8 w-16 rounded block"></span>
+                  <span className="animate-pulse bg-slate-200 dark:bg-background-dark h-8 w-16 rounded block"></span>
                 ) : (
                   totalActions
                 )}
@@ -151,14 +151,14 @@ const ActivityPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between group hover:border-emerald-500/30 transition-colors">
+          <div className="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm flex items-center justify-between group hover:border-emerald-500/30 transition-colors">
             <div>
               <p className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-1">
                 Compute Time Saved
               </p>
               <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
                 {loading ? (
-                  <span className="animate-pulse bg-slate-200 dark:bg-slate-800 h-8 w-16 rounded block"></span>
+                  <span className="animate-pulse bg-slate-200 dark:bg-background-dark h-8 w-16 rounded block"></span>
                 ) : (
                   `${computeTime}m`
                 )}
@@ -169,7 +169,7 @@ const ActivityPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-emerald-500/20 shadow-sm flex items-center justify-between group relative overflow-hidden xl:col-span-2">
+          <div className="bg-white dark:bg-card-dark p-6 rounded-2xl border border-emerald-500/20 shadow-sm flex items-center justify-between group relative overflow-hidden xl:col-span-2">
             <div className="absolute inset-0 bg-emerald-500/5 mix-blend-overlay"></div>
             <div className="relative z-10 w-full flex items-center justify-between">
               <div>
@@ -199,7 +199,7 @@ const ActivityPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Tool Distribution Chart */}
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm lg:col-span-1">
+          <div className="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm lg:col-span-1">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-slate-400">
                 pie_chart
@@ -217,7 +217,7 @@ const ActivityPage: React.FC = () => {
                     40%
                   </span>
                 </div>
-                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-slate-100 dark:bg-background-dark rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-indigo-500 h-2 rounded-full"
                     style={{ width: "40%" }}
@@ -234,7 +234,7 @@ const ActivityPage: React.FC = () => {
                     35%
                   </span>
                 </div>
-                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-slate-100 dark:bg-background-dark rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-rose-500 h-2 rounded-full"
                     style={{ width: "35%" }}
@@ -251,7 +251,7 @@ const ActivityPage: React.FC = () => {
                     15%
                   </span>
                 </div>
-                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-slate-100 dark:bg-background-dark rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-emerald-500 h-2 rounded-full"
                     style={{ width: "15%" }}
@@ -268,7 +268,7 @@ const ActivityPage: React.FC = () => {
                     10%
                   </span>
                 </div>
-                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-slate-100 dark:bg-background-dark rounded-full h-2 overflow-hidden">
                   <div
                     className="bg-blue-500 h-2 rounded-full"
                     style={{ width: "10%" }}
@@ -279,7 +279,7 @@ const ActivityPage: React.FC = () => {
           </div>
 
           {/* Operations Feed */}
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm lg:col-span-2">
+          <div className="bg-white dark:bg-card-dark p-6 rounded-2xl border border-slate-200 dark:border-border-dark shadow-sm lg:col-span-2">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
               <span className="material-symbols-outlined text-slate-400">
                 history
@@ -292,12 +292,12 @@ const ActivityPage: React.FC = () => {
                 {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="flex gap-4 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 animate-pulse"
+                    className="flex gap-4 p-3 rounded-lg bg-slate-50 dark:bg-background-dark/50 animate-pulse"
                   >
-                    <div className="size-10 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+                    <div className="size-10 rounded-full bg-slate-200 dark:bg-border-dark"></div>
                     <div className="flex-1 py-1 space-y-2">
-                      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/3"></div>
-                      <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-1/4"></div>
+                      <div className="h-4 bg-slate-200 dark:bg-border-dark rounded w-1/3"></div>
+                      <div className="h-3 bg-slate-200 dark:bg-border-dark rounded w-1/4"></div>
                     </div>
                   </div>
                 ))}
@@ -308,7 +308,7 @@ const ActivityPage: React.FC = () => {
                   {recentOperations.map((op, idx) => (
                     <div
                       key={idx}
-                      className="flex gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      className="flex gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-background-dark/50 transition-colors"
                     >
                       <div
                         className={`size-10 rounded-full ${op.bg} ${op.color} flex items-center justify-center shrink-0`}

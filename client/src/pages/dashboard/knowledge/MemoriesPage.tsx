@@ -149,18 +149,19 @@ const MemoriesPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark rounded-xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center gap-4">
         <Input 
           placeholder="Enter Memory Code (e.g. MEM-XXXXXX)" 
           value={joinCode}
           onChange={(e) => setJoinCode(e.target.value)}
-          className="max-w-xs"
+          className="max-w-xs dark:!bg-card-dark dark:!border-border-dark dark:!text-slate-100"
         />
         <Button 
           type="primary" 
           onClick={handleJoin} 
           loading={joiningMemory}
           disabled={!joinCode.trim()}
+          className="dark:!shadow-none"
         >
           Join Memory
         </Button>
@@ -177,11 +178,11 @@ const MemoriesPage: React.FC = () => {
             </p>
             <p className="text-slate-600 dark:text-slate-400 text-sm">
               This view is currently read-only. To modify these notes, ask me to{" "}
-              <span className="font-mono bg-slate-200 dark:bg-slate-700 px-1 rounded">
+              <span className="font-mono bg-slate-200 dark:bg-border-dark px-1 rounded">
                 "update"
               </span>{" "}
               or{" "}
-              <span className="font-mono bg-slate-200 dark:bg-slate-700 px-1 rounded">
+              <span className="font-mono bg-slate-200 dark:bg-border-dark px-1 rounded">
                 "forget"
               </span>{" "}
               items in the Chat.
@@ -204,7 +205,7 @@ const MemoriesPage: React.FC = () => {
           <Spin size="large" />
         </div>
       ) : memories.length === 0 ? (
-        <div className="mt-12 text-center py-10 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+        <div className="mt-12 text-center py-10 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
           <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-5xl mb-4">
             psychology
           </span>
@@ -226,7 +227,7 @@ const MemoriesPage: React.FC = () => {
           {memories.map((memory) => (
             <div
               key={memory.id}
-              className="flex flex-col h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden"
+              className="flex flex-col h-full bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-12 h-12 bg-primary/5 rounded-bl-full flex items-center justify-center">
                 <span className="material-symbols-outlined text-primary text-sm">
@@ -239,7 +240,7 @@ const MemoriesPage: React.FC = () => {
               <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 leading-relaxed line-clamp-4">
                 {memory.content}
               </p>
-              <div className="mt-auto flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="mt-auto flex items-center justify-between pt-3 border-t border-slate-100 dark:border-border-dark">
                 <div className="flex flex-col gap-1 items-start justify-center">
                   <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
                     <span className="material-symbols-outlined text-xs">
@@ -308,7 +309,7 @@ const MemoriesPage: React.FC = () => {
           <p className="text-slate-500 dark:text-slate-400 mb-6 px-4">
             Anyone with this code can access this memory.
           </p>
-          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 w-[90%] mx-auto flex flex-col gap-4">
+          <div className="bg-slate-100 dark:bg-background-dark p-4 rounded-xl border border-slate-200 dark:border-border-dark w-[90%] mx-auto flex flex-col gap-4">
             <span className="font-mono text-xl font-bold text-slate-900 dark:text-white tracking-widest text-center">{shareCode}</span>
             <button
               onClick={() => {
@@ -349,9 +350,9 @@ const MemoriesPage: React.FC = () => {
             <div className="w-[90%] mx-auto text-left">
               <div className="flex flex-col gap-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
                 {currentSharedMemory.shared_with.map((u, idx) => (
-                  <div key={idx} className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
-                    <div className="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden shrink-0 border-2 border-slate-100 dark:border-slate-600">
-                      <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(u.full_name)}&background=10b981&color=fff`} className="w-full h-full object-cover" alt={u.full_name} />
+                  <div key={idx} className="flex items-center gap-3 bg-slate-50 dark:bg-background-dark/50 p-3 rounded-xl border border-slate-200 dark:border-border-dark">
+                    <div className="size-10 rounded-full bg-slate-200 dark:bg-border-dark overflow-hidden shrink-0 border-2 border-slate-100 dark:border-border-dark">
+                      <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(u.full_name)}&background=3caff6&color=fff`} className="w-full h-full object-cover" alt={u.full_name} />
                     </div>
                     <div className="flex flex-col">
                       <span className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{u.full_name}</span>
@@ -367,7 +368,7 @@ const MemoriesPage: React.FC = () => {
           <div className="mt-6 px-4">
             <button
               onClick={() => setSharedUsersModalVisible(false)}
-              className="w-[90%] mx-auto block py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all font-display"
+              className="w-[90%] mx-auto block py-3 rounded-xl bg-slate-100 dark:bg-background-dark text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-border-dark transition-all font-display"
             >
               Close
             </button>

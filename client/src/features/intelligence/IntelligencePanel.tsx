@@ -6,7 +6,7 @@ import ActivitySimulator from '../../shared/ActivitySimulator';
 const IntelligencePanel: React.FC = () => {
   return (
     <aside 
-      className="w-[300px] xl:w-[350px] h-full border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden hidden lg:flex flex-col shrink-0 animate-in slide-in-from-right duration-500"
+      className="w-[300px] xl:w-[350px] h-full border-l border-slate-200 dark:border-border-dark bg-white dark:bg-card-dark overflow-hidden hidden lg:flex flex-col shrink-0 animate-in slide-in-from-right duration-500"
     >
       <ActivitySimulator />
       {/* Header */}
@@ -23,13 +23,13 @@ const IntelligencePanel: React.FC = () => {
       {/* Sections */}
       <div className="flex-1 px-6 pb-6 space-y-6 overflow-hidden">
         <ActivityStream />
-        <div className="h-px w-full bg-slate-100 dark:bg-slate-800" />
+        <div className="h-px w-full bg-slate-100 dark:bg-background-dark" />
         <ContextStack />
       </div>
 
       {/* Footer / Connection Badge */}
-      <div className="p-6 pt-4 border-t border-slate-50 dark:border-slate-800">
-        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/30">
+      <div className="p-6 pt-4 border-t border-slate-50 dark:border-border-dark">
+        <div className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-background-dark/30">
           <div className="size-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
           <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
             Core Engine Linked

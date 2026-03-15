@@ -107,7 +107,7 @@ const FullDataView: React.FC<{ value: unknown }> = ({ value }) => {
         {value.map((item, i) => (
           <div
             key={i}
-            className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 text-sm"
+            className="p-3 bg-slate-50 dark:bg-background-dark rounded-lg border border-slate-100 dark:border-border-dark text-sm"
           >
             {typeof item === "object" && item !== null ? (
               <div className="space-y-1.5">
@@ -150,7 +150,7 @@ const FullDataView: React.FC<{ value: unknown }> = ({ value }) => {
 
   if (typeof value === "string") {
     return (
-      <div className="prose dark:prose-invert max-w-none text-sm bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+      <div className="prose dark:prose-invert max-w-none text-sm bg-slate-50 dark:bg-background-dark p-4 rounded-xl border border-slate-100 dark:border-border-dark">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
       </div>
     );
@@ -255,7 +255,7 @@ const AppSchemaRenderer: React.FC<{
                   value: modalValue,
                 })
               }
-              className="p-3 rounded-xl bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/50 shadow-sm hover:border-primary/40 hover:shadow-md transition-all text-left group cursor-pointer"
+              className="p-3 rounded-xl bg-white dark:bg-background-dark/60 border border-slate-200 dark:border-border-dark/50 shadow-sm hover:border-primary/40 hover:shadow-md transition-all text-left group cursor-pointer"
             >
               <div className="flex items-center gap-1.5 mb-2">
                 <span className="material-symbols-outlined text-sm text-primary">
@@ -305,7 +305,7 @@ const AppSchemaRenderer: React.FC<{
       >
         {expandedCard && (
           <div>
-            <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100 dark:border-border-dark">
               <div className="size-9 rounded-xl bg-primary/10 flex items-center justify-center">
                 <span className="material-symbols-outlined text-primary text-lg">
                   {getComponentIcon(expandedCard.name)}
@@ -360,7 +360,7 @@ const AppAiMessage: React.FC<{
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
       </div>
       <div className="flex flex-col gap-1 max-w-[85%]">
-        <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-100 dark:border-slate-800 shadow-sm prose dark:prose-invert max-w-none text-sm">
+        <div className="p-3 rounded-xl bg-slate-50 dark:bg-background-dark/50 text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-100 dark:border-border-dark shadow-sm prose dark:prose-invert max-w-none text-sm">
           {processed.kind === "clarification" ? (
             <div className="flex flex-col gap-2.5">
               <p className="font-medium text-slate-700 dark:text-slate-300">
@@ -371,7 +371,7 @@ const AppAiMessage: React.FC<{
                   <button
                     key={idx}
                     onClick={() => onOptionSelect?.(option)}
-                    className="px-3 py-1.5 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-xs font-medium hover:bg-primary/10 hover:border-primary/30 transition-colors text-slate-700 dark:text-slate-300 hover:text-primary"
+                    className="px-3 py-1.5 bg-white dark:bg-border-dark border border-slate-200 dark:border-border-dark rounded-lg text-xs font-medium hover:bg-primary/10 hover:border-primary/30 transition-colors text-slate-700 dark:text-slate-300 hover:text-primary"
                   >
                     {option}
                   </button>
@@ -665,11 +665,11 @@ const AppPage = () => {
   return (
     <div className="flex flex-col h-full overflow-hidden bg-white dark:bg-background-dark">
       {/* App Header */}
-      <div className="shrink-0 border-b border-slate-200 dark:border-slate-800 px-3 sm:px-4 py-2.5">
+      <div className="shrink-0 border-b border-slate-200 dark:border-border-dark px-3 sm:px-4 py-2.5">
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate("/dashboard/apps")}
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-background-dark transition-colors"
           >
             <span className="material-symbols-outlined text-slate-500 text-lg">
               arrow_back
@@ -696,7 +696,7 @@ const AppPage = () => {
             <button
               onClick={handleAnalyze}
               disabled={analyzing}
-              className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-primary/10 hover:text-primary transition-all disabled:opacity-50"
+              className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-100 dark:bg-background-dark text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-primary/10 hover:text-primary transition-all disabled:opacity-50"
             >
               {analyzing ? (
                 <>
@@ -753,7 +753,7 @@ const AppPage = () => {
       >
         <div className="w-full">
           {/* App UI from Schema */}
-          <div className="px-3 sm:px-4 py-3 border-b border-slate-100 dark:border-slate-800/50">
+          <div className="px-3 sm:px-4 py-3 border-b border-slate-100 dark:border-border-dark/50">
             <AppSchemaRenderer
               schema={app.schema}
               appData={appData}
@@ -779,7 +779,7 @@ const AppPage = () => {
                 <div className="size-7 rounded-lg bg-primary flex items-center justify-center shrink-0">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-background-dark/50 border border-slate-100 dark:border-border-dark">
                   <div className="flex gap-1.5">
                     <div
                       className="size-2 rounded-full bg-slate-400 animate-bounce"
@@ -803,9 +803,9 @@ const AppPage = () => {
       </div>
 
       {/* Chat Input */}
-      <footer className="shrink-0 px-3 sm:px-4 py-3 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800">
+      <footer className="shrink-0 px-3 sm:px-4 py-3 bg-white dark:bg-background-dark border-t border-slate-100 dark:border-border-dark">
         <div className="max-w-3xl mx-auto">
-          <div className="relative flex items-start bg-slate-100 dark:bg-slate-800 rounded-xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+          <div className="relative flex items-start bg-slate-100 dark:bg-background-dark rounded-xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
             <textarea
               ref={textareaRef}
               value={inputValue}
@@ -858,7 +858,7 @@ const AppPage = () => {
               </p>
             </div>
 
-            <div className="w-full bg-slate-50 dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
+            <div className="w-full bg-slate-50 dark:bg-background-dark rounded-xl p-5 border border-slate-200 dark:border-border-dark">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center mb-2">
                 Invite Code
               </p>
@@ -960,7 +960,7 @@ const AppPage = () => {
             <button
               onClick={() => setDeleteModalVisible(false)}
               disabled={isDeleting}
-              className="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all font-display disabled:opacity-50"
+              className="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-background-dark text-slate-600 dark:text-slate-300 font-bold hover:bg-slate-200 dark:hover:bg-border-dark transition-all font-display disabled:opacity-50"
             >
               Cancel
             </button>

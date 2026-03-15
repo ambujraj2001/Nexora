@@ -38,7 +38,7 @@ const FileListCard: React.FC<FileListCardProps> = ({ data }) => {
           <span>Files</span>
         </div>
       }
-      className="w-full shadow-sm border-slate-100 dark:border-slate-800 dark:bg-slate-900/50"
+      className="w-full shadow-sm border-slate-100 dark:border-border-dark dark:bg-card-dark/50"
       styles={{ body: { padding: '0 12px 12px 12px' } }}
     >
       <List
@@ -46,9 +46,9 @@ const FileListCard: React.FC<FileListCardProps> = ({ data }) => {
         renderItem={(item: FileItem) => {
           const fileName = item.file_name || item.name || 'Untitled File';
           return (
-            <List.Item className="border-b border-slate-50 dark:border-slate-800/50 py-3 last:border-0">
+            <List.Item className="border-b border-slate-50 dark:border-border-dark/50 py-3 last:border-0">
               <div className="flex items-center gap-3 w-full">
-                <div className="size-8 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                <div className="size-8 rounded-lg bg-slate-50 dark:bg-background-dark flex items-center justify-center shrink-0">
                   {getFileIcon(fileName)}
                 </div>
                 <div className="flex flex-col min-w-0">

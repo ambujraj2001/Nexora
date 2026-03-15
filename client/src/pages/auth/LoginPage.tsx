@@ -28,7 +28,11 @@ const LoginPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    () =>
+      typeof document !== "undefined" &&
+      document.documentElement.classList.contains("dark"),
+  );
 
   const toggleDark = useCallback(() => {
     setDarkMode((prev) => {
@@ -151,7 +155,7 @@ const LoginPage = () => {
                 setError(null);
               }}
               placeholder="AI-XXXX-XXXX"
-              className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none font-mono tracking-widest uppercase"
+              className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none font-mono tracking-widest uppercase"
               required
             />
           </div>
@@ -173,7 +177,7 @@ const LoginPage = () => {
               onChange={handleTwoFactorChange}
               placeholder="6-digit code"
               maxLength={6}
-              className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center font-mono tracking-[0.5em] outline-none"
+              className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center font-mono tracking-[0.5em] outline-none"
               required
               autoFocus
             />
@@ -203,7 +207,7 @@ const LoginPage = () => {
                   setError(null);
                 }}
                 placeholder="email@example.com"
-                className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none"
+                className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none"
                 required
                 disabled={step === 2}
               />
@@ -226,7 +230,7 @@ const LoginPage = () => {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     placeholder="OTP from email"
-                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center outline-none"
+                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center outline-none"
                     required
                   />
                 </div>
@@ -247,7 +251,7 @@ const LoginPage = () => {
                     onChange={handleTwoFactorChange}
                     placeholder="6-digit code"
                     maxLength={6}
-                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center font-mono tracking-[0.5em] outline-none"
+                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center font-mono tracking-[0.5em] outline-none"
                   />
                 </div>
               </div>
@@ -278,7 +282,7 @@ const LoginPage = () => {
                   setError(null);
                 }}
                 placeholder="email@example.com"
-                className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none"
+                className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary outline-none"
                 required
                 disabled={step === 2}
               />
@@ -301,7 +305,7 @@ const LoginPage = () => {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     placeholder="OTP from email"
-                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center outline-none"
+                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center outline-none"
                     required
                   />
                 </div>
@@ -322,7 +326,7 @@ const LoginPage = () => {
                     onChange={handleTwoFactorChange}
                     placeholder="6-digit code"
                     maxLength={6}
-                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center font-mono tracking-[0.5em] outline-none"
+                    className="block w-full pl-11 pr-4 py-4 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary text-center font-mono tracking-[0.5em] outline-none"
                   />
                 </div>
               </div>
@@ -353,7 +357,7 @@ const LoginPage = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900/50 p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm mx-2 sm:mx-0">
+            <div className="bg-white dark:bg-card-dark/50 p-6 sm:p-8 rounded-xl border border-slate-200 dark:border-border-dark shadow-sm mx-2 sm:mx-0">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {renderInputs()}
 
@@ -399,7 +403,7 @@ const LoginPage = () => {
 
                 <div className="flex flex-col gap-3 pt-2 text-center">
                   {formMode === "login" ? (
-                    <div className="flex justify-center items-center gap-3 text-[11px] sm:text-xs text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-6 mt-2">
+                    <div className="flex justify-center items-center gap-3 text-[11px] sm:text-xs text-slate-400 border-t border-slate-100 dark:border-border-dark pt-6 mt-2">
                       <button
                         type="button"
                         onClick={() => navigate("/forgot-access-code")}
@@ -437,7 +441,7 @@ const LoginPage = () => {
               </form>
 
               {formMode === "login" && (
-                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
+                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-border-dark text-center">
                   <p className="text-sm text-slate-500 dark:text-slate-400">
                     Don't have an access code?{" "}
                     <button

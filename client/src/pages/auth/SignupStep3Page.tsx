@@ -71,7 +71,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
       <div className="layout-container flex h-full grow flex-col">
         {/* Navigation */}
-        <header className="flex items-center justify-between border-b border-primary/10 bg-white dark:bg-slate-900 px-6 py-4 lg:px-20">
+        <header className="flex items-center justify-between border-b border-primary/10 bg-white dark:bg-card-dark px-6 py-4 lg:px-20">
           <div className="flex items-center gap-3">
             <div className="size-8 bg-primary rounded-lg flex items-center justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
@@ -102,7 +102,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
 
           {/* Access Code Card — shown after successful API call */}
           {accessCode ? (
-            <div className="w-full rounded-xl border-2 border-primary/20 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-xl shadow-primary/5">
+            <div className="w-full rounded-xl border-2 border-primary/20 bg-white dark:bg-card-dark p-6 sm:p-8 shadow-xl shadow-primary/5">
               <div className="flex flex-col items-center gap-6">
                 <div className="rounded-full bg-primary/10 p-3">
                   <span className="material-symbols-outlined text-primary text-2xl sm:text-3xl">
@@ -115,7 +115,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                     Your Unique Access Code
                   </h3>
                   <div className="flex flex-col items-center gap-3 sm:flex-row justify-center">
-                    <div className="flex h-14 sm:h-16 w-full items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 sm:px-6 font-mono text-xl sm:text-2xl font-bold tracking-widest text-primary sm:w-[320px]">
+                    <div className="flex h-14 sm:h-16 w-full items-center justify-center rounded-lg bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark px-4 sm:px-6 font-mono text-xl sm:text-2xl font-bold tracking-widest text-primary sm:w-[320px]">
                       {accessCode}
                     </div>
                     <button
@@ -153,7 +153,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
             </div>
           ) : (
             /* Pre-submit state — show 2FA setup */
-            <div className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 sm:p-8 shadow-md">
+            <div className="w-full rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-card-dark p-6 sm:p-8 shadow-md">
               <div className="flex flex-col items-center gap-6">
                 <div className="text-center space-y-2 w-full">
                   <div className="rounded-full bg-primary/10 p-3 w-fit mx-auto">
@@ -168,10 +168,10 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                 </div>
 
                 {/* 2FA Toggle */}
-                <div className="flex items-center justify-between w-full mb-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 transition-all">
+                <div className="flex items-center justify-between w-full mb-4 p-4 rounded-xl bg-slate-50 dark:bg-background-dark/50 border border-slate-200 dark:border-border-dark transition-all">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`p-2 rounded-lg transition-colors ${use2FA ? "bg-primary/10 text-primary" : "bg-slate-200 dark:bg-slate-700 text-slate-500"}`}
+                      className={`p-2 rounded-lg transition-colors ${use2FA ? "bg-primary/10 text-primary" : "bg-slate-200 dark:bg-border-dark text-slate-500"}`}
                     >
                       <span className="material-symbols-outlined text-[20px]">
                         {use2FA ? "shield_lock" : "shield"}
@@ -213,7 +213,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                         />
                       </div>
                     ) : (
-                      <div className="w-48 h-48 bg-slate-50 dark:bg-slate-800 animate-pulse rounded-xl flex items-center justify-center">
+                      <div className="w-48 h-48 bg-slate-50 dark:bg-background-dark animate-pulse rounded-xl flex items-center justify-center">
                         <span className="material-symbols-outlined animate-spin text-slate-300">
                           progress_activity
                         </span>
@@ -234,7 +234,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                         }
                         placeholder="000000"
                         maxLength={6}
-                        className="block w-full text-center text-2xl font-mono tracking-[0.5em] py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-primary focus:ring-2 focus:ring-primary outline-none transition-all"
+                        className="block w-full text-center text-2xl font-mono tracking-[0.5em] py-3 rounded-lg border border-slate-200 dark:border-border-dark bg-slate-50 dark:bg-background-dark text-primary focus:ring-2 focus:ring-primary outline-none transition-all"
                       />
                       <p className="text-[10px] text-slate-500 text-center">
                         Enter the 6-digit code from your app to verify setup.
@@ -242,7 +242,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                     </div>
                   </>
                 ) : (
-                  <div className="w-full py-8 px-4 text-center space-y-4 bg-slate-50/50 dark:bg-slate-800/30 rounded-xl border border-dashed border-slate-200 dark:border-slate-700">
+                  <div className="w-full py-8 px-4 text-center space-y-4 bg-slate-50/50 dark:bg-background-dark/30 rounded-xl border border-dashed border-slate-200 dark:border-border-dark">
                     <span className="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600">
                       lock_open
                     </span>
@@ -289,7 +289,7 @@ const SignupStep3Page = ({ onBack }: { onBack: () => void }) => {
                   type="button"
                   onClick={onBack}
                   disabled={loading}
-                  className="flex-1 px-8 py-4 sm:py-5 rounded-xl border border-primary/20 text-slate-700 dark:text-slate-300 font-bold text-base sm:text-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors disabled:opacity-50"
+                  className="flex-1 px-8 py-4 sm:py-5 rounded-xl border border-primary/20 text-slate-700 dark:text-slate-300 font-bold text-base sm:text-lg hover:bg-slate-100 dark:hover:bg-background-dark transition-colors disabled:opacity-50"
                 >
                   Back
                 </button>

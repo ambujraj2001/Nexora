@@ -55,7 +55,7 @@ const UserMessage: React.FC<UserMessageProps> = ({ content, avatarUrl }) => {
         </div>
       </div>
       <div
-        className="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0 mt-1 border-2 border-white dark:border-slate-800 shadow-sm"
+        className="size-8 rounded-full bg-slate-200 overflow-hidden shrink-0 mt-1 border-2 border-white dark:border-border-dark shadow-sm"
         style={{ backgroundImage: avatarUrl, backgroundSize: "cover" }}
       />
     </div>

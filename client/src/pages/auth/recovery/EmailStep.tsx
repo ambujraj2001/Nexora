@@ -85,7 +85,7 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
                     value={email}
                     onChange={handleEmailChange}
                     required
-                    className="flex w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/50 focus:border-primary h-14 pl-12 pr-4 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-base font-normal transition-all outline-none"
+                    className="flex w-full rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-card-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/50 focus:border-primary h-14 pl-12 pr-4 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-base font-normal transition-all outline-none"
                     placeholder="name@company.com"
                   />
                 </div>
@@ -143,8 +143,8 @@ const EmailStep = ({ onSuccess }: EmailStepProps) => {
               </div>
             </form>
 
-            <div className="pt-8 border-t border-slate-200 dark:border-slate-800">
-              <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-900/50">
+            <div className="pt-8 border-t border-slate-200 dark:border-border-dark">
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-slate-100 dark:bg-card-dark/50">
                 <span
                   className="material-symbols-outlined text-primary"
                   style={{ fontSize: "20px" }}

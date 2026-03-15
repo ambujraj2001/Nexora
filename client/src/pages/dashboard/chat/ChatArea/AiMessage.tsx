@@ -126,10 +126,10 @@ const AiMessage: React.FC<AiMessageProps> = ({ content, onOptionSelect }) => {
         </svg>
       </div>
       <div className="flex flex-col gap-1.5 max-w-[85%]">
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
           Nexora
         </p>
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-slate-800 dark:text-slate-200 leading-relaxed border border-slate-100 dark:border-slate-800 shadow-sm prose dark:prose-invert max-w-none">
+        <div className="p-4 rounded-xl bg-slate-50 dark:bg-card-dark text-slate-800 dark:text-slate-100 leading-relaxed border border-slate-100 dark:border-border-dark shadow-sm prose dark:prose-invert max-w-none">
           {processed.kind === "clarification" ? (
             <div className="flex flex-col gap-3">
               <p className="font-medium text-slate-700 dark:text-slate-300">
@@ -140,7 +140,7 @@ const AiMessage: React.FC<AiMessageProps> = ({ content, onOptionSelect }) => {
                   <button
                     key={idx}
                     onClick={() => onOptionSelect?.(option)}
-                    className="px-4 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary/30 transition-colors text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary"
+                    className="px-4 py-2 bg-white dark:bg-border-dark border border-slate-200 dark:border-border-dark rounded-lg text-sm font-medium hover:bg-primary/10 hover:border-primary/30 transition-colors text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary"
                   >
                     {option}
                   </button>

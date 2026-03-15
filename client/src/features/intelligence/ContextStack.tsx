@@ -45,7 +45,7 @@ const ContextStack: React.FC = () => {
   return (
     <div className="flex flex-col gap-4">
       {/* Token Awareness Indicator */}
-      <div className="space-y-1.5 flex flex-col p-3 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800/50">
+      <div className="space-y-1.5 flex flex-col p-3 rounded-xl bg-slate-50 dark:bg-background-dark/30 border border-slate-100 dark:border-border-dark/50">
         <div className="flex items-center justify-between px-0.5">
           <span className="text-[10px] font-black text-slate-500 uppercase tracking-tighter">AI Context Load</span>
           <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
@@ -56,7 +56,7 @@ const ContextStack: React.FC = () => {
             {totalTokens.toLocaleString()} / {tokenLimit.toLocaleString()} tokens
           </span>
         </div>
-        <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+        <div className="h-1.5 w-full bg-slate-200 dark:bg-background-dark rounded-full overflow-hidden">
           <motion.div 
             initial={{ width: 0 }}
             animate={{ width: `${tokenPercentage}%` }}
@@ -77,11 +77,11 @@ const ContextStack: React.FC = () => {
           color="text-indigo-500" 
           items={memories}
           renderItem={(m) => (
-            <div key={m.id} className="group relative flex items-center justify-between p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <div key={m.id} className="group relative flex items-center justify-between p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-background-dark/50 transition-colors">
               <span className="text-[10px] text-slate-700 dark:text-slate-300 truncate max-w-[160px] cursor-help">
                 {m.title}
               </span>
-              <span className="text-[9px] text-slate-400 font-bold bg-slate-100 dark:bg-slate-800 px-1 rounded">
+              <span className="text-[9px] text-slate-400 font-bold bg-slate-100 dark:bg-background-dark px-1 rounded">
                 {m.tokens}t
               </span>
             </div>
@@ -95,9 +95,9 @@ const ContextStack: React.FC = () => {
           color="text-emerald-500" 
           items={files}
           renderItem={(f) => (
-            <div key={f.id} className="flex items-center justify-between p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <div key={f.id} className="flex items-center justify-between p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-background-dark/50 transition-colors">
               <span className="text-[10px] text-slate-700 dark:text-slate-300 truncate max-w-[160px]">{f.name}</span>
-              <span className="text-[9px] text-slate-400 font-bold bg-slate-100 dark:bg-slate-800 px-1 rounded">{f.tokens}t</span>
+              <span className="text-[9px] text-slate-400 font-bold bg-slate-100 dark:bg-background-dark px-1 rounded">{f.tokens}t</span>
             </div>
           )}
         />
@@ -109,9 +109,9 @@ const ContextStack: React.FC = () => {
           color="text-amber-500" 
           items={knowledge}
           renderItem={(k) => (
-            <div key={k.id} className="group relative flex items-center justify-between p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <div key={k.id} className="group relative flex items-center justify-between p-1 rounded-lg hover:bg-slate-50 dark:hover:bg-background-dark/50 transition-colors">
               <span className="text-[10px] text-slate-700 dark:text-slate-300 truncate max-w-[160px] cursor-help">{k.title}</span>
-              <span className="text-[9px] text-slate-400 font-bold bg-slate-100 dark:bg-slate-800 px-1 rounded">{k.tokens}t</span>
+              <span className="text-[9px] text-slate-400 font-bold bg-slate-100 dark:bg-background-dark px-1 rounded">{k.tokens}t</span>
             </div>
           )}
         />

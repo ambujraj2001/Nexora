@@ -29,7 +29,7 @@ const AgentThinkingLog = () => {
         </span>
       </div>
 
-      <div className="flex flex-col gap-3 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none max-w-[85%] relative overflow-hidden">
+      <div className="flex flex-col gap-3 p-4 rounded-xl bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark shadow-xl shadow-slate-200/50 dark:shadow-none max-w-[85%] relative overflow-hidden">
         {/* Progress Background */}
         <div className="absolute top-0 left-0 h-0.5 bg-primary/20 w-full">
           <div
@@ -38,7 +38,7 @@ const AgentThinkingLog = () => {
           />
         </div>
 
-        <div className="flex items-center border-b border-slate-100 dark:border-slate-800 pb-2 mb-1">
+        <div className="flex items-center border-b border-slate-100 dark:border-border-dark pb-2 mb-1">
           <div className="flex items-center gap-2">
             <div className="size-1.5 rounded-full bg-primary animate-ping" />
             <span className="text-[10px] font-black text-slate-800 dark:text-slate-200 uppercase tracking-[0.2em] font-mono">

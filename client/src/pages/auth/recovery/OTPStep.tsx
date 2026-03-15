@@ -104,7 +104,7 @@ const OTPStep = ({ email, onSuccess }: OTPStepProps) => {
           <AppHeader />
 
           <main className="flex-1 flex flex-col items-center justify-center p-4">
-            <div className="layout-content-container flex flex-col max-w-[420px] w-full bg-white dark:bg-slate-900/50 p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 animate-slide-up">
+            <div className="layout-content-container flex flex-col max-w-[420px] w-full bg-white dark:bg-card-dark/50 p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-border-dark animate-slide-up">
               <div className="flex flex-col gap-3 mb-8 text-center sm:text-left">
                 <h1 className="text-slate-900 dark:text-white text-2xl sm:text-3xl font-bold tracking-tight">
                   Enter OTP
@@ -134,7 +134,7 @@ const OTPStep = ({ email, onSuccess }: OTPStepProps) => {
                       onKeyDown={(e) => handleKeyDown(index, e)}
                       onPaste={handlePaste}
                       placeholder="•"
-                      className="w-full h-14 text-center text-xl font-bold bg-slate-50 dark:bg-slate-800 border-b-2 border-slate-200 dark:border-slate-700 focus:border-primary dark:focus:border-primary focus:outline-none rounded-lg transition-all"
+                      className="w-full h-14 text-center text-xl font-bold bg-slate-50 dark:bg-background-dark border-b-2 border-slate-200 dark:border-border-dark focus:border-primary dark:focus:border-primary focus:outline-none rounded-lg transition-all"
                     />
                   ))}
                 </div>
@@ -178,7 +178,7 @@ const OTPStep = ({ email, onSuccess }: OTPStepProps) => {
               </form>
 
               <div className="mt-12 flex justify-center opacity-50 grayscale hover:grayscale-0 transition-all">
-                <div className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full">
+                <div className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-background-dark rounded-full">
                   <span
                     className="material-symbols-outlined text-slate-400"
                     style={{ fontSize: "18px" }}

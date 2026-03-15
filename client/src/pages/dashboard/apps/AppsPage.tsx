@@ -89,7 +89,7 @@ const AppsPage: React.FC = () => {
         </div>
         <button
           onClick={() => setJoinModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-xl text-sm font-bold hover:border-primary hover:text-primary transition-all shadow-sm"
+          className="inline-flex items-center gap-2 bg-white dark:bg-background-dark border border-slate-200 dark:border-border-dark text-slate-700 dark:text-slate-200 px-5 py-2.5 rounded-xl text-sm font-bold hover:border-primary hover:text-primary transition-all shadow-sm"
         >
           <span className="material-symbols-outlined text-lg">group_add</span>
           Join App
@@ -127,7 +127,7 @@ const AppsPage: React.FC = () => {
           <Spin size="large" />
         </div>
       ) : apps.length === 0 ? (
-        <div className="mt-12 text-center py-10 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+        <div className="mt-12 text-center py-10 border-2 border-dashed border-slate-200 dark:border-border-dark rounded-2xl">
           <span className="material-symbols-outlined text-slate-300 dark:text-slate-700 text-5xl mb-4">
             apps
           </span>
@@ -147,7 +147,7 @@ const AppsPage: React.FC = () => {
             </Link>
             <button
               onClick={() => setJoinModalOpen(true)}
-              className="inline-flex items-center gap-2 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 px-6 py-2.5 rounded-lg text-sm font-bold hover:border-primary hover:text-primary transition-all"
+              className="inline-flex items-center gap-2 border border-slate-300 dark:border-border-dark text-slate-600 dark:text-slate-300 px-6 py-2.5 rounded-lg text-sm font-bold hover:border-primary hover:text-primary transition-all"
             >
               <span className="material-symbols-outlined text-base">
                 group_add
@@ -162,7 +162,7 @@ const AppsPage: React.FC = () => {
             <Link
               key={app.id}
               to={`/dashboard/app/${app.id}`}
-              className="flex flex-col h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm hover:shadow-md hover:border-primary/30 transition-all group relative overflow-hidden no-underline"
+              className="flex flex-col h-full bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark p-5 rounded-xl shadow-sm hover:shadow-md hover:border-primary/30 transition-all group relative overflow-hidden no-underline"
             >
               <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full flex items-end justify-start pl-2 pb-2 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform">
                 <span className="material-symbols-outlined text-primary text-lg">
@@ -187,7 +187,7 @@ const AppsPage: React.FC = () => {
                 </p>
               )}
 
-              <div className="mt-auto flex items-center gap-2 text-[10px] text-slate-400 font-medium pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="mt-auto flex items-center gap-2 text-[10px] text-slate-400 font-medium pt-3 border-t border-slate-100 dark:border-border-dark">
                 <span className="material-symbols-outlined text-xs">
                   schedule
                 </span>

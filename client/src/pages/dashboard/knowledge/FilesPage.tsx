@@ -83,7 +83,7 @@ const FilesPage: React.FC = () => {
         </div>
 
         {/* Files List */}
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-card-dark rounded-3xl border border-slate-200 dark:border-border-dark shadow-sm overflow-hidden">
           {loading ? (
             <div className="p-10 flex flex-col items-center justify-center space-y-4">
               <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
@@ -98,7 +98,7 @@ const FilesPage: React.FC = () => {
               className="p-2"
               renderItem={(file) => (
                 <List.Item
-                  className="px-4 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors border-b border-slate-100 dark:border-slate-800 last:border-0"
+                  className="px-4 py-4 hover:bg-slate-50 dark:hover:bg-background-dark/50 transition-colors border-b border-slate-100 dark:border-border-dark last:border-0"
                   actions={[
                     <Tooltip title="Summarize with AI">
                       <Button
@@ -151,7 +151,7 @@ const FilesPage: React.FC = () => {
                 >
                   <List.Item.Meta
                     avatar={
-                      <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400">
+                      <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-background-dark flex items-center justify-center text-slate-500 dark:text-slate-400">
                         <span className="material-symbols-outlined text-2xl">
                           {getFileIcon(file.file_name)}
                         </span>

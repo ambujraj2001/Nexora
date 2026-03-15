@@ -218,7 +218,7 @@ const CalendarPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm overflow-hidden flex flex-col rbc-dark-override">
+        <div className="flex-1 bg-white dark:bg-card-dark rounded-2xl border border-slate-200 dark:border-border-dark p-4 shadow-sm overflow-hidden flex flex-col rbc-dark-override">
           <div className="h-[700px]">
             <Calendar
               localizer={localizer}
@@ -238,7 +238,7 @@ const CalendarPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full md:w-80 border-l border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col overflow-y-auto shrink-0 shadow-[-10px_0_15px_-3px_rgba(0,0,0,0.05)] z-10">
+      <div className="w-full md:w-80 border-l border-slate-200 dark:border-border-dark bg-white dark:bg-card-dark p-6 flex flex-col overflow-y-auto shrink-0 shadow-[-10px_0_15px_-3px_rgba(0,0,0,0.05)] z-10">
         <div className="flex-1 flex flex-col">
           <div className="flex items-center gap-2 mb-6 text-primary">
             <span className="material-symbols-outlined text-xl">
@@ -254,13 +254,13 @@ const CalendarPage: React.FC = () => {
               [1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 animate-pulse"
+                  className="p-4 bg-slate-50 dark:bg-background-dark/50 rounded-xl border border-slate-100 dark:border-border-dark animate-pulse"
                 >
-                  <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-2/3 mb-3"></div>
+                  <div className="h-4 bg-slate-200 dark:bg-border-dark rounded w-2/3 mb-3"></div>
                   <div className="space-y-2">
-                    <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-full"></div>
-                    <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-5/6"></div>
-                    <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-4/6"></div>
+                    <div className="h-3 bg-slate-200 dark:bg-border-dark rounded w-full"></div>
+                    <div className="h-3 bg-slate-200 dark:bg-border-dark rounded w-5/6"></div>
+                    <div className="h-3 bg-slate-200 dark:bg-border-dark rounded w-4/6"></div>
                   </div>
                 </div>
               ))
@@ -284,7 +284,7 @@ const CalendarPage: React.FC = () => {
                 );
               })
             ) : (
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 text-center">
+              <div className="p-4 bg-slate-50 dark:bg-background-dark/50 rounded-xl border border-slate-100 dark:border-border-dark text-center">
                 <span className="material-symbols-outlined text-slate-400 text-3xl mb-2">
                   done_all
                 </span>
@@ -298,10 +298,10 @@ const CalendarPage: React.FC = () => {
             )}
           </div>
 
-          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+          <div className="mt-8 pt-6 border-t border-slate-200 dark:border-border-dark">
             <button
               onClick={handleRefreshInsights}
-              className="w-full py-3 px-4 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 px-4 rounded-lg border border-slate-200 dark:border-border-dark text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-background-dark transition-colors flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-sm">refresh</span>
               Refresh Today's Insights

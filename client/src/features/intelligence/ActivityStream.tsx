@@ -69,12 +69,12 @@ const ActivityStream: React.FC = () => {
                   damping: 30,
                   mass: 1
                 }}
-                className="group flex items-start gap-2 p-2 rounded-lg bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 hover:border-primary/20 shadow-sm"
+                className="group flex items-start gap-2 p-2 rounded-lg bg-white dark:bg-background-dark/40 border border-slate-100 dark:border-border-dark hover:border-primary/20 shadow-sm"
               >
                 <div className={`mt-0.5 size-6 rounded flex items-center justify-center shrink-0 ${
                   event.status === 'success' ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-500' :
                   event.status === 'warning' ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-500' :
-                  event.status === 'pending' ? 'bg-primary/10 text-primary animate-pulse' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                  event.status === 'pending' ? 'bg-primary/10 text-primary animate-pulse' : 'bg-slate-100 dark:bg-background-dark text-slate-400'
                 }`}>
                   <span className="material-symbols-outlined text-[14px]">
                     {getEventIcon(event.type)}

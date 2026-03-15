@@ -5,9 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#3c83f6",
+        primary: "#3caff6",
         "background-light": "#f5f7f8",
-        "background-dark": "#101722",
+        "background-dark": "#0B0F17",
+        "card-dark": "#111827",
+        "border-dark": "#1f2937",
       },
       fontFamily: {
         display: ["Inter", "sans-serif"],

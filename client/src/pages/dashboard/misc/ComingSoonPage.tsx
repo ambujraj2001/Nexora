@@ -10,7 +10,7 @@ const ComingSoonPage = ({
   const navigate = useNavigate();
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-900/20 text-center animate-fade-in">
+    <div className="flex-1 flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-card-dark/20 text-center animate-fade-in">
       <div className="size-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
         <span className="material-symbols-outlined text-primary text-4xl animate-pulse">
           construction
@@ -25,7 +25,7 @@ const ComingSoonPage = ({
       </p>
       <button
         onClick={() => navigate("/dashboard")}
-        className="px-8 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-2"
+        className="px-8 py-3 bg-white dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-xl text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95 flex items-center gap-2"
       >
         <span className="material-symbols-outlined text-lg">arrow_back</span>
         Back to Chat

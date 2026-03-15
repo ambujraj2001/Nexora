@@ -114,7 +114,7 @@ const Sidebar = ({
   return (
     <aside
       className={`
-        border-r border-slate-200 dark:border-slate-800
+        border-r border-slate-200 dark:border-border-dark
         bg-white dark:bg-background-dark
         flex flex-col shrink-0 overflow-visible relative h-full
         transition-all duration-300 ease-in-out
@@ -122,11 +122,11 @@ const Sidebar = ({
       `}
     >
       {/* ── Logo / Toggle ─────────────────────────────── */}
-      <div className="flex items-center h-16 px-3 gap-3 border-b border-slate-100 dark:border-slate-800/50">
+      <div className="flex items-center h-16 px-3 gap-3 border-b border-slate-100 dark:border-border-dark/50">
         {isMobile && (
           <button
             onClick={onCloseMobile}
-            className="lg:hidden size-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="lg:hidden size-9 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-background-dark text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
@@ -177,7 +177,7 @@ const Sidebar = ({
                       ${
                         isActive
                           ? "bg-primary/10 text-primary"
-                          : "hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400"
+                          : "hover:bg-slate-50 dark:hover:bg-background-dark text-slate-600 dark:text-slate-400"
                       }
                     `}
                   >
