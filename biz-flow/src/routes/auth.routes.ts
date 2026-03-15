@@ -3,6 +3,7 @@ import {
   signup,
   bootconfig,
   googleLogin,
+  githubLogin, // Added githubLogin
   updateProfile,
   forgotAccessCode,
   verifyOTP,
@@ -26,6 +27,9 @@ router.post("/bootconfig", bootconfig);
 
 // POST /auth/google
 router.post("/google", googleLogin);
+
+// POST /auth/github
+router.post("/github", githubLogin); // Added githubLogin route
 
 // POST /auth/update-profile
 router.post("/update-profile", updateProfile);

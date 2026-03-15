@@ -921,3 +921,9 @@ export interface GoogleLoginResult extends BootConfigResult {
 }
 export const apiGoogleLogin = (idToken: string): Promise<GoogleLoginResult> =>
   post<GoogleLoginResult>("/auth/google", { idToken });
+
+/** POST /auth/github — authenticate with GitHub code */
+export const apiGithubLogin = (
+  code: string,
+  redirectUri?: string,
+): Promise<GoogleLoginResult> => post<GoogleLoginResult>("/auth/github", { code, redirectUri });

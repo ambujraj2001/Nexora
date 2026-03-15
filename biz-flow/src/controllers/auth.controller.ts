@@ -205,6 +205,145 @@ export const googleLogin = async (
   }
 };
 
+// ─── POST /auth/github ──────────────────────────────────────────────────────
+export const githubLogin = async (
+  req: Request<object, object, { code: string; redirectUri?: string }>,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { code, redirectUri } = req.body;
+    const clientId = process.env.GITHUB_CLIENT_ID;
+    const clientSecret = process.env.GITHUB_CLIENT_SECRET;
+
+    if (!code) {
+      res.status(400).json({ error: "Code is required" });
+      return;
+    }
+
+    if (!clientId || !clientSecret) {
+      log({ event: "github_config_error", error: "GitHub credentials not configured" });
+      res.status(500).json({ error: "GitHub login not configured on server" });
+      return;
+    }
+
+    // 1. Exchange code for access token
+    const tokenResponse = await fetch(
+      "https://github.com/login/oauth/access_token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          client_id: clientId,
+          client_secret: clientSecret,
+          code,
+          redirect_uri: redirectUri,
+        }),
+      },
+    );
+
+    const tokenData = (await tokenResponse.json()) as any;
+
+    if (tokenData.error || !tokenData.access_token) {
+      log({ event: "github_token_exchange_failed", error: tokenData });
+      res.status(401).json({
+        error: tokenData.error_description || "GitHub authentication failed",
+      });
+      return;
+    }
+
+    // 2. Get User Profile
+    const userRes = await fetch("https://api.github.com/user", {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    });
+    const githubUser = (await userRes.json()) as any;
+
+    // 3. GitHub might return null for email if it's private. Get emails explicitly.
+    let email = githubUser.email;
+    if (!email) {
+      const emailRes = await fetch("https://api.github.com/user/emails", {
+        headers: { Authorization: `Bearer ${tokenData.access_token}` },
+      });
+      const emails = (await emailRes.json()) as any[];
+      const primaryEmail = emails.find((e) => e.primary && e.verified);
+      email = primaryEmail ? primaryEmail.email : emails[0]?.email;
+    }
+
+    if (!email) {
+      res.status(400).json({ error: "Could not retrieve email from GitHub" });
+      return;
+    }
+
+    email = email.toLowerCase().trim();
+    const fullName = githubUser.name || githubUser.login || "GitHub User";
+
+    let user = await findUserByEmail(email);
+
+    if (!user) {
+      log({ event: "github_user_creation", email });
+      const signupData: SignupBody = {
+        fullName,
+        email,
+        interactionTone: "professional",
+        responseComplexity: 3,
+        voiceModel: "atlas",
+        notifyResponseAlerts: true,
+        notifyDailyBriefing: true,
+      };
+      const newUser = await createUser(signupData);
+      user = await findUserByAccessCode(newUser.access_code);
+    }
+
+    if (!user) {
+      res.status(500).json({ error: "Failed to create or retrieve user" });
+      return;
+    }
+
+    if (user.is_locked) {
+      res.status(403).json({
+        error:
+          "Your account is locked. Please use the unlock flow to regain access.",
+      });
+      return;
+    }
+
+    log({
+      event: "github_login_successful",
+      userId: user.id,
+      email: user.email,
+    });
+
+    res.status(200).json({
+      user: {
+        id: user.id,
+        fullName: user.full_name,
+        email: user.email,
+        role: user.role || "User",
+        avatarUrl: githubUser.avatar_url,
+      },
+      preferences: {
+        interactionTone: user.interaction_tone,
+        responseComplexity: user.response_complexity,
+        voiceModel: user.voice_model,
+        notifyResponseAlerts: user.notify_response_alerts,
+        notifyDailyBriefing: user.notify_daily_briefing,
+        showDemo: user.show_demo,
+        twoFactorEnabled: user.two_factor_enabled,
+      },
+      accessCode: user.access_code,
+    });
+  } catch (err) {
+    log({
+      event: "github_login_failed",
+      error: err instanceof Error ? err.message : "Unknown error",
+    });
+    next(err);
+  }
+};
+
 // ─── POST /auth/bootconfig ──────────────────────────────────────────────────
 
 export const bootconfig = async (
